@@ -12,6 +12,7 @@
  display: flex;
  align-items: center;
  justify-content: center;
+ z-index: 15616516;
 }
 .message{
     font-size: 2rem;
@@ -51,6 +52,7 @@
         background-color: white;
         border-top-left-radius: 15px;
         border-Bottom-left-radius: 15px;
+        z-index: 1;
     }
     .singUp{
         position: relative;
@@ -60,8 +62,13 @@
         background-color: white;
         border-top-left-radius: 15px;
         border-Bottom-left-radius: 15px;
+        z-index: 2;
+
         .Age{
+            overflow: hidden;
             display: flex;
+            align-items: center;
+            justify-content: space-around;
             p{
                 font-size: 2rem;
             }
@@ -81,6 +88,7 @@
     gap: 20px;
     &::after{
         content: "";
+        z-index: 15;
         position: absolute;
         height: 90%;
         width: 3px;
@@ -175,4 +183,20 @@
 
         }
     }
+}
+.selectContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    label{
+        position: relative;
+        font-size: 2rem;
+        left: initial;
+        top: initial;
+        height: auto !important;
+        width: auto !important;
+    }
+    label + div {margin: 0;}
+
 }
