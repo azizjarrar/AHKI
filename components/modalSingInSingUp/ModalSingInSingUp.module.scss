@@ -1,0 +1,178 @@
+@import "../../styles/colors"; 
+@import "../../styles/input";
+@import "../../styles/button";
+
+.contrainer{
+ position: fixed;
+ height: 100%;
+ width: 100%;
+ bottom: 0;
+ z-index: 156651;
+ background-color: rgba(0,0,0,0.8);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.message{
+    font-size: 2rem;
+    width: 90%;
+    text-align: center;
+}
+.clickHere{
+    color: $primary;
+    cursor: pointer;
+}
+.formContainer{
+    position: relative;
+    height: 600px;
+    width: 700px;
+    background-color: white;
+    box-shadow:  
+    0 2.8px 2.2px rgba(255, 255, 255, 0.034),
+    0 6.7px 5.3px rgba(255, 255, 255, 0.048),
+    0 12.5px 10px rgba(255, 255, 255, 0.06),
+    0 22.3px 17.9px rgba(255, 255, 255, 0.072),
+    0 41.8px 33.4px rgba(255, 255, 255, 0.086),
+    0 100px 80px rgba(255, 255, 255, 0.12);
+    border-radius: 15px;
+    display: flex;
+}
+.formsContainer{
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    overflow: hidden;
+    .singIn{
+        position: relative;
+        min-height: 100%;
+        min-width: 100%;
+        transition: 0.8s;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-Bottom-left-radius: 15px;
+    }
+    .singUp{
+        position: relative;
+        min-height: 100%;
+        min-width: 100%;
+        transition: 0.8s;
+        background-color: white;
+        border-top-left-radius: 15px;
+        border-Bottom-left-radius: 15px;
+        .Age{
+            display: flex;
+            p{
+                font-size: 2rem;
+            }
+        }
+
+    }
+}
+
+.description{
+    position: relative;
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    &::after{
+        content: "";
+        position: absolute;
+        height: 90%;
+        width: 3px;
+        background-color: $primary;
+        left:-10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    h1{
+        margin-top: 170px;
+        font-size: 4rem;
+        letter-spacing: 1.5px;
+        color: $primary;
+        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: $primary;
+        display: inline-block;
+    }
+    p{
+        font-size: 2rem;
+        letter-spacing: 1.5px;
+        text-align: center;
+        width: 95%;
+    }
+}
+
+
+.form{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    .inputContainer{
+        position: relative;
+        width: 80%;
+    }
+    .input{
+        
+        @include inputCss();
+        &:focus{
+            border-color: $primary;
+        }
+        &:focus + label{
+            top: -60%;
+        }
+        &:valid + label{
+            top: -60%;
+        }
+    }
+    label{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        pointer-events: none;
+        transition: 0.5s;
+   
+    }
+    .labelspan{
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        transform: translateY(-50%);
+        font-size: 1.8rem;
+        background-color: white;
+        display: inline-block;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 0;
+    }
+    button{
+        @include btn(white,$primary,$hover);
+        transition: 0.5s;
+        width: 250px;
+        padding: 13px;
+        background-color: white;
+        color: $primary;
+        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: $primary;
+        border : 1px solid $primary;
+        font-size: 2rem;
+        &:hover{
+            -webkit-text-stroke-color: white;
+
+        }
+    }
+}

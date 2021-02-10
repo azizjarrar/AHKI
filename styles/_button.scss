@@ -1,0 +1,16 @@
+@mixin btn($color,$backgroundcolor,$hover) {
+    position: relative;
+    border-radius: 76px; 
+    color: $color;
+    background-color: $backgroundcolor;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.5;
+    p{
+        font-size: 1.5rem;
+    }
+    &:hover{
+        background-color: $hover;
+    }
+}
