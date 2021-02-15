@@ -1,17 +1,80 @@
 import React ,{useState} from 'react'
 import Style from './NavBar.module.scss'
 import ModalSingInSingUp from  '../modalSingInSingUp/ModalSingInSingUp'
+import SideNavBar from './sideNavBar/SideNavBar'
 const NavBar = () => {
     const [modalSingInSingUp,setModalSingInSingUp]=useState(false)
+    const [heightAndWidthOfWindow,setHeightAndWidthOfWindow]=React.useState({width:'',height:''})
+    const [openSlideMenuVar,setOpenSlideMenuVar]=useState(false)
+    const [send_Close_Message_toSlideNavBar_animation,setSend_Close_Message_toSlideNavBar_animation]=useState(false)
     const openModalSingInSingUp=()=>{
         setModalSingInSingUp(true)
-        console.log(modalSingInSingUp)
     }
+    React.useEffect(() => {
+        setHeightAndWidthOfWindow({height:window.innerHeight,width:window.innerWidth})
+      }, []);
+
+      React.useEffect(()=>{
+        console.log(send_Close_Message_toSlideNavBar_animation)
+      },[send_Close_Message_toSlideNavBar_animation])
+      const openSlideMenu= ()=>{
+          if(openSlideMenuVar==true){
+            setSend_Close_Message_toSlideNavBar_animation(true)
+
+            setTimeout(() => {
+                setOpenSlideMenuVar(e=>{
+                    return !e
+                })
+                document.getElementsByClassName(Style.icon)[0].classList.toggle(Style.openClose);
+              }, 1000);
+
+
+          }else{
+            setSend_Close_Message_toSlideNavBar_animation(false)
+            setOpenSlideMenuVar(e=>{
+                return !e
+            })
+            document.getElementsByClassName(Style.icon)[0].classList.toggle(Style.openClose); 
+          }
+
+      }
+    if(heightAndWidthOfWindow.width>heightAndWidthOfWindow.height){
+        return(
+            <div className={Style.container}>
+            {modalSingInSingUp&&<ModalSingInSingUp></ModalSingInSingUp>}
+            <nav className={Style.nav}>
+            <div className={Style.Logo}><h1>AHKI</h1></div>
+
+            <div className={Style.Search}>
+                <div className={Style.flexItems}>
+                <form>
+                <input name="search" type="text" placeholder="Search accounts"></input>
+                <span></span>
+                <div className={Style.searchImg}>
+                <svg width="20" height="20" viewBox="0 0 28 38" fill="#b0b0b5" xmlns="http://www.w3.org/2000/svg">
+                <path d="M27.6192 32.3156L22.1665 25.0378C21.9204 24.7094 21.5867 24.5269 21.2367 24.5269H20.3452C21.8547 21.9501 22.7517 18.709 22.7517 15.1833C22.7517 6.79599 17.6599 0 11.3758 0C5.09178 0 0 6.79599 0 15.1833C0 23.5706 5.09178 30.3666 11.3758 30.3666C14.0174 30.3666 16.4457 29.1695 18.3763 27.1547V28.3446C18.3763 28.8118 18.5131 29.2571 18.7592 29.5855L24.2119 36.8633C24.726 37.5495 25.5573 37.5495 26.066 36.8633L27.6137 34.7975C28.1278 34.1113 28.1278 33.0018 27.6192 32.3156ZM11.3758 24.5269C7.50914 24.5269 4.37532 20.3515 4.37532 15.1833C4.37532 10.0224 7.50367 5.83973 11.3758 5.83973C15.2425 5.83973 18.3763 10.0151 18.3763 15.1833C18.3763 20.3442 15.248 24.5269 11.3758 24.5269Z" fill="#b0b0b5"/>
+                </svg>
+                </div>
+                </form>
+                </div>
+            </div>
+            {true&&<div className={Style.authenticated}>
+                <button onClick={()=>openModalSingInSingUp()}><p>Log In</p></button>
+            </div>}
+            {false&&<div className={Style.Nonauthenticated}>
+ 
+            </div>}
+            </nav>
+        </div>
+        )
+    }else
+    /*mobile */
     return (
         <div className={Style.container}>
             {modalSingInSingUp&&<ModalSingInSingUp></ModalSingInSingUp>}
             <nav className={Style.nav}>
-            <div className={Style.Logo}><h1>AHKI</h1></div>
+            <div className={Style.SideNavBarContainer}><div className={Style.SideNavBarIconMenu}><div className={Style.icon} onClick={()=>openSlideMenu()}><div className={Style.iconbar1}></div><div className={Style.iconbar2}></div><div className={Style.iconbar3}></div></div></div>{openSlideMenuVar&&<SideNavBar close={send_Close_Message_toSlideNavBar_animation}></SideNavBar>}</div>
+
             <div className={Style.Search}>
                 <div className={Style.flexItems}>
                 <form>

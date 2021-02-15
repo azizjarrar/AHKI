@@ -1,11 +1,11 @@
 html,
 body {
+  position: absolute;
   padding: 0;
   margin: 0;
   font-size: 62.5%;
   height: 100%;
-  width: 100%;
-
+  width: 100vw !important;
 }
 h1,h2{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
@@ -38,4 +38,30 @@ a {
   position: relative;
   height: calc(100% - 70px);
   width: 100%;
+}
+.react-tel-input{
+  border: 1px solid rgba(22,24,35,.12);
+  border-radius: 5px;
+  input{
+    width: 100% !important;
+    outline: none !important;
+    // padding: 18.5px 14px 18.5px 58px !important;
+    padding: 13.5px 14px 13.5px 58px !important;
+    border: none !important;
+    &:focus{
+      //border:1px solid #FF3367 !important;
+    }
+  }
+}
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}    
+
+/***********************Mobile*****************************/
+@media (orientation: portrait) {
+  .appWrapper{
+    position: relative;
+    height: calc(100% - (40px));
+    width: 100%;
+  }
 }

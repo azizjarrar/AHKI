@@ -126,22 +126,31 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 35px;
     .inputContainer{
+        margin-top: 10px;
+        margin-bottom: 10px;
         position: relative;
         width: 80%;
+    
     }
     .input{
-        
+ 
         @include inputCss();
         &:focus{
-            border-color: $primary;
+            border: 2px solid #1871ca !important;
+            transition: 0.1s;
+            //filter: drop-shadow(0px 0px 1px #FF3367);
         }
         &:focus + label{
             top: -60%;
+            transition: 0.5s;
+            //color: #1871ca;
+
         }
         &:valid + label{
             top: -60%;
+            transition: 0.5s;
+           // color: #1871ca;
         }
     }
     label{
@@ -178,6 +187,8 @@
         -webkit-text-stroke-color: $primary;
         border : 1px solid $primary;
         font-size: 2rem;
+        margin-top: 20px;
+        margin-bottom: 20px;
         &:hover{
             -webkit-text-stroke-color: white;
 
@@ -200,3 +211,75 @@
     label + div {margin: 0;}
 
 }
+.input {
+    transition: background-color 5000s ease-in-out 0s;
+}
+.ConfirmPassword{
+    background-color: white;
+}
+.errorMessage{
+    height: auto;
+    display: flex;
+    position: relative;
+    margin-top: 0 !important;
+    width: 80%;
+    margin-bottom: 10px;
+    p{
+        font-size: 1.3rem;
+        color: $primary;
+    }
+}
+
+@media (orientation: portrait) {
+    .description{
+        display: none;
+    }
+    .formContainer{
+        position: relative;
+        height: 95%;
+        width: 95%;
+        min-height: 500px;
+        min-width: 300px;
+    }
+    .formsContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        overflow: hidden;
+        border-radius: 15px;
+        .singIn{
+            position: relative;
+            min-height: 100%;
+            min-width: 100%;
+            transition: 0.8s;
+            background-color: white;
+            border-top-left-radius: 15px;
+            border-Bottom-left-radius: 15px;
+            z-index: 1;
+        }
+        .singUp{
+            position: relative;
+            min-height: 100%;
+            min-width: 100%;
+            transition: 0.8s;
+            background-color: white;
+            border-top-left-radius: 15px;
+            border-Bottom-left-radius: 15px;
+            z-index: 2;
+    
+            .Age{
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                p{
+                    font-size: 2rem;
+                }
+            }
+    
+        }
+    }
+    
+
+  }
