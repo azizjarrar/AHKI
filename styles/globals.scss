@@ -7,6 +7,13 @@ body {
   height: 100%;
   width: 100vw !important;
 }
+@media (orientation: landscape) {
+body{
+  min-height: 850px;
+
+}
+}
+
 h1,h2{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
   margin: 0;
@@ -32,12 +39,14 @@ a {
   height: 100%;
   width: 100%;
   z-index: 1;
+  overflow: hidden;
 }
 
 .appWrapper{
   position: relative;
   height: calc(100% - 70px);
   width: 100%;
+  background-color: #f0f2f5;
 }
 .react-tel-input{
   border: 1px solid rgba(22,24,35,.12);

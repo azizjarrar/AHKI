@@ -36,9 +36,6 @@
      font-size: 1.5rem;
      letter-spacing: 1.5px;
      color: $primary;
-     -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-     -webkit-text-stroke-width: 1px;
-     -webkit-text-stroke-color: $primary;
      display: inline-block;
      flex: 1;
 
@@ -213,6 +210,12 @@
         max-height: 50px;
         width: 100%;
     }
+    .Nonauthenticated{
+        flex: 1 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
     .authenticated{
         button{
             @include btn(white,$primary,$hover);
@@ -220,6 +223,7 @@
             padding: 6px;
     
         }
+
     
     }
     .Search{
