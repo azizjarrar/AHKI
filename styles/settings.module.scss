@@ -1,23 +1,29 @@
-@import '../../styles/closeBtn';
-@import '../../styles/colors';
-@import "../../styles/input";
-@import "../../styles/button";
-
+@import './closeBtn';
+@import './colors';
+@import "./input";
+@import "./button";
 .container{
-    position: absolute;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.Settings{
+    position: relative;
     height: 100%;
     width: 100%;
     background-color: white;
-    animation-name: toTop;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
     z-index: 29;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    left:0px;
     display: flex;
     flex-direction: row-reverse;
-    
+    max-width: 1000px;
+    padding: 25px 28px 0 25px;
+    margin-top: 30px;
     .otherSettings{
         position: relative;
         width: 200px;
@@ -32,9 +38,9 @@
             transform: translateX(-50%);
             p{
                 font-size: 1.3rem;
-                font-weight: bold;
+                font-weight: 600;
                 letter-spacing: 2px;
-                color: #5c5c5c;
+                color: #333;
                 line-height: 1.3125;
                 text-align: center;
 
@@ -53,14 +59,19 @@
             display: flex;
             cursor: pointer;
             &:hover{
-            transform: perspective(1000px)  translateZ(150px);
+            transform: perspective(1000px)  translateZ(60px);
             z-index: 15656;
             border-bottom: 2px solid $primary;
 
             }
             p{
+     
                 font-size: 1.3rem;
-                font-weight: bold;
+                font-weight: 600;
+                letter-spacing: 2px;
+                color: #333;
+                text-align: center !important;
+
             }
         }
     }
@@ -79,10 +90,7 @@
         }
     }
 }
-@keyframes toTop{
-    from{bottom: -100%;}
-    to{bottom:0%}
-}
+
 .closeBtn{
             @include closebtnFn();
             position: absolute;
@@ -97,6 +105,7 @@
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
+    max-width: 500px;
 }
 .form{
     position: relative;
@@ -135,7 +144,33 @@
         margin-bottom: 10px;
         position: relative;
         width: 80%;
-    
+    }
+    .radioContainer{
+        margin-top: 15px;
+        margin-bottom: 15px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        border: 1px solid $gray;
+        padding: 10px;
+        border-radius: 15px;
+        h2{
+            font-size: 1.3rem;
+            color: #606770;
+        }
+        .inputRadioContainer{
+            display: flex;
+            width: 100%;
+            height: 50px;
+            align-items: center;
+            input{
+                margin: 0 20px;
+                height: 20px;
+                width: 20px;
+            }
+        }
+
+
     }
 
     .input{
@@ -232,7 +267,37 @@
         color:#1876f3;
     }
 }
+.centerData{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: #eaeaea;
+    }
+}
+.header{
+    h1{
+        text-align: center;
+        font-size: 3rem;
+    }
+}
 @media (orientation: portrait) {
+    .centerData{
+        height: auto !important;
+        &::after{
+            width: 0px !important;
+        }
+    }
     .closeBtn{
         position: absolute;
         top: 15px !important;
@@ -271,10 +336,13 @@
             width: 0px !important;
         }
     }
-    .container{
+    .Settings{
         flex-direction: column !important;
         overflow: scroll;
+        margin-top: 0 !important;
+
     }
+
     .profileSettings{
         width: 100% !important;
         
@@ -304,13 +372,14 @@
             width: 33% !important;
             height: 50px !important;
             margin: 0  !important;
+
             display: flex !important;
             align-content: center !important;
             justify-content: center !important;
             p{
                 font-weight: normal;
                 font-size: 1.2rem !important;
-                text-align: center;
+                text-align: center !important;
             }
         }
         .discription{

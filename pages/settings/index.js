@@ -1,10 +1,12 @@
 import React from 'react'
-import Style from './ProfileSettings.module.scss'
+import Style from '../../styles/settings.module.scss'
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import PhoneInput from 'react-phone-input-2'
+import Link from 'next/link'
+
 import 'react-phone-input-2/lib/material.css'
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -53,8 +55,7 @@ const ProfileSettings = (props) => {
     const [day, setday] = React.useState(18);
     const [month, setmonth] = React.useState(1);
     const [year, setyear] = React.useState(1991);
-    const [confirmRegisterForm,setConfirmRegisterForm]=React.useState(false)
-    const [errorData,setErrorData]=React.useState({userName:{state:'false',msg:''},password:{state:'false',msg:''}})
+
     const [registerState,setregisterState] = React.useState({userName:"",tel:"",password:"",birthDay:{day:'',month:'',year:''},dialCode:""})
     var yearArray=[]
     var dayArray =[]
@@ -93,19 +94,18 @@ const ProfileSettings = (props) => {
         })    
       };   
     return (
-        <div className={Style.container}>
-            <div className={Style.closeBtn} onClick={()=>props.closeProfileSettings(false)}></div>
-
+      <div className={Style.container}>
+        <div className={Style.Settings}>
             <div className={Style.profileSettings}>
                 <div className={Style.ProfileImage}><div className={Style.image}></div></div>
                 <div className={Style.userName}><h2>Aziz Jarrar</h2></div>
                 <div className={Style.formContainer}>
                 <form className={Style.form} onChange={(e)=>formValidation(e)}>
-                        <div className={Style.inputContainer}><input name="lastname" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>last name</span></label></div>
                         <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>UserName</span></label></div>
-                        <div className={Style.inputContainer}><input name="biography" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>biography</span></label></div>
-
                         <div className={Style.inputContainer}><input name="FirstName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>Firs tName</span></label></div>
+                        <div className={Style.inputContainer}><input name="lastname" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>last name</span></label></div>
+                        <div className={Style.inputContainer}><input name="biography" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>biography</span></label></div>
+                        <div className={Style.inputContainer}><input name="email" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>Email</span></label></div>
                         <div className={Style.inputContainer}><PhoneInput  country={'tn'}  value={registerState.tel} onChange={(e,country)=>onChangeHandlerRegisterPhone(e,country)} /></div>
                         <div className={Style.inputContainer}>
                           <div className={Style.Age}>  
@@ -162,14 +162,15 @@ const ProfileSettings = (props) => {
                 </div>
                 </div>
                 <div className={Style.otherSettings}>
-                <div className={Style.oneSetting}><p>Change password</p></div>
-                <div className={Style.oneSetting}><p>deactivate your account</p></div>
+                <Link href="/settings/passowrd"><div className={Style.oneSetting}><p>Change password</p></div></Link>
+                <Link href="/settings/deactivate_delete_account"><div className={Style.oneSetting}><p>deactivate your account</p></div></Link>
                 <div className={Style.oneSetting}><p>Copyright</p></div>
                 <div className={Style.oneSetting}><p>Privacy</p></div>
                 <div className={Style.oneSetting}><p>Safety</p></div>
                 <div className={Style.oneSetting}><p>Contact</p></div>
                 <div className={Style.discription}><p>Single people, listen up: If you’re looking for love, want to start dating, or just keep it casual</p></div>
             </div>
+        </div>
         </div>
     )
 }

@@ -1,6 +1,49 @@
+@import './colors';
+
 .container{
   position: relative;
-
   height: 100%;
   width: 100%;
+  overflow: auto;
+}
+.home{
+  width: 100%;
+  max-width: 1000px;
+  position: relative;
+  height: auto;
+  overflow-x:visible;
+  overflow-y: hidden;
+  margin: 0 auto;
+
+}
+.navbar_Choice_TopicToday_or_usersTopics{
+  width: 80%;
+  position: relative;
+  height: 50px;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-around;   
+  background-color: white;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  overflow:hidden;
+  box-shadow: 0px 1px 2px #cfd1d3;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  h2{
+    font-weight: bold;
+    font-size: 1.4rem !important;
+    color: black;
+    cursor: pointer;
+}
+.Line{
+    transition: 0.5s;
+    left : 0px;
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    height: 3px;
+    background-color: $primary;
+}
 }
