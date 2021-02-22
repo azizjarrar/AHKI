@@ -47,3 +47,10 @@
     background-color: $primary;
 }
 }
+
+@media (orientation: portrait) {
+  .navbar_Choice_TopicToday_or_usersTopics{
+    width: 95% !important;
+  }
+}
+
