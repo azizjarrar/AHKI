@@ -1,0 +1,81 @@
+@import "../../styles/colors"; 
+
+.container{
+    position: relative;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.imageUserAndNameContainer{
+    height: 40px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    
+    h3{
+        margin-left: 10px;
+        font-size: 1.2rem;
+    }
+    .userImage{
+        position: relative;
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+        border: 1px solid $primary;
+        border-radius: 50%;
+        display: flex;
+        margin-left: 2%;
+
+    }
+}
+.comments{
+    position: relative;
+    height: auto;
+    width: 90%;
+    margin: 0 auto;
+    font-size: 1.3rem;
+    p{
+        margin-left: 10px;
+    }
+    &::after{
+        content: "";
+        top: 0;
+        position: absolute;
+        left:0px;
+        height: 100%;
+        width: 3px;
+        background-color: $primary;
+    }
+}
+.likesAndComments{
+    margin-top: 5px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .likes{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:after{
+            margin-left: 15px;
+            font-size: 1.3rem;
+            content: attr(likesnumber);
+        }
+    }
+    .Comments{
+        cursor: pointer;
+        p{
+            font-weight: 600;
+            font-size: 1rem;
+        }
+    }
+    svg{
+        height: 15px;
+        width: 15px;
+    }
+}

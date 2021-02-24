@@ -17,7 +17,6 @@ const NavBar = () => {
       }, []);
 
       React.useEffect(()=>{
-        console.log(send_Close_Message_toSlideNavBar_animation)
       },[send_Close_Message_toSlideNavBar_animation])
       const openSlideMenu= ()=>{
           if(openSlideMenuVar==true){

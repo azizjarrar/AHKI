@@ -1,0 +1,150 @@
+@import "../../styles/colors"; 
+
+.container    
+{
+    position: relative;
+    margin: 15px 0px;
+    border: 1px solid $gray;
+    min-width: 300px;
+    max-width: 600px;
+    width: 80%;
+    box-shadow: 0px 1px 2px #cfd1d3;
+    padding: 15px 15px 15px 15px;
+    height: auto;
+    margin: 15px auto;
+    background-color: white;
+    span{
+        margin-left: 5px;
+        font-size: 2rem;
+        color: black;
+        cursor: pointer;
+    }
+}
+.userImageAndNameAndTimeAndSettings{
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    &::after{
+
+    }
+    .userImage{
+        position: relative;
+        cursor: pointer;
+        height: 60px;
+        width: 60px;
+        border: 1px solid $primary;
+        border-radius: 50%;
+    }
+    .Name{
+        position: relative;
+        margin-left: 15px;
+        .nameh3{
+            font-size: 1.4rem;
+        }
+    }
+    .Settings{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        right: 0;
+        .settings{
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            width: 20px;
+            &:after{
+                cursor: pointer;
+                content: "...";
+                position: absolute;
+                height: 0px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 3rem;
+                top: 3px;
+            }
+
+        }
+    
+    }
+}
+.text{
+    font-size: 2rem;
+}
+
+
+.imageContainer{
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 7px 0;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px 0 #eaeaea, 0 2px 4px 0 #eaeaea, inset 0 0 0 1px #eaeaea;
+    img{
+        position: relative;
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.likesAndComments{
+    margin-top: 20px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .likes{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:after{
+            margin-left: 15px;
+            font-size: 2rem;
+            content: attr(likesnumber);
+        }
+    }
+    .Comments{
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:after{
+            font-size: 2rem;
+            margin-left: 15px;
+
+            content: attr(commentsnumbers);
+        }
+    }
+    svg{
+        height: 20px;
+        width: 20px;
+    }
+}
+.commentsContainer{
+    margin-top: 10px;
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+}
+@media (orientation: portrait) {
+    .container{
+        width: 97%;
+    }
+    .text{
+        font-size: 1.4rem;
+    }
+    .userImage{
+        height: 45px !important;
+        width: 45px !important;
+    }
+}

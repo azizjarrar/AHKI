@@ -2,6 +2,7 @@
 @import "../../styles/button";
 @import '../../styles/closeBtn';
 
+
 .container{
     position: relative;
     width: 80%;
@@ -17,35 +18,6 @@
     margin-top: 15px;
     margin-bottom: 15px;
     box-shadow: 0px 1px 2px #cfd1d3;
-}
-.closeBtn{
-    @include closebtnFn();
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 65616;
-    cursor: pointer;
-}
-.image_video_Container{
-    position: relative;
-    max-width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 7px 0; 
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 12px 28px 0 $gray,
-    0 2px 4px 0 $gray,
-    inset 0 0 0 1px $gray;
-    img{
-        position: relative;
-        max-width: 100%;
-        height: auto;
-        
-
-    }
 }
 .topic{
     position: relative;
@@ -122,6 +94,35 @@
             }
         }
  
+    }
+}
+.closeBtn{
+    @include closebtnFn();
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 65616;
+    cursor: pointer;
+}
+.image_video_Container{
+    position: relative;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 7px 0; 
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 12px 28px 0 $gray,
+    0 2px 4px 0 $gray,
+    inset 0 0 0 1px $gray;
+    img{
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        
+
     }
 }
 .btnContainer{

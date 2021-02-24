@@ -1,10 +1,9 @@
 import React from 'react'
-import Styles from './TodayTopic.module.scss'
+import Styles from './postUsersStorys.module.scss'
 import EmojiPicker from '../emojiPicker/emojiPicker'
 const PostTodayTopic = () => {
     const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)
     const [imageOrVideo,setImageOrVideo]=React.useState(false)
-
     const openEmojiDisplay = () => {
         setcloseEmojiDisplayS((e)=>!e)
       }
@@ -14,30 +13,24 @@ const PostTodayTopic = () => {
       const getSelectedEmoji=(e,pack)=>{
           let text=document.getElementsByClassName(Styles.input)[0]
           text.innerHTML = text.innerHTML + (`<img   src=${e}>`)
-
       }
       const changeFile=(e)=>{
         setImageOrVideo(URL.createObjectURL(e.target.files[0]))
-        var file = e.target.files[0];
-          // The file's text will be printed here
       }
       const removeImage=()=>{
         setImageOrVideo(false)
-
       }
     return (
         <div className={Styles.container}>
             <div className={Styles.topic}>
-            <h1>
-                <span>Today Topic   &#10152; </span>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since
-            </h1>
+
             </div>
             <div className={Styles.userTopicContainer}>
                 <div className={Styles.userImage}></div>
                 <div className={Styles.postTopic}><p className={Styles.input} plaintext-only="true" contentEditable="true" role="textbox" maxLength="500"></p></div>
             </div>
             {imageOrVideo!=false&&<div className={Styles.image_video_Container}><div className={Styles.closeBtn} onClick={()=>removeImage()}></div><img src={imageOrVideo}/></div>}
+
             <div className={Styles.btnContainer}>
             <button>Post</button>   
             <div className={Styles.container_uploadImage_pickEmoji_mask}>

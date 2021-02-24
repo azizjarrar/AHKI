@@ -6,7 +6,6 @@ import React from 'react'
 export default function Home() {
  const[choice_TopicToday_or_usersTopics,setChoice_TopicToday_or_usersTopics]=React.useState("todayTopics")
  const change=(e)=>{
-   console.log(choice_TopicToday_or_usersTopics)
   setChoice_TopicToday_or_usersTopics(e)
  }
   return (
