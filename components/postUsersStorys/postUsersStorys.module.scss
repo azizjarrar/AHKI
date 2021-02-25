@@ -127,6 +127,29 @@
 
     }
 }
+.mask{
+    position: relative;
+    &:hover{
+        &::after{
+            white-space: nowrap;
+
+            position: absolute;
+            box-shadow: 0px 1px 2px #cfd1d3;
+            background-color: white;
+            content: "post Anonymously";
+            font-family: sans-serif;
+            height: auto;
+            width: auto;
+            font-size: 1.2rem;
+            font-weight: 600;
+            bottom:120%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 7px;
+
+        }
+    }
+}
 .btnContainer{
     position: relative;
     margin: 0 auto;
@@ -136,6 +159,26 @@
     justify-content: center;
     padding: 10px;
     .uploadImage{
+        &:hover{
+            &::after{
+                position: absolute;
+                box-shadow: 0px 1px 2px #cfd1d3;
+                background-color: white;
+                content: "Upload photo with your post";
+                white-space: nowrap;
+
+                font-family: sans-serif;
+                height: auto;
+                width: auto;
+                font-size: 1.2rem;
+                font-weight: 600;
+                bottom:120%;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 7px;
+    
+            }
+        }
         position: relative;
         input[type=file], /* FF, IE7+, chrome (except button) */
         input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
