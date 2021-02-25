@@ -43,18 +43,16 @@
             font-size: 1.4rem;
         }
     }
-    .Settings{
-        position: absolute;
-        display: flex;
-        align-items: center;
-        right: 0;
+
         .settings{
-            position: relative;
+            position: absolute;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 20px;
             width: 20px;
+            right: 0;
+
             &:after{
                 cursor: pointer;
                 content: "...";
@@ -67,9 +65,9 @@
                 top: 3px;
             }
 
-        }
+        
     
-    }
+        }
 }
 .text{
     font-size: 2rem;
@@ -95,12 +93,31 @@
 }
 
 .likesAndComments{
+    position: relative;
     margin-top: 20px;
-    height: 30px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-
+    &::after{
+        content: "";
+        position: absolute;
+        width: 90%;
+        margin: 0 auto;
+        height: 2px;
+        background-color: $gray2;
+        top: 0;
+        
+    }
+    &::before{
+        content: "";
+        position: absolute;
+        width: 90%;
+        margin: 0 auto;
+        height: 2px;
+        background-color: $gray;
+        bottom: 0;
+    }
     .likes{
         cursor: pointer;
         display: flex;
@@ -146,5 +163,129 @@
     .userImage{
         height: 45px !important;
         width: 45px !important;
+    }
+}
+.userAddComments{
+    position: relative;
+    height: auto;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 5px;
+    margin-top: 10px;
+.userImageInComments{
+    position: relative;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    border: 1px solid $primary;
+    border-radius: 50%;
+    align-self: flex-start;
+    
+}
+.inputContainer{
+    position: relative;
+    min-height: 35px;
+    width: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
+    .post{
+        p{
+            font-size: 1rem;
+            color: $primary;
+        }
+    }
+    .inputAndBtns{
+         position: relative;
+        background-color: #f1f1f2;
+        border-radius: 7px;
+        min-height: 35px;
+        width: 95%;
+        align-self: flex-end;
+        display: flex;
+        flex-direction: column;
+        .inputContenteditable{
+            position: relative;
+            width: calc(100% );
+            min-height: 35px;
+            align-self: flex-end;
+            outline: none;
+            font-size: 1.4rem;
+            line-height: 1.1667;
+            font-weight: 600 !important;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            padding: 5px;
+
+            cursor: text;
+            img{
+                height: 15px;
+                width: 15px;
+                margin: 0 1.5px;
+            }
+            &:empty{
+                &::after{
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    margin-left: 10px;
+                    content: "What's on your mind?";
+                    color: gray;
+                    font-size: 1.3rem;
+                }
+            }
+    
+        }
+    }
+ 
+}
+}
+.btns{
+    position: relative;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    .post{
+        margin: 0px 10px;
+        margin-bottom: 3px !important;
+        position: relative;
+
+        cursor: pointer;
+
+        p{
+            font-size: 1.3rem !important;
+            font-weight: bold;
+            padding: 3px;
+            position: relative;
+            &::after{
+                position: absolute;
+                content: "";
+                height: calc(100% );
+                width: calc(100% );
+                border-radius: 2px;
+                border:1px solid $primary;
+                left: 0;
+                top: 0;
+
+            }
+        }
+    }
+    .EmojiLogo{
+        height: 25px;
+        width: 25px;
+        right: 10px;
+        position: relative;
+        bottom: 0;
+        right: 0;
+        img{
+            cursor: pointer;
+            height: 20px;
+            width: 20px;
+        }
     }
 }

@@ -79,3 +79,18 @@
         width: 15px;
     }
 }
+.Settings{
+    position: absolute;
+    right: 0;
+    &:after{
+        cursor: pointer;
+        content: "...";
+        position: absolute;
+        height: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        top: 3px;  
+    }
+}

@@ -82,6 +82,8 @@
             img{
                 height: 15px;
                 width: 15px;
+                margin: 0 1.5px;
+                
             }
             &:empty{
                 &::after{
@@ -151,6 +153,10 @@
             left: 0;
             width: 100%;
             opacity: 1;
+            img{
+                margin: 0 1.5px;
+
+            }
         }
     }
     .container_uploadImage_pickEmoji_mask{
@@ -183,7 +189,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 156156156156;
+    z-index: 15;
    
     img{
       height: 30px;
@@ -214,7 +220,8 @@
           .postTopic{
               margin-left: 0px;
             min-height: 45px !important;
-            width: 90%
+            width: 90%;
+         
           }
       }
       .btnContainer{

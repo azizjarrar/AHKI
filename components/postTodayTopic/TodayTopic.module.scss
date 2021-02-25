@@ -110,6 +110,8 @@
             img{
                 height: 15px;
                 width: 15px;
+                margin: 0 1.5px;
+
             }
             &:empty{
                 &::after{
@@ -182,7 +184,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    z-index: 156156156156;
+    z-index: 15;
    
     img{
       height: 30px;

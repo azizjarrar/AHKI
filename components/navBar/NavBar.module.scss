@@ -59,8 +59,8 @@
         width: 30vw;
         max-width: 350px;
         min-width: 250px;
-        border-radius: 20px;
-        background-color: $gray;
+        border-radius: 5px;
+        background-color: #f6f7f8;
     }
     form{
         display: flex;
@@ -106,7 +106,7 @@
 
 }
 
-.authenticated{
+.Nonauthenticated{
     position: relative;
     display: inline-block;
     flex: 2;
@@ -121,7 +121,7 @@
     }
 
 }
-.Nonauthenticated{
+.authenticated{
     position: relative;
     display: inline-block;
     display: flex;
@@ -137,7 +137,6 @@
     }
     .profile{
         cursor: pointer;
-
         height: 40px;
         width: 40px;
         border: 1px solid $primary;
@@ -214,13 +213,13 @@
         max-height: 50px;
         width: 100%;
     }
-    .Nonauthenticated{
-        flex: 1 !important;
+    .authenticated{
+        flex: 2 !important;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .authenticated{
+    .Nonauthenticated{
         button{
             @include btn(white,$primary,$hover);
             width: 100px;
@@ -235,7 +234,7 @@
         flex: 3;
 
         .flexItems{
-            width: 50% !important;
+            width: 80% !important;
             min-width: 150px !important;
             height: 35px;
         }
