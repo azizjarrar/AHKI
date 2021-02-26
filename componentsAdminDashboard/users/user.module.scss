@@ -1,0 +1,133 @@
+@import "../../styles/colors"; 
+
+.container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow-Y: scroll;
+    &::-webkit-scrollbar {
+        width: 10px;
+      }
+      /* Track */
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+      }
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: #888; 
+      }
+      /* Handle on hover */
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+      }
+      .Cards{
+          width: 80%;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0 auto;
+          margin-top: 30px;
+
+      }
+      .CardCss{
+        box-shadow:
+        0 10px 16px 0 rgba(0,0,0,0.2),
+        0 6px 20px 0 rgba(0,0,0,0.19) ;
+        border-radius: 15px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h1{
+            font-size: 2rem;
+            color: white;
+        }
+      }
+      .CardCss:nth-child(1){
+        height: 200px;
+        min-width: 200px;
+        width: 30%;
+        background-color: #7f53ac;
+        background-image: linear-gradient(315deg, #7f53ac 0%, #647dee 74%);
+      }
+      .CardCss:nth-child(2){
+        height: 200px;
+        width: 200px;
+        min-width: 200px;
+        width: 30%;
+        background-color: #f5d020;
+        background-image: linear-gradient(315deg, #f5d020 0%, #f53803 74%);
+      }
+      .CardCss:nth-child(3){
+        height: 200px;
+        width: 200px;
+        min-width: 200px;
+        width: 30%;
+        background-color: #20bf55;
+        background-image: linear-gradient(315deg, #20bf55 0%, #01baef 74%);
+        
+      }
+
+
+
+ 
+}
+.searchForUser{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+    input{
+        padding: 15px;
+        width: 80%;
+        position: relative;
+        left:50%;
+        transform: translateX(-50%);
+        background-color: $gray2;
+        outline: none;
+        border-radius: 15px;
+        border: none;
+        box-shadow:
+        0 10px 16px 0 rgba(0,0,0,0.2);
+  
+    }
+}
+.usersList{
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+    box-shadow:
+    0 10px 16px 0 rgba(0,0,0,0.2),
+    0 6px 20px 0 rgba(0,0,0,0.19) ;
+    border: 1px solid $gray;
+    padding: 5px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    .tableHeader{
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        height: 80px;
+    }
+    table{
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        tr:nth-child(1){
+            td{
+                border: none;
+                font-weight: 600;
+            }
+        }
+  
+        td{
+            font-size: 2rem;
+            padding: 8px;
+            border-top: 1px solid #ddd;
+            border-collapse: collapse;
+
+        }
+    }
+}
