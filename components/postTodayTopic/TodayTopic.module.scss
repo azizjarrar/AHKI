@@ -118,7 +118,7 @@
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    content: "What's on your mind?";
+                    content: attr(date-text-placeHolder);
                     color: gray;
                   }
             }
@@ -255,9 +255,9 @@
             display: none;
           }
           .postTopic{
-              margin-left: 0px;
-            min-height: 45px !important;
-            width: 90%
+                margin-left: 0px;
+                min-height: 45px !important;
+                width: 90%
           }
       }
       .btnContainer{

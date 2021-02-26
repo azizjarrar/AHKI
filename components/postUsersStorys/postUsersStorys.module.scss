@@ -90,7 +90,7 @@
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    content: "What's on your mind?";
+                    content: attr(date-text-placeHolder);
                     color: gray;
                   }
             }

@@ -9,7 +9,7 @@ const userDeleteOrCheck = () => {
                         <td>first Name</td>
                         <td>last Name</td>
                         <td>creation Date</td>
-                        <td className={Styles.delete}><p>Delete</p></td>
+                        <td className={Styles.delete}><p>delete</p></td>
         </tr>
     )
 }

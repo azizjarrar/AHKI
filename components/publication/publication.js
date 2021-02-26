@@ -3,11 +3,23 @@ import Styles from './publication.module.scss'
 import Comment from '../comment/comment'
 import EmojiPicker from '../emojiPicker/emojiPicker'
 import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSettings'
+import languageDoc from '../Language/Language'
+
 const publication = (props) => {
     const [slice,setSlice]=React.useState(100)
     const [comments,setComments]=React.useState(false)
     const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)
     const [settings,setSettings]=React.useState(false)
+    const [language,setlanguage]=React.useState({
+        placeholderInput:languageDoc.Language.placeholderInput["eng"],
+       })
+       React.useEffect(() => {
+         console.log(languageDoc.Language.placeholderInput[localStorage.getItem("language")])
+        setlanguage({
+          placeholderInput:languageDoc.Language.placeholderInput[localStorage.getItem("language")],
+         })
+      
+       }, [])
     const completeText=(e)=>{
         setSlice(e)
     }
@@ -22,7 +34,7 @@ const publication = (props) => {
       }
       const getSelectedEmoji=(e,pack)=>{
           let text=document.getElementsByClassName(Styles.inputContenteditable)[props.index-1]
-          text.innerHTML = text.innerHTML + (`<img   src=${e}>`)
+          text.innerHTML = text.innerHTML + (`<img   src=/${e}>`)
       }
       const ShowSettings=()=>{
         setSettings(e=>!e)
@@ -41,9 +53,9 @@ const publication = (props) => {
                  <div className={Styles.userImageInComments}></div>
                  <div className={Styles.inputContainer}>
                      <div className={Styles.inputAndBtns}>
-                     <div contentEditable="true"  className={Styles.inputContenteditable}></div>
+                     <div contentEditable="true"  date-text-placeholder={language.placeholderInput}  className={Styles.inputContenteditable}></div>
                      <div className={Styles.btns}>
-                     <div className={Styles.EmojiLogo}><img src="Emoji/Pack1/051-cool.svg" onClick={() => openEmojiDisplay()} />{closeEmojiDisplayS && <EmojiPicker fn1={(e,pack) => getSelectedEmoji(e,pack)} fn={() => closeEmojiDisplay()}></EmojiPicker>}</div>
+                     <div className={Styles.EmojiLogo}><img src="/Emoji/Pack1/051-cool.svg" onClick={() => openEmojiDisplay()} />{closeEmojiDisplayS && <EmojiPicker fn1={(e,pack) => getSelectedEmoji(e,pack)} fn={() => closeEmojiDisplay()}></EmojiPicker>}</div>
                      <div className={Styles.post}><p>Post</p></div>
                      </div>
                      </div>

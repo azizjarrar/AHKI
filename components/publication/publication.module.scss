@@ -231,7 +231,7 @@
                     top: 50%;
                     transform: translateY(-50%);
                     margin-left: 10px;
-                    content: "What's on your mind?";
+                    content: attr(date-text-placeholder);
                     color: gray;
                     font-size: 1.3rem;
                 }

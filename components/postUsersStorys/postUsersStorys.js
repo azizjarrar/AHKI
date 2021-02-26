@@ -1,11 +1,20 @@
 import React from 'react'
 import Styles from './postUsersStorys.module.scss'
 import EmojiPicker from '../emojiPicker/emojiPicker'
-import { ST } from 'next/dist/next-server/lib/utils'
+import languageDoc from '../Language/Language'
 const PostTodayTopic = () => {
     const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)
     const [imageOrVideo,setImageOrVideo]=React.useState(false)
     const [mask,setMask]=React.useState(false)
+    const [language,setlanguage]=React.useState({
+      placeholderInput:languageDoc.Language.placeholderInput["eng"],
+     })
+     React.useEffect(() => {
+      setlanguage({
+        placeholderInput:languageDoc.Language.placeholderInput[localStorage.getItem("language")],
+       })
+    
+     }, [])
     const openEmojiDisplay = () => {
         setcloseEmojiDisplayS((e)=>!e)
       }
@@ -24,8 +33,6 @@ const PostTodayTopic = () => {
       }
       const maskOn=()=>{
         setMask(e=>!e)
-        
-
       }
       React.useEffect(()=>{
         if(mask){
@@ -35,7 +42,6 @@ const PostTodayTopic = () => {
           document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill="black"
 
         }
-
       },[mask])
     return (
         <div className={Styles.container}>
@@ -44,7 +50,7 @@ const PostTodayTopic = () => {
             </div>
             <div className={Styles.userTopicContainer}>
                 <div className={Styles.userImage}></div>
-                <div className={Styles.postTopic}><p className={Styles.input} plaintext-only="true" contentEditable="true" role="textbox" maxLength="500"></p></div>
+                <div className={Styles.postTopic}><p className={Styles.input} date-text-placeHolder={language.placeholderInput} plaintext-only="true" contentEditable="true" role="textbox" maxLength="500"></p></div>
             </div>
             {imageOrVideo!=false&&<div className={Styles.image_video_Container}><div className={Styles.closeBtn} onClick={()=>removeImage()}></div><img src={imageOrVideo}/></div>}
 

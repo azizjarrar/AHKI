@@ -16,37 +16,37 @@ const EmojiPicker = (props) => {
             <div className={Style.emojiContainer}>
                 {whatEmojiToDsiplay == "pack1" && emojiPack1.map((element) => {
                     return (
-                        <img src={element.src} onClick={() => props.fn1(element.src, "pack1")} />
+                        <img src={"/"+element.src} onClick={() => props.fn1(element.src, "pack1")} />
                     );
                 })}
                 {whatEmojiToDsiplay == "pack2" && emojiPack2.map((element) => {
                     return (
-                        <img src={element.src} onClick={() => props.fn1(element.src, "pack2")} />
+                        <img src={"/"+element.src} onClick={() => props.fn1(element.src, "pack2")} />
                     );
                 })}
                 {whatEmojiToDsiplay == "pack3" && emojiPack3.map((element) => {
                     return (
-                        <img src={element.src} onClick={() => props.fn1(element.src, "pack3")} />
+                        <img src={"/"+element.src} onClick={() => props.fn1(element.src, "pack3")} />
                     );
                 })}
                 {whatEmojiToDsiplay == "pack4" && emojiPack4.map((element) => {
                     return (
-                        <img src={element.src} onClick={() => props.fn1(element.src, "pack4")} />
+                        <img src={"/"+element.src} onClick={() => props.fn1(element.src, "pack4")} />
                     );
                 })}
             </div>
             <div className={Style.packs}>
                 <div>
-                    <img className={Style.imagePack} src={emojiPack1[2].src} onClick={() => displayEmoji("pack1")} />
+                    <img className={Style.imagePack} src={"/"+emojiPack1[2].src} onClick={() => displayEmoji("pack1")} />
                 </div>
                 <div>
-                    <img className={Style.imagePack} src={emojiPack2[0].src} onClick={() => displayEmoji("pack2")} />
+                    <img className={Style.imagePack} src={"/"+emojiPack2[0].src} onClick={() => displayEmoji("pack2")} />
                 </div>
                 <div>
-                    <img className={Style.imagePack} src={emojiPack3[0].src} onClick={() => displayEmoji("pack3")} />
+                    <img className={Style.imagePack} src={"/"+emojiPack3[0].src} onClick={() => displayEmoji("pack3")} />
                 </div>
                 <div>
-                    <img className={Style.imagePack} src={emojiPack4[0].src} onClick={() => displayEmoji("pack4")} />
+                    <img className={Style.imagePack} src={"/"+emojiPack4[0].src} onClick={() => displayEmoji("pack4")} />
                 </div>
             </div>
         </div>

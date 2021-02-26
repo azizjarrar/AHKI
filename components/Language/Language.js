@@ -72,6 +72,10 @@
             arabic:"تاكيد كلمة المرور",
             fr:"Confirmez le mot de passe"
         }
+    },placeholderInput:{
+        eng:"what are you thinking about",
+        arabic:"بماذا تفكر",
+        fr:"à quoi penses-tu"
     }
  }
  
