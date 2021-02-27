@@ -5,10 +5,15 @@ import { useRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  React.useEffect(()=>{
+    if(localStorage.getItem("language")==undefined){
+      localStorage.setItem("language","eng")
+    }
+  },[])
 
   return (
     <>
-      {router.pathname!="/admin"&&<NavBar ></NavBar>}
+      {!(router.pathname.startsWith("/admin"))&&<NavBar ></NavBar>}
       <div className="appWrapper">
       <Component {...pageProps} />
       </div>

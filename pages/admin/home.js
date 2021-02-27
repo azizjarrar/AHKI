@@ -1,6 +1,5 @@
-import { ST } from 'next/dist/next-server/lib/utils'
 import React from 'react'
-import Styles from '../../stylesAdmin/admin.module.scss'
+import Styles from '../../stylesAdmin/home.module.scss'
 import Users from '../../componentsAdminDashboard/users/user'
 const Admin = () => {
     return (
