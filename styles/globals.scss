@@ -9,11 +9,7 @@ body {
   height: 100%;
   overflow:hidden;
 }
-@media (orientation: landscape) {
-.appWrapper{
-    min-height: 850px;
-}
-}
+
 .appWrapper{
   position: absolute;
   height: calc(100% - 70px);

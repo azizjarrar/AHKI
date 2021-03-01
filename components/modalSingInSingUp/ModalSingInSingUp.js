@@ -6,6 +6,9 @@ import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/material.css'
+import ChangeLanguage from '../changeLanguage/changeLanguage'
+import languageDoc from '../Language/Language'
+
 const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
@@ -63,7 +66,47 @@ const ModalSingInSingUp = () => {
 
 
 
+    const [language,setlanguage]=React.useState({
+      username:languageDoc.Language.ProfileSettings.username["eng"],
+      password:languageDoc.Language.ProfileSettings.password["eng"],
+      firstname:languageDoc.Language.ProfileSettings.firstname["eng"],
+      confirmpassword:languageDoc.Language.ProfileSettings.confirmpassword["eng"],
+      lastname:languageDoc.Language.ProfileSettings.lastname["eng"],
+      biography:languageDoc.Language.ProfileSettings.biography["eng"],
+      email:languageDoc.Language.ProfileSettings.email["eng"],
+      phone:languageDoc.Language.ProfileSettings.phone["eng"],
+      savechange:languageDoc.Language.ProfileSettings.savechange["eng"],
+      day:languageDoc.Language.ProfileSettings.date.day["eng"],
+      month:languageDoc.Language.ProfileSettings.date.month["eng"],
+      year:languageDoc.Language.ProfileSettings.date.year["eng"],
+      AlreadyHaveAccount:languageDoc.Language.AlreadyHaveAccount["eng"],
+      YoudonthaveaccountClickhereto:languageDoc.Language.YoudonthaveaccountClickhereto["eng"],
+      signin:languageDoc.Language.signin["eng"],
+      signup:languageDoc.Language.signup["eng"],
 
+
+     })
+     React.useEffect(() => {
+      setlanguage({
+          username:languageDoc.Language.ProfileSettings.username[localStorage.getItem("language")],
+          firstname:languageDoc.Language.ProfileSettings.firstname[localStorage.getItem("language")],
+          lastname:languageDoc.Language.ProfileSettings.lastname[localStorage.getItem("language")],
+          biography:languageDoc.Language.ProfileSettings.biography[localStorage.getItem("language")],
+          email:languageDoc.Language.ProfileSettings.email[localStorage.getItem("language")],
+          phone:languageDoc.Language.ProfileSettings.phone[localStorage.getItem("language")],
+          password:languageDoc.Language.ProfileSettings.password[localStorage.getItem("language")],
+          confirmpassword:languageDoc.Language.ProfileSettings.confirmpassword[localStorage.getItem("language")],
+          savechange:languageDoc.Language.ProfileSettings.savechange[localStorage.getItem("language")],
+          day:languageDoc.Language.ProfileSettings.date.day[localStorage.getItem("language")],
+          month:languageDoc.Language.ProfileSettings.date.month[localStorage.getItem("language")],
+          year:languageDoc.Language.ProfileSettings.date.year[localStorage.getItem("language")],
+          AlreadyHaveAccount:languageDoc.Language.AlreadyHaveAccount[localStorage.getItem("language")],
+          YoudonthaveaccountClickhereto:languageDoc.Language.YoudonthaveaccountClickhereto[localStorage.getItem("language")],
+          signin:languageDoc.Language.signin[localStorage.getItem("language")],
+          signup:languageDoc.Language.signup[localStorage.getItem("language")]
+       })
+    
+     }, [])
     /****************************************/
     /*************Init day Picker************/
     /****************************************/
@@ -175,24 +218,25 @@ const ModalSingInSingUp = () => {
     }
     return (
         <div className={Style.contrainer}>
+              <div className={Style.changelang}><ChangeLanguage></ChangeLanguage></div>
             <div className={Style.formContainer}>
                 <div className={Style.formsContainer}>
                 <div className={Style.singIn} style={showSingIn_Or_SHowSingUp?{left:'0%'}:{left:'100%'}}>
                     <form className={Style.form}>
-                        <div className={Style.inputContainer}><input className={Style.input} required/><label><span className={Style.labelspan}>Tel</span></label></div>
-                        <div className={Style.inputContainer}><input type="password" className={Style.input} required/><label><span className={Style.labelspan}>Password</span></label></div>
-                        <button >Sing In</button>
-                        <p className={Style.message}>You dont have account Click here to <span className={Style.clickHere} onClick={()=>Change_To_OtherForm()}>Sing Up</span></p>
+                        <div className={Style.inputContainer}><input className={Style.input} required/><label><span className={Style.labelspan}>{language.phone}</span></label></div>
+                        <div className={Style.inputContainer}><input type="password" className={Style.input} required/><label><span className={Style.labelspan}>{language.password}</span></label></div>
+                        <button >{language.signin}</button>
+                        <p className={Style.message}>{language.YoudonthaveaccountClickhereto} <span className={Style.clickHere} onClick={()=>Change_To_OtherForm()}>{language.signup}</span></p>
                     </form>
                 </div>
                 <div className={Style.singUp} style={showSingIn_Or_SHowSingUp?{left:'0%'}:{left:'-100%'}}>
                     <form className={Style.form} onChange={(e)=>formValidation(e)}>
-                        <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input} onChange={(e)=>userName_Password_Handler(e)} required/><label><span  className={Style.labelspan}>UserName</span></label></div>
+                        <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input} onChange={(e)=>userName_Password_Handler(e)} required/><label><span  className={Style.labelspan}>{language.username}</span></label></div>
                         {errorData.userName.state=="true"&&<div className={Style.errorMessage}><p>{errorData.userName.msg}</p></div>}
-                        <div className={Style.inputContainer}><PhoneInput  country={'tn'}  value={registerState.tel} onChange={(e,country)=>onChangeHandlerRegisterPhone(e,country)} /></div>
-                        <div className={Style.inputContainer}><input  name="password" type="password" onChange={(e)=>{userName_Password_Handler(e)}} className={`${Style.ConfirmPassword} ${Style.input} `} required/><label><span className={Style.labelspan}>Password</span></label></div>
+                        <div className={Style.inputContainer}><PhoneInput  specialLabel={language.phone} country={'tn'}  value={registerState.tel} onChange={(e,country)=>onChangeHandlerRegisterPhone(e,country)} /></div>
+                        <div className={Style.inputContainer}><input  name="password" type="password" onChange={(e)=>{userName_Password_Handler(e)}} className={`${Style.ConfirmPassword} ${Style.input} `} required/><label><span className={Style.labelspan}>{language.password}</span></label></div>
                         {errorData.password.state=="true"&&<div className={Style.errorMessage}><p>{errorData.password.msg}</p></div>}
-                        <div className={Style.inputContainer}><input  type="password" className={`${Style.input} ${Style.ConfirmPassword}`}  required/><label><span className={Style.labelspan}>Password</span></label></div>
+                        <div className={Style.inputContainer}><input  type="password" className={`${Style.input} ${Style.ConfirmPassword}`}  required/><label><span className={Style.labelspan}>{language.confirmpassword}</span></label></div>
                         <div className={Style.inputContainer}>
                           <div className={Style.Age}>  
                         <div className={Style.selectContainer}>
@@ -242,9 +286,9 @@ const ModalSingInSingUp = () => {
                         </div>
                         </div>
                         </div>
-                        {confirmRegisterForm==true&&<button>Sing Up</button>}
-                        {confirmRegisterForm==false&&<button disabled style={{opacity:0.2,cursor: 'default'}}>Sing Up</button>}
-                        <p className={Style.message}>Alredy Have Account  <span className={Style.clickHere} onClick={()=>Change_To_OtherForm()}>Sing In</span></p>
+                        {confirmRegisterForm==true&&<button>{language.signin}</button>}
+                        {confirmRegisterForm==false&&<button disabled style={{opacity:0.2,cursor: 'default'}}>{language.signup}</button>}
+                        <p className={Style.message}>{language.AlreadyHaveAccount}  <span className={Style.clickHere} onClick={()=>Change_To_OtherForm()}>{language.signin}</span></p>
 
                 </form>
                 </div>

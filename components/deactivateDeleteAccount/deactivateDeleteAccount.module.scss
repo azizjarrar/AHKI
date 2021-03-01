@@ -127,14 +127,14 @@
         button{
             @include btn(white,$primary,$hover);
             transition: 0.5s;
-            width: 250px;
+            width: 300px;
             padding: 13px;
             height: 40px;
             background-color: white;
             color: white;
             background-color: $primary;
          
-            font-size: 2rem;
+            font-size: 1.7rem;
             margin-top: 20px;
             margin-bottom: 20px;
             display: flex;
@@ -195,9 +195,14 @@
         height: auto;
         width: 100%;
     }
+    
     .formContainer{
         min-width: 200px;
         form{
+            button{
+                width: 100% !important;
+                font-size: 1.3rem !important;
+            }
             width: 100% !important;
             .inputContainer{
                 width: 95% !important;

@@ -90,7 +90,7 @@
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    content: attr(date-text-placeHolder);
+                    content: attr(datetextplaceholder);
                     color: gray;
                   }
             }
@@ -136,7 +136,7 @@
             position: absolute;
             box-shadow: 0px 1px 2px #cfd1d3;
             background-color: white;
-            content: "post Anonymously";
+            content: attr(postanonymously);
             font-family: sans-serif;
             height: auto;
             width: auto;
@@ -164,7 +164,7 @@
                 position: absolute;
                 box-shadow: 0px 1px 2px #cfd1d3;
                 background-color: white;
-                content: "Upload photo with your post";
+                content: attr(hovertextinputfile);
                 white-space: nowrap;
 
                 font-family: sans-serif;

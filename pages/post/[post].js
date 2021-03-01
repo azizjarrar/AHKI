@@ -6,7 +6,7 @@ import Head from 'next/head'
 const Post = () => {
     return (
         <div className={Styles.container}>
-                  <Head>
+            <Head>
                 <title>unha</title>
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content="social media websites where people can talk about certain subjects that happen in daily life"></meta>

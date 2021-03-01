@@ -1,9 +1,19 @@
 @import "../../styles/colors"; 
-
+@import "../../styles/closeBtn";
 .container{
     position: fixed;
     left: 20px;
     bottom: 20px;
+    z-index: 15615665;
+    background-color: white;
+    border-radius: 15px;
+}
+.closeLangChange{
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    background-color: red;
+    @include closebtnFn();
 }
 .svgContainer{
     svg{
@@ -37,7 +47,6 @@
         background-color: white;
         border-radius: 5px;
         box-shadow: 0px 1px 2px #cfd1d3;
-
     }
     .svgContainer{
         svg{

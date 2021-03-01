@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import PhoneInput from 'react-phone-input-2'
+import languageDoc from '../Language/Language'
 import 'react-phone-input-2/lib/material.css'
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -53,8 +54,36 @@ const updateProfileData = () => {
     const [day, setday] = React.useState(18);
     const [month, setmonth] = React.useState(1);
     const [year, setyear] = React.useState(1991);
-
     const [registerState,setregisterState] = React.useState({userName:"",tel:"",password:"",birthDay:{day:'',month:'',year:''},dialCode:""})
+    const [language,setlanguage]=React.useState({
+      username:languageDoc.Language.ProfileSettings.username["eng"],
+      firstname:languageDoc.Language.ProfileSettings.firstname["eng"],
+      lastname:languageDoc.Language.ProfileSettings.lastname["eng"],
+      biography:languageDoc.Language.ProfileSettings.biography["eng"],
+      email:languageDoc.Language.ProfileSettings.email["eng"],
+      phone:languageDoc.Language.ProfileSettings.phone["eng"],
+      savechange:languageDoc.Language.ProfileSettings.savechange["eng"],
+      day:languageDoc.Language.ProfileSettings.date.day["eng"],
+      month:languageDoc.Language.ProfileSettings.date.month["eng"],
+      year:languageDoc.Language.ProfileSettings.date.year["eng"],
+
+
+     })
+     React.useEffect(() => {
+      setlanguage({
+          username:languageDoc.Language.ProfileSettings.username[localStorage.getItem("language")],
+          firstname:languageDoc.Language.ProfileSettings.firstname[localStorage.getItem("language")],
+          lastname:languageDoc.Language.ProfileSettings.lastname[localStorage.getItem("language")],
+          biography:languageDoc.Language.ProfileSettings.biography[localStorage.getItem("language")],
+          email:languageDoc.Language.ProfileSettings.email[localStorage.getItem("language")],
+          phone:languageDoc.Language.ProfileSettings.phone[localStorage.getItem("language")],
+          savechange:languageDoc.Language.ProfileSettings.savechange[localStorage.getItem("language")],
+          day:languageDoc.Language.ProfileSettings.date.day[localStorage.getItem("language")],
+          month:languageDoc.Language.ProfileSettings.date.month[localStorage.getItem("language")],
+          year:languageDoc.Language.ProfileSettings.date.year[localStorage.getItem("language")],
+       })
+    
+     }, [])
     var yearArray=[]
     var dayArray =[]
     var monthArray=[]
@@ -95,16 +124,16 @@ const updateProfileData = () => {
                 <div className={Style.userName}><h2>Aziz Jarrar</h2></div>
              <div className={Style.formContainer}>
                 <form className={Style.form} onChange={(e)=>formValidation(e)}>
-                        <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>UserName</span></label></div>
-                        <div className={Style.inputContainer}><input name="FirstName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>Firs tName</span></label></div>
-                        <div className={Style.inputContainer}><input name="lastname" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>last name</span></label></div>
-                        <div className={Style.inputContainer}><input name="biography" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>biography</span></label></div>
-                        <div className={Style.inputContainer}><input name="email" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>Email</span></label></div>
-                        <div className={Style.inputContainer}><PhoneInput  country={'tn'}  value={registerState.tel} onChange={(e,country)=>onChangeHandlerRegisterPhone(e,country)} /></div>
+                        <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>{language.username}</span></label></div>
+                        <div className={Style.inputContainer}><input name="FirstName" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>{language.firstname}</span></label></div>
+                        <div className={Style.inputContainer}><input name="lastname" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>{language.lastname}</span></label></div>
+                        <div className={Style.inputContainer}><input name="biography" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>{language.biography}</span></label></div>
+                        <div className={Style.inputContainer}><input name="email" type="text" className={Style.input}  required/><label><span  className={Style.labelspan}>{language.email}</span></label></div>
+                        <div className={Style.inputContainer}><PhoneInput specialLabel={language.phone} label={"gezgz"}  country={'tn'}  value={registerState.tel} onChange={(e,country)=>onChangeHandlerRegisterPhone(e,country)} /></div>
                         <div className={Style.inputContainer}>
                           <div className={Style.Age}>  
                         <div className={Style.selectContainer}>
-                          <label>Day</label>
+                          <label>{language.day}</label>
                         <Select
                           MenuProps={MenuProps}
                           labelId="demo-customized-select-label"
@@ -119,7 +148,7 @@ const updateProfileData = () => {
                         </Select>
                         </div>
                         <div className={Style.selectContainer}>
-                          <label>Month</label>
+                          <label>{language.month}</label>
                         <Select
                           MenuProps={MenuProps}
                           labelId="demo-customized-select-label"
@@ -134,7 +163,7 @@ const updateProfileData = () => {
                         </Select>
                         </div>
                         <div className={Style.selectContainer}>
-                          <label>Year</label>
+                          <label>{language.year}</label>
                         <Select
                           MenuProps={MenuProps}
                           labelId="demo-customized-select-label"
@@ -150,7 +179,7 @@ const updateProfileData = () => {
                         </div>
                         </div>
                         </div>
-                        <button>Apply change</button>
+                        <button>{language.savechange}</button>
 
                 </form>
                 </div>

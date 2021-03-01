@@ -4,10 +4,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    overflow-Y: auto;
 }
 .profile{
     margin-top: 30px;
@@ -16,10 +13,10 @@
     border-top-right-radius:15px ;
     width: 100%;
     max-width: 1000px;
-    height: 100%;
+    min-height: 100%;
     padding: 25px 28px 0 25px;
     background-color: white;
-
+    margin: 0 auto;
 }
 .userName{
     height: 50px;
@@ -40,6 +37,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    .removeAfter{
+        &::after{
+            content:none !important;
+        }
+    }
     .image{
         position: relative;
         cursor: pointer;
@@ -56,7 +58,7 @@
             position: absolute;
             height: 35px;
             width: 35px;
-            background-color: #e4e6eb;
+            background-color: #e4e6eb ;
             bottom: 0px;
             right: 0px;
             z-index: 3;
@@ -203,3 +205,10 @@
         }
     }
 }
+
+
+/*******************************************************/
+/*******************************************************/
+/****************View **********************/
+/*******************************************************/
+/*******************************************************/
