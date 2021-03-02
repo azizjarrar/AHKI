@@ -4,7 +4,7 @@ import EmojiPicker from '../emojiPicker/emojiPicker'
 import languageDoc from '../Language/Language'
 
 const PostTodayTopic = () => {
-  const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)
+  const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)//if its true emoji container will be open if its false it will be close
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
   const [mask, setMask] = React.useState(false)
   /******************************************************************************************
@@ -26,7 +26,7 @@ const PostTodayTopic = () => {
   }, [])
 
   /************************************************/
-  /****************open to choice emoji************/
+  /****************open  emoji container************/
   /************************************************/
   const openEmojiDisplay = () => {
     setcloseEmojiDisplayS((e) => !e)

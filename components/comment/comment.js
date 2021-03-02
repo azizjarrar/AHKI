@@ -4,7 +4,9 @@ import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSetting
 
 const Comment = (props) => {
     const [settings,setSettings]=React.useState(false)
-
+  /******************************************************************************************
+  *on click on the 3 dots will show settings like delete or report 
+  ******************************************************************************************/
     const ShowSettings=()=>{
         setSettings(e=>!e)
       }

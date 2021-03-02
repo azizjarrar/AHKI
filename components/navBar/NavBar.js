@@ -5,10 +5,10 @@ import SideNavBar from './sideNavBar/SideNavBar'
 import Link from 'next/link'
 
 const NavBar = () => {
-    const [modalSingInSingUp,setModalSingInSingUp]=useState(false)
-    const [heightAndWidthOfWindow,setHeightAndWidthOfWindow]=React.useState({width:'',height:''})
-    const [openSlideMenuVar,setOpenSlideMenuVar]=useState(false)
-    const [send_Close_Message_toSlideNavBar_animation,setSend_Close_Message_toSlideNavBar_animation]=useState(false)
+    const [modalSingInSingUp,setModalSingInSingUp]=useState(false)//open modal
+    const [heightAndWidthOfWindow,setHeightAndWidthOfWindow]=React.useState({width:'',height:''})//responsive handler
+    const [openSlideMenuVar,setOpenSlideMenuVar]=useState(false)//open side navbar mobile
+    const [send_Close_Message_toSlideNavBar_animation,setSend_Close_Message_toSlideNavBar_animation]=useState(false)//related to side nav bar mobile
     const openModalSingInSingUp=()=>{
         setModalSingInSingUp(true)
     }

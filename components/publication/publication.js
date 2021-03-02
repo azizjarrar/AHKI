@@ -62,9 +62,15 @@ const publication = (props) => {
   const ShowSettings = () => {
     setSettings(e => !e)
   }
+    /******************************************************/
+  /********when mask on user post annonymosly************/
+  /******************************************************/
   const maskOn = () => {
     setMask(e => !e)
   }
+    /*************************************************************/
+  /****************if mask on it will turn into blue************/
+  /*************************************************************/
   React.useEffect(() => {
     if (mask) {
       document.getElementsByClassName(Styles.mask)[props.index - 1].childNodes[0].childNodes[0].style.fill = "#1876f3"
