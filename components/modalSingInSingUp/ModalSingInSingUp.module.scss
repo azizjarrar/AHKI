@@ -29,6 +29,8 @@
     position: relative;
     height: 600px;
     width: 700px;
+    max-height: 600px;
+    max-width: 700px;
     background-color: white;
     box-shadow:  
     0 2.8px 2.2px rgba(255, 255, 255, 0.034),
@@ -39,6 +41,7 @@
     0 100px 80px rgba(255, 255, 255, 0.12);
     border-radius: 15px;
     display: flex;
+    
 }
 .formsContainer{
     width: 60%;
@@ -46,6 +49,7 @@
     flex-direction: row;
     height: 100%;
     overflow: hidden;
+
     .singIn{
         position: relative;
         min-height: 100%;
@@ -234,18 +238,43 @@
         color: $primary;
     }
 }
-
-@media (orientation: portrait) , (max-height: 500px){
-    .form{
-        transform: translate(-0%,-0%);
-        top: 10px;
-        margin: 0 auto;
-        left: initial;
-
-    }
+  
+@media (orientation: portrait), (max-height: 500px) {
     .description{
         display: none;
     }
+    .formContainer{
+        width: 95%;
+        max-width: 400px;
+        overflow: auto;
+        height: 95%;
+
+    }
+    .formsContainer{
+        width: 100%;
+        height: auto;
+        overflow-Y: auto;
+        min-height: 600px;
+   
+ 
+
+        .singIn{
+            height: auto;
+        }
+        .singUp{
+            height: auto;
+
+        }
+    }
+   /* .form{
+        transform: translate(-0%,-0%);
+        margin: 0 auto;
+        margin-top: 10px;
+        left: initial;
+        height: auto;
+    }
+
+
     .formContainer{
         position: relative;
         height: 95%;
@@ -258,20 +287,18 @@
         display: flex;
         flex-direction: row;
         height: 100%;
-        overflow: hidden;
+        overflow: auto;
         border-radius: 15px;
   
         .singIn{
             position: relative;
-            min-height: 100%;
+            height: 100%;
             min-width: 100%;
             transition: 0.8s;
             background-color: white;
             border-top-left-radius: 15px;
             border-Bottom-left-radius: 15px;
             z-index: 1;
-            overflow: scroll;
-
         }
         .singUp{
             position: relative;
@@ -281,8 +308,6 @@
             background-color: white;
             border-top-left-radius: 15px;
             border-Bottom-left-radius: 15px;
-            overflow: scroll;
-
             z-index: 2;
             .Age{
                 overflow: hidden;
@@ -307,7 +332,7 @@
     
         }
     }
-    
+    */
 
-  }
- 
+  
+}
