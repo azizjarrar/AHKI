@@ -56,7 +56,7 @@
         background-color: $gray2;
     }
 }
-@media(orientation: portrait)
+@media(orientation: portrait), (max-height: 500px)
 {
     .Settings{
         padding: 15px 16px 0 15px;

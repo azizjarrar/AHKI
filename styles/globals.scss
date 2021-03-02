@@ -12,7 +12,7 @@ body {
 
 .appWrapper{
   position: absolute;
-  height: calc(100% - 70px);
+  height: calc(100% - 50px);
   width: 100%;
   overflow-y: visible;
   background-color: #f0f2f5;
@@ -85,7 +85,7 @@ input {
   transition: background-color 5000s ease-in-out 0s;
 }   
 /***********************Mobile*****************************/
-@media (orientation: portrait) {
+@media (orientation: portrait) , (max-height: 500px){
   .appWrapper{
       position: absolute;
     height: calc(100% - (40px));

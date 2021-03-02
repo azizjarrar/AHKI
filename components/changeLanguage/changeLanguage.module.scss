@@ -37,7 +37,7 @@
     }
 
 }
-@media(orientation: portrait)
+@media(orientation: portrait), (max-height: 500px)
 {
     .container{
         position: fixed;

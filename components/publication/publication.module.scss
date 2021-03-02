@@ -154,7 +154,7 @@
     margin: 0 auto;
     width: 90%;
 }
-@media (orientation: portrait) {
+@media (orientation: portrait) , (max-height: 500px){
     .container{
         width: 97%;
     }

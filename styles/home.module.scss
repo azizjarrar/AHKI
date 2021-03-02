@@ -48,7 +48,7 @@
 }
 }
 
-@media (orientation: portrait) {
+@media (orientation: portrait) , (max-height: 500px){
   .navbar_Choice_TopicToday_or_usersTopics{
     width: 95% !important;
   }

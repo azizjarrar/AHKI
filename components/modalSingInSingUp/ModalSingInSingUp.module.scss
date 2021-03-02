@@ -234,7 +234,8 @@
         color: $primary;
     }
 }
-@media only screen and (max-height: 550px) {
+
+@media (orientation: portrait) , (max-height: 500px){
     .form{
         transform: translate(-0%,-0%);
         top: 10px;
@@ -242,9 +243,6 @@
         left: initial;
 
     }
-}
-@media (orientation: portrait) {
-
     .description{
         display: none;
     }

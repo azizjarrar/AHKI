@@ -183,7 +183,7 @@
     }
 }
 /********************mobile***********************/
-@media (orientation: portrait) {
+@media (orientation: portrait) , (max-height: 500px){
     .profile{
         position: relative;
         margin-top: 0;
