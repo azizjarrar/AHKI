@@ -2,8 +2,8 @@ import React from 'react'
 import Style from '../../styles/profile.module.scss'
 import Link from 'next/link'
 import languageDoc from '../../components/Language/Language'
-
-const Profile = () => {
+import Auth from '../../auth/auth'
+const Profile = (props) => {
     const [yourFeeds, setYourFeeds] = React.useState("Your Posts")
     /******************************************************************************************
     *this code will change lang uage
@@ -51,4 +51,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default Auth(Profile)

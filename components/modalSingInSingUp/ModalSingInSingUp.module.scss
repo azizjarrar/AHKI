@@ -1,6 +1,7 @@
 @import "../../styles/colors"; 
 @import "../../styles/input";
 @import "../../styles/button";
+@import "../../styles/closeBtn";
 
 .contrainer{
  position: fixed;
@@ -184,7 +185,7 @@
         padding-right: 10px;
         border-radius: 0;
     }
-    button{
+    .btn{
         @include btn(white,$primary,$hover);
         transition: 0.5s;
         width: 250px;
@@ -265,6 +266,30 @@
             height: auto;
 
         }
+        .singUp{
+  
+            .Age{
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 5px;
+                .selectContainer{
+                    width: 100%;
+                    align-items: flex-start !important;
+                    justify-content: flex-start !important;
+                    label{
+                        width: 70px !important;
+                        align-items: left;
+                    }
+                }
+                p{
+                    font-size: 2rem;
+                }
+            }
+    
+        }
     }
    /* .form{
         transform: translate(-0%,-0%);
@@ -335,4 +360,11 @@
     */
 
   
+}
+.closebtn{
+    @include closebtnFn();
+    z-index: 15665116456;
+    right: 10px;
+    top: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 2px 12px 0 rgba(0, 0, 0, 0.19);
 }

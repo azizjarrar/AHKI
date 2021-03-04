@@ -5,11 +5,7 @@ import Publication from '../../components/publication/publication'
 import axios from 'axios'
 const homeTodayTopics = () => {
     React.useEffect(()=>{
-        /*axios.get('/user')
-        .then(function (response) {
-          // handle success
-          console.log(response);
-        })*/
+ 
     },[])
     return (
         <div className={Styles.homeTodayTopics}>

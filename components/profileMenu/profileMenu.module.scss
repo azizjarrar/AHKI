@@ -1,0 +1,58 @@
+@import "../../styles/colors"; 
+
+.container{
+    position: absolute;
+    top: 80%;
+    height: 50px;
+    width: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 15615665;
+
+    .hoverHandler{
+        position: absolute;
+        top: 30%;
+        left: 0%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        background-color: white;
+
+        .linksContainers{
+            height: 20px;
+            width: 160px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            h2{
+                color: #333333;
+                font-size: 1.6rem;
+                padding-right: 10px;
+                font-family: "sofiapro-regular",PingFangSC,sans-serif;
+                &:hover{
+                    color:$primary
+                }
+            }
+        }
+        .linksContainers:nth-child(1){
+            &:after{
+                content: "";
+                top: 50%;
+                width: 95%;
+                position: absolute;
+                border-bottom: 1px solid #eaeaea;
+    
+            }
+        }
+
+    }
+
+}
+@media (orientation: portrait) , (max-height: 500px){
+
+    .hoverHandler{
+        position: absolute;
+        top: 30%;
+        left: -10% !important ;
+    }
+}

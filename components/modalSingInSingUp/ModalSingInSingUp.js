@@ -8,7 +8,8 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/material.css'
 import ChangeLanguage from '../changeLanguage/changeLanguage'
 import languageDoc from '../Language/Language'
-
+import { Login, Register } from '../../services/user'
+import FacebookLogIn from '../facebookLogIn/facebookLogIn'
 const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
@@ -52,14 +53,15 @@ const MenuProps = {
     },
   },
 };
-const ModalSingInSingUp = () => {
+const ModalSingInSingUp = (props) => {
   const [showSingIn_Or_SHowSingUp, setShowSingIn_Or_SHowSingUp] = useState(true)/*change between sing in and sing up */
   const [day, setday] = useState(18);//day handler
   const [month, setmonth] = useState(1);//month handler
   const [year, setyear] = useState(1991);//year handler
   const [confirmRegisterForm, setConfirmRegisterForm] = useState(false)//enable and disable sing up button if the from is not complete
   const [errorData, setErrorData] = useState({ userName: { state: 'false', msg: '' }, password: { state: 'false', msg: '' } })//error messages
-  const [registerState, setregisterState] = useState({ userName: "", tel: "", password: "", birthDay: { day: '', month: '', year: '' }, dialCode: "" })//user register data
+  const [registerState, setregisterState] = useState({ userName: "", tel: "", password: "", birthDay: { day: '01', month: '01', year: '2000' }, dialCode: "" })//user register data
+  const [loginState,setLoginState]=useState({})
   const yearArray = []
   const dayArray = []
   const monthArray = []
@@ -152,6 +154,15 @@ const ModalSingInSingUp = () => {
     })
   }
   /****************************************/
+  /************Set Login Data**************/
+  /****************************************/
+  const setLoginData=(e)=>{
+    const { name, value } = e.target
+        setLoginState(e => {
+      return { ...e, [name]: value }
+    })
+  }
+  /****************************************/
   /************Set Phone Number************/
   /****************************************/
   const onChangeHandlerRegisterPhone = (data, country) => {
@@ -173,7 +184,6 @@ const ModalSingInSingUp = () => {
   /****************************************/
   /***************Form Validator***********/
   /****************************************/
-
   const formValidation = (e) => {
     //e.preventDefault();
     let userName = e.target.form[0].value;
@@ -208,7 +218,6 @@ const ModalSingInSingUp = () => {
     }
     if (userName.length > 0 && tel.length > 6 && password.length > 0 && confirmPassword.length > 0) {
       if (password == confirmPassword) {
-        console.log(tel.length)
         setConfirmRegisterForm(true)
         return true
       } else {
@@ -220,21 +229,63 @@ const ModalSingInSingUp = () => {
       return false
     }
   }
+
+  const closeModal=()=>{
+    props.openOrcloseModal()
+
+  }
+  /****************************************/
+  /***************apis***********/
+  /****************************************/
+  const singIn=()=>{
+    Login(loginState).then(res=>{
+      if(res.data.state==false){
+        alert(res.data.message)
+      }else{
+        fetch("api/login",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
+          //location.reload();
+          props.openOrcloseModal()
+        })
+ 
+
+      }
+    }).catch(e=>{console.log(e)})
+  }
+  const singUp=()=>{
+    Register(registerState).then(res=>{
+      if(res.data.state==false){
+        alert(res.data.message)
+      }else{
+        setShowSingIn_Or_SHowSingUp(e=>!e)
+      }
+    }).catch(e=>{
+      alert(e=>!e)
+    })
+
+  }
+
+
   return (
     <div className={Style.contrainer}>
+
       <div className={Style.changelang}><ChangeLanguage></ChangeLanguage></div>
       <div className={Style.formContainer}>
+        <div className={Style.closebtn} onClick={()=>closeModal()}></div>
         <div className={Style.formsContainer}>
           <div className={Style.singIn} style={showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '100%' }}>
-            <form className={Style.form}>
-              <div className={Style.inputContainer}><input className={Style.input} required /><label><span className={Style.labelspan}>{language.phone}</span></label></div>
-              <div className={Style.inputContainer}><input type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
-              <button >{language.signin}</button>
+            <form className={Style.form} onSubmit={e => {e.preventDefault();}}  autoComplete="new-password">
+              <input type="text" name="" value="" readOnly={true} style={{display: "none"}}/>
+              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"tel"}    onKeyUp={(e)=>e.target.value=e.target.value.replace(/[^\d]/,'')}            type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.phone}</span></label></div>
+              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}    name={"password"} type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
+              <button className={Style.btn} onClick={()=>singIn()}>{language.signin}</button>
               <p className={Style.message}>{language.YoudonthaveaccountClickhereto} <span className={Style.clickHere} onClick={() => Change_To_OtherForm()}>{language.signup}</span></p>
+              <FacebookLogIn></FacebookLogIn>
+
             </form>
+
           </div>
           <div className={Style.singUp} style={showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '-100%' }}>
-            <form className={Style.form} onChange={(e) => formValidation(e)}>
+            <form className={Style.form} onSubmit={e => {e.preventDefault();}}onChange={(e) => {formValidation(e)}}>
               <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input} onChange={(e) => userName_Password_Handler(e)} required /><label><span className={Style.labelspan}>{language.username}</span></label></div>
               {errorData.userName.state == "true" && <div className={Style.errorMessage}><p>{errorData.userName.msg}</p></div>}
               <div className={Style.inputContainer}><PhoneInput specialLabel={language.phone} country={'tn'} value={registerState.tel} onChange={(e, country) => onChangeHandlerRegisterPhone(e, country)} /></div>
@@ -290,10 +341,9 @@ const ModalSingInSingUp = () => {
                   </div>
                 </div>
               </div>
-              {confirmRegisterForm == true && <button>{language.signin}</button>}
-              {confirmRegisterForm == false && <button disabled style={{ opacity: 0.2, cursor: 'default' }}>{language.signup}</button>}
+              {confirmRegisterForm == true && <button className={Style.btn} onClick={()=>singUp()}>{language.signup}</button>}
+              {confirmRegisterForm == false && <button  className={Style.btn} disabled style={{ opacity: 0.2, cursor: 'default' }}>{language.signup}</button>}
               <p className={Style.message}>{language.AlreadyHaveAccount}  <span className={Style.clickHere} onClick={() => Change_To_OtherForm()}>{language.signin}</span></p>
-
             </form>
           </div>
         </div>
@@ -301,7 +351,7 @@ const ModalSingInSingUp = () => {
           <h1>AHKI</h1>
           <p>
             It is a long established fact that a reader will be distracted by the readable content
-                    </p>
+          </p>
         </div>
       </div>
     </div>
