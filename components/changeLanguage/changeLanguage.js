@@ -1,8 +1,8 @@
 import React from 'react'
 import Styles from './changeLanguage.module.scss'
 const changeLanguage = () => {
-    const [open,setOpen]=React.useState(false)
-    const [displayLang,setDisplay]=React.useState(false)
+    const [open,setOpen]=React.useState(false) // open box to choice lang
+    const [displayLang,setDisplay]=React.useState(false) // hide change lang box if true
     const openLang=()=>{
         setOpen(e=>!e)
     }

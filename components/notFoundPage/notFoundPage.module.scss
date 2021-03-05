@@ -1,0 +1,26 @@
+@import "../../styles/button";
+@import "../../styles/colors"; 
+
+.container{
+    position: relative;
+    height: 90%;
+    width: 100%;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    h1{
+
+        font-size: clamp(1.3rem,5vw,5rem);
+    }
+    button{
+        @include btn(white,$primary,$hover);
+        margin: 0 auto;
+        border-radius: 5px;
+        max-width: 400px;
+        height: 40px;
+        width: 65%;
+    }
+}

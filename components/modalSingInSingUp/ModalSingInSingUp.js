@@ -10,6 +10,7 @@ import ChangeLanguage from '../changeLanguage/changeLanguage'
 import languageDoc from '../Language/Language'
 import { Login, Register } from '../../services/user'
 import FacebookLogIn from '../facebookLogIn/facebookLogIn'
+import PopUpMessage from '../popUpMessage/popUpMessage'
 const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
@@ -54,6 +55,7 @@ const MenuProps = {
   },
 };
 const ModalSingInSingUp = (props) => {
+  const [errorMessage,setErrorMessage]=useState({state:false,text:""})// when state true show  pop up 
   const [showSingIn_Or_SHowSingUp, setShowSingIn_Or_SHowSingUp] = useState(true)/*change between sing in and sing up */
   const [day, setday] = useState(18);//day handler
   const [month, setmonth] = useState(1);//month handler
@@ -240,33 +242,35 @@ const ModalSingInSingUp = (props) => {
   const singIn=()=>{
     Login(loginState).then(res=>{
       if(res.data.state==false){
-        alert(res.data.message)
+        setErrorMessage({state:true,text:res.data.message})
       }else{
-        fetch("api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
+        fetch("/api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
           localStorage.setItem("ref_token",res.data.ref_token)
             location.reload();
-            props.openOrcloseModal()
     
         })
       }
-    }).catch(e=>{console.log(e)})
+    }).catch(e=>{setErrorMessage({state:true,text:e})  })
   }
   const singUp=()=>{
     Register(registerState).then(res=>{
       if(res.data.state==false){
-        alert(res.data.message)
+        setErrorMessage({state:true,text:e})
       }else{
         setShowSingIn_Or_SHowSingUp(e=>!e)
       }
     }).catch(e=>{
-      alert(e=>!e)
+      setErrorMessage({state:true,text:e})
     })
 
   }
-
+  const closePopUp=()=>{
+    setErrorMessage({state:false,text:""})
+  }
 
   return (
     <div className={Style.contrainer}>
+          {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
 
       <div className={Style.changelang}><ChangeLanguage></ChangeLanguage></div>
       <div className={Style.formContainer}>

@@ -55,11 +55,12 @@
     }
 
 }
-@media (orientation: portrait) , (max-height: 500px){
+
+@media (orientation: portrait) , (max-height: 1100px){
 
     .hoverHandler{
         position: absolute;
         top: 30%;
-        left: -10% !important ;
+        left: -15% !important ;
     }
 }

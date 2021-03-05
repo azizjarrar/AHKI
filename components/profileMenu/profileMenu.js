@@ -3,7 +3,7 @@ import Styles from './profileMenu.module.scss'
 import Link from 'next/link'
 import cookie from 'js-cookie'
 const removeCookie=()=>{
-    fetch("api/logout",{method:"post",headers:{"Content-Type":"application/json"}}).then(()=>{
+    fetch("/api/logout",{method:"post",headers:{"Content-Type":"application/json"}}).then(()=>{
         location.reload();
 
     })

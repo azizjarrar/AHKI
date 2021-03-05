@@ -32,7 +32,7 @@
 }
 .ProfileImage{
     position: relative;
-    height: 150px;
+    height: 180px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -45,14 +45,25 @@
     .image{
         position: relative;
         cursor: pointer;
-        height: 140px;
-        width: 140px;
-        background-image: url("./me.jpg");
-        background-position: center;
-        background-size: 100%;
-        background-repeat: no-repeat;
-        //border: 1px solid $primary;
+        height: 168px;
+        width: 168px;
         border-radius: 50%;
+        .underimage{
+            position: relative;
+            height: 168px;
+            width: 168px;
+            border-radius: 50%;
+            overflow:hidden;
+            border: 3px solid $primary;
+
+            img{
+                position: absolute;
+                height: auto;
+                max-width: 100%;
+    
+            }
+        }
+
         &::after{
             content: "";
             position: absolute;
@@ -71,6 +82,27 @@
             width: 25px;
             bottom: 5px;
             right: 5px;
+            input[type=file], /* FF, IE7+, chrome (except button) */
+            input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+                cursor: pointer; 
+                opacity: 0;
+    
+            }
+            cursor: pointer;
+            input{
+                cursor: pointer;
+                opacity: 0;
+                position: absolute;
+                height: 100%;
+                top: 0;
+                left: 0;
+                width: 100%;
+                opacity: 1;
+                img{
+                    margin: 0 1.5px;
+    
+                }
+            }
 
         }
     }
