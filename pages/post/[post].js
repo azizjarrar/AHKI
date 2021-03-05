@@ -2,10 +2,12 @@ import React from 'react'
 import Styles from '../../styles/post.module.scss'
 import Publication from '../../components/publication/publication'
 import Head from 'next/head'
+import NavBar from '../../components/navBar/NavBar'
 
 const Post = () => {
     return (
         <div className={Styles.container}>
+            <NavBar></NavBar>
             <Head>
                 <title>unha</title>
                 <link rel="icon" href="/favicon.ico" />

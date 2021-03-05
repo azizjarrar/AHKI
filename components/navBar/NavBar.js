@@ -5,7 +5,7 @@ import SideNavBar from './sideNavBar/SideNavBar'
 import PorfileMenu from '../profileMenu/profileMenu'
 import Link from 'next/link'
 
-const NavBar = (token) => {
+const NavBar = ({token}) => {
     const [modalSingInSingUp,setModalSingInSingUp]=useState(false)//open modal
     const [heightAndWidthOfWindow,setHeightAndWidthOfWindow]=React.useState({width:'',height:''})//responsive handler
     const [openSlideMenuVar,setOpenSlideMenuVar]=useState(false)//open side navbar mobile
@@ -15,7 +15,6 @@ const NavBar = (token) => {
         setModalSingInSingUp(e=>!e)
     }
     React.useEffect(() => {
-    
         setHeightAndWidthOfWindow({height:window.innerHeight,width:window.innerWidth})
       }, []);
       React.useEffect(()=>{
@@ -56,7 +55,7 @@ const NavBar = (token) => {
             <div className={Style.container}>
             {modalSingInSingUp&&<ModalSingInSingUp openOrcloseModal={()=>openModalSingInSingUp()}></ModalSingInSingUp>}
             <nav className={Style.nav}>
-            <Link href="/"><div className={Style.Logo}><h1>AHKI</h1></div></Link>
+            <Link href="/"><div className={Style.Logo}><h1>SPAKSI</h1></div></Link>
 
             <div className={Style.Search}>
                 <div className={Style.flexItems}>
@@ -71,7 +70,7 @@ const NavBar = (token) => {
                 </form>
                 </div>
             </div>
-            {!token&&<div className={Style.authenticated}>   
+            {token&&<div className={Style.authenticated}>   
             <div className={Style.notification}>
                 <svg width="35" height="35" viewBox="0 0 50 50" fill="#1876f3" xmlns="http://www.w3.org/2000/svg">
                 <path d="M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z" fill="#1876f3"/>
@@ -79,7 +78,7 @@ const NavBar = (token) => {
             </div>
             <div className={Style.profile} onClick={()=>openMenuProfileonClick()} onMouseLeave={()=>closeMenuProfile()} onMouseEnter={()=>openMenuProfile()}>{openMenuProfileState&&<PorfileMenu></PorfileMenu>}</div>
             </div>}
-            {token&&<div className={Style.Nonauthenticated}>
+            {!token&&<div className={Style.Nonauthenticated}>
             <button onClick={()=>openModalSingInSingUp()}><p>Log In</p></button>
             </div>
             }
@@ -106,7 +105,7 @@ const NavBar = (token) => {
                 </form>
                 </div>
             </div>
-            {!token&&<div className={Style.authenticated}>
+            {token&&<div className={Style.authenticated}>
             <div className={Style.notification}>
                 <svg width="35" height="35" viewBox="0 0 50 50" fill="#1876f3" xmlns="http://www.w3.org/2000/svg">
                 <path d="M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z" fill="#1876f3"/>
@@ -114,7 +113,7 @@ const NavBar = (token) => {
             </div>
             <div className={Style.profile} onClick={()=>openMenuProfileonClick()} onMouseLeave={()=>closeMenuProfile()} onMouseEnter={()=>openMenuProfile()}>{openMenuProfileState&&<PorfileMenu></PorfileMenu>}</div>
             </div>}
-            {token&&<div className={Style.Nonauthenticated}>
+            {!token&&<div className={Style.Nonauthenticated}>
             <button onClick={()=>openModalSingInSingUp()}><p>Log In</p></button>
 
 

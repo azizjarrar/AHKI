@@ -1,21 +1,27 @@
 @import "../../styles/colors"; 
 @import "../../styles/button";
 .container{
-    position: relative;
+    position: sticky;
+    z-index: 156156556;
+    top: 0px;
+    
+    right:0px;
+    width: 100%;
     height: 70px;
     max-height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: visible;
+    background-color: white !important;
     &::after{
         content: "";
         position: absolute;
         bottom: 0;
         width: 100%;
-        height: 2px;
+        height: 1px;
         background-color: $gray;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
     }
 }
 .nav{
@@ -130,6 +136,7 @@
     align-items: center;
     justify-content: space-around;
     gap: 20px;
+    margin-right: 10px;
     .notification{
         cursor: pointer;
     }

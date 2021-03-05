@@ -9,7 +9,8 @@ const removeCookie=()=>{
     })
 
 }
-const profileMenu = () => {
+const profileMenu = (props) => {
+    console.log(props.closeProfileMenuProps)
     return (
         <div className={Styles.container}>
             <div className={Styles.hoverHandler}>

@@ -5,7 +5,7 @@ import HomeTodayTopics from '../components/homeTodayTopics/homeTodayTopics'
 import HomeUsersStorys from '../components/homeUsersStorys/homeUsersStorys'
 import ChangeLanguage from '../components/changeLanguage/changeLanguage'
 import languageDoc from '../components/Language/Language'
-import Auth from '../auth/auth'
+import NavBar from '../components/navBar/NavBar'
 
 function Home(props) {
 
@@ -46,6 +46,7 @@ function Home(props) {
 
   return (
     <div className={styles.container}>
+      <NavBar token={props.token}></NavBar>
       <Head>
         <title>AHKI</title>
         <link rel='icon' href='/favicon.ico' />
@@ -83,3 +84,7 @@ function Home(props) {
 }
 
 export default Home
+
+export async function getServerSideProps({req,res}) {
+  return req.cookies.token ?{props: {token:req.cookies.token}}:{props:{token:false}}
+}

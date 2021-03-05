@@ -2,6 +2,7 @@ import React from 'react'
 import Style from '../../styles/profile.module.scss'
 import Link from 'next/link'
 import languageDoc from '../../components/Language/Language'
+import NavBar from '../../components/navBar/NavBar'
 
 const profile = () => {
 /******************************************************************************************
@@ -25,6 +26,7 @@ const profile = () => {
     ******************************************************************************************/
     return (
         <div className={Style.container}>
+            <NavBar></NavBar>
             <div className={Style.profile}>
                 <div className={Style.ProfileImage}><div className={`${Style.image} ${Style.removeAfter}`}  ></div></div>
 

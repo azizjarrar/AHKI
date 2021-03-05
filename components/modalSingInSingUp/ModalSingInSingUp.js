@@ -242,12 +242,12 @@ const ModalSingInSingUp = (props) => {
       if(res.data.state==false){
         alert(res.data.message)
       }else{
-        fetch("api/login",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
-          //location.reload();
-          props.openOrcloseModal()
+        fetch("api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
+          localStorage.setItem("ref_token",res.data.ref_token)
+            location.reload();
+            props.openOrcloseModal()
+    
         })
- 
-
       }
     }).catch(e=>{console.log(e)})
   }

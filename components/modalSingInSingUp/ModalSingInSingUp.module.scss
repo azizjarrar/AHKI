@@ -192,15 +192,13 @@
         padding: 13px;
         background-color: white;
         color: $primary;
-        -webkit-text-fill-color: white; /* Will override color (regardless of order) */
-        -webkit-text-stroke-width: 1px;
-        -webkit-text-stroke-color: $primary;
+;
         border : 1px solid $primary;
         font-size: 2rem;
         margin-top: 20px;
         margin-bottom: 20px;
         &:hover{
-            -webkit-text-stroke-color: white;
+            color: white;
 
         }
     }

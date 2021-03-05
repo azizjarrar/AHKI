@@ -2,9 +2,12 @@ import React from 'react'
 import Style from '../../styles/profile.module.scss'
 import Link from 'next/link'
 import languageDoc from '../../components/Language/Language'
-import Auth from '../../auth/auth'
+import NavBar from '../../components/navBar/NavBar'
+import {GetUserData} from '../../services/user'
 const Profile = (props) => {
+    const [user,setUser]=React.useState({})
     const [yourFeeds, setYourFeeds] = React.useState("Your Posts")
+    
     /******************************************************************************************
     *this code will change lang uage
     ******************************************************************************************/
@@ -16,6 +19,16 @@ const Profile = (props) => {
         Likes: languageDoc.Language.Profile.Likes["eng"],
     })
     React.useEffect(() => {
+        /********************fetch user data************************/
+        /***********************************************************/
+
+
+        GetUserData(props.token).then(data=>{
+            console.log(data)
+        }).catch(e=>{
+            console.log(e)
+
+        })
         setlanguage({
             Following: languageDoc.Language.Profile.Following[localStorage.getItem("language")],
             Followers: languageDoc.Language.Profile.Followers[localStorage.getItem("language")],
@@ -31,10 +44,9 @@ const Profile = (props) => {
     const change = (e) => {
         setYourFeeds(e)
     }
-
-
     return (
         <div className={Style.container}>
+            <NavBar token={props.token}></NavBar>
             <div className={Style.profile}>
                 <div className={Style.ProfileImage}><div className={Style.image}><svg className={Style.camera} xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" /></svg></div></div>
                 <div className={Style.userName}><h2>Aziz Jarrar</h2></div>
@@ -51,4 +63,7 @@ const Profile = (props) => {
     )
 }
 
-export default Auth(Profile)
+export default Profile
+export async function getServerSideProps({req,res}) {
+    return req.cookies.token ?{props: {token:req.cookies.token}}:{redirect: { destination: '/', permanent: false, }}
+}

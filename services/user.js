@@ -1,9 +1,16 @@
-import axios from 'axios'
-
+import axiosApiInstance from '../interceptor/interceptor'
 const Login = async (data) => {
-  return axios.post('/user/login',{...data})
+  return axiosApiInstance.post('/user/login',{...data})
+}
+const LoginFacebook = async (data) => {
+  console.log(data)
+  return axiosApiInstance.post('/user/loginfacebook',{...data})
 }
 const Register = async (data) => {
-  return axios.post('/user/register',{...data})
+  return axiosApiInstance.post('/user/register',{...data})
 }
-export { Login , Register}
+const GetUserData = async (token) => {
+
+  return axiosApiInstance.get('/user/GetUserData',{ headers: {Authorization: 'Bearer ' + token }})
+}
+export { Login , Register,LoginFacebook,GetUserData}
