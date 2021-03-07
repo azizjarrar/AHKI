@@ -145,11 +145,26 @@
 
     }
     .profile{
+        position: relative;
         cursor: pointer;
         height: 40px;
         width: 40px;
-        border: 1px solid $primary;
         border-radius: 50%;
+        .navBarImageContainer{
+            position: relative;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            img{
+                position: absolute;
+                min-height: 100%;
+                max-width: 100%;
+                pointer-events: none;
+            }
+        }
+
     }
 }
 /********************mobile***********************/

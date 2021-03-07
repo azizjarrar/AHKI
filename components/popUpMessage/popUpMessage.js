@@ -21,7 +21,7 @@ const popUpMessage = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Smoufy"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <p className={Styles.errorText}>

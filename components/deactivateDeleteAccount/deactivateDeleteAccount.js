@@ -1,26 +1,9 @@
 import React from 'react'
 import Style from './deactivateDeleteAccount.module.scss'
-import languageDoc from '../Language/Language'
-
+import LanguageContext from '../../context/languageContext'
 const deactivateDeleteAccount = () => {
-    /******************************************************************************************
-  *this code will change language
-  ******************************************************************************************/
-    const [language, setlanguage] = React.useState({
-        savechange: languageDoc.Language.ProfileSettings.savechange["eng"],
-        Deactivating: languageDoc.Language.ProfileSettings.Deactivating["eng"],
-        DeleteAccountHeader: languageDoc.Language.ProfileSettings.DeleteAccountHeader["eng"],
-        password: languageDoc.Language.ProfileSettings.password["eng"],
+    const [language , setLanguage]=React.useContext(LanguageContext)
 
-    })
-    React.useEffect(() => {
-        setlanguage({
-            savechange: languageDoc.Language.ProfileSettings.savechange[localStorage.getItem("language")],
-            Deactivating: languageDoc.Language.ProfileSettings.Deactivating[localStorage.getItem("language")],
-            password: languageDoc.Language.ProfileSettings.password[localStorage.getItem("language")],
-        })
-
-    }, [])
     /******************************************************************************************
       *****************************************************************************************
       ******************************************************************************************/

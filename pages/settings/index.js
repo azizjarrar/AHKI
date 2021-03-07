@@ -1,10 +1,7 @@
 import React from 'react'
 import Styles from '../../styles/settings.module.scss'
 import UpdateProfileData from '../../components/updateProfileData/updateProfileData'
-import UpdatePassword from '../../components/updatePassword/updatePassword'
-import DeactivateDeleteAccount from '../../components/deactivateDeleteAccount/deactivateDeleteAccount'
 import NavBar from '../../components/navBar/NavBar'
-import Home from '../index'
 import { useRouter } from 'next/router'
 
 
@@ -18,8 +15,6 @@ const ProfileSettings = (props) => {
         <div className={Styles.Settings}>
           <div className={Styles.pagesContainer}>
           <UpdateProfileData></UpdateProfileData>
-          <UpdatePassword></UpdatePassword>
-          <DeactivateDeleteAccount></DeactivateDeleteAccount>
           </div>
         </div>
         </div>

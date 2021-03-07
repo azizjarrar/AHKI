@@ -5,12 +5,9 @@ import cookie from 'js-cookie'
 const removeCookie=()=>{
     fetch("/api/logout",{method:"post",headers:{"Content-Type":"application/json"}}).then(()=>{
         location.reload();
-
     })
-
 }
 const profileMenu = (props) => {
-    console.log(props.closeProfileMenuProps)
     return (
         <div className={Styles.container}>
             <div className={Styles.hoverHandler}>

@@ -134,10 +134,11 @@
     top: 50%;
     transform: translate(-50%,-50%);
     .inputContainer{
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin-top: 13px;
+        margin-bottom: 13px;
         position: relative;
         width: 100%;
+        max-height: 46px
     
     }
     .input{
@@ -286,75 +287,32 @@
     
         }
     }
-   /* .form{
-        transform: translate(-0%,-0%);
-        margin: 0 auto;
-        margin-top: 10px;
-        left: initial;
-        height: auto;
-    }
 
 
-    .formContainer{
-        position: relative;
-        height: 95%;
-        width: 95%;
-        min-width: 300px;
 
-    }
-    .formsContainer{
-        width: 100%;
-        display: flex;
-        flex-direction: row;
+  
+}
+.telOrEmail{
+
+    position: relative;
+    width: 100%;
+    height: auto;
+    height: 46px;
+
+    .tel{
+        position: absolute;
         height: 100%;
-        overflow: auto;
-        border-radius: 15px;
-  
-        .singIn{
-            position: relative;
-            height: 100%;
-            min-width: 100%;
-            transition: 0.8s;
-            background-color: white;
-            border-top-left-radius: 15px;
-            border-Bottom-left-radius: 15px;
-            z-index: 1;
-        }
-        .singUp{
-            position: relative;
-            height: 100%;
-            min-width: 100%;
-            transition: 0.8s;
-            background-color: white;
-            border-top-left-radius: 15px;
-            border-Bottom-left-radius: 15px;
-            z-index: 2;
-            .Age{
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: flex-start;
-                gap: 5px;
-                .selectContainer{
-                    width: 100%;
-                    align-items: flex-start !important;
-                    justify-content: flex-start !important;
-                    label{
-                        width: 70px !important;
-                        align-items: left;
-                    }
-                }
-                p{
-                    font-size: 2rem;
-                }
-            }
-    
-        }
-    }
-    */
+        width: 100%;
+        position: relative;
 
-  
+    }
+    .email{
+        top: 0;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        
+    }
 }
 .closebtn{
     @include closebtnFn();
@@ -369,4 +327,15 @@
          top: 10px;
     }
 
+}
+.labelEmailOrPassword{
+    position: absolute;
+    bottom: 110%;
+    right: 0;
+    cursor: pointer;
+    p{
+        color: $primary;
+        font-size: 1.5rem;
+
+    }
 }

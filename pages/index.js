@@ -4,34 +4,14 @@ import styles from '../styles/home.module.scss'
 import HomeTodayTopics from '../components/homeTodayTopics/homeTodayTopics'
 import HomeUsersStorys from '../components/homeUsersStorys/homeUsersStorys'
 import ChangeLanguage from '../components/changeLanguage/changeLanguage'
-import languageDoc from '../components/Language/Language'
 import NavBar from '../components/navBar/NavBar'
+import LanguageContext from '../context/languageContext'
 
 function Home(props) {
+  const [language, setLanguage] = React.useContext(LanguageContext)
+  const [choice_TopicToday_or_usersTopics, setChoice_TopicToday_or_usersTopics,] = React.useState('todayTopics') //user topics is friends publication in the page i will change it later
 
-  const [
-    choice_TopicToday_or_usersTopics,
-    setChoice_TopicToday_or_usersTopics,
-  ] = React.useState('todayTopics') //user topics is friends publication in the page i will change it later
-  /******************************************************************************************
-   *this code will change language
-   ******************************************************************************************/
-  const [language, setlanguage] = React.useState({
-    todayTopic: languageDoc.Language.navbarHome.todayTopic['eng'],
-    FriendsPosts: languageDoc.Language.navbarHome.FriendsPosts['eng'],
-  })
-  React.useEffect(() => {
-    setlanguage({
-      todayTopic:
-        languageDoc.Language.navbarHome.todayTopic[
-          localStorage.getItem('language')
-        ],
-      FriendsPosts:
-        languageDoc.Language.navbarHome.FriendsPosts[
-          localStorage.getItem('language')
-        ],
-    })
-  }, [])
+  
   /******************************************************************************************
   *this code will change between 2 page today topic
   *or friends publication
@@ -60,24 +40,12 @@ function Home(props) {
         <ChangeLanguage></ChangeLanguage>
         <div className={styles.navbar_Choice_TopicToday_or_usersTopics}>
           <div
-            className={styles.Line}
-            style={
-              choice_TopicToday_or_usersTopics == 'todayTopics'
-                ? { left: '0' }
-                : { left: '50%' }
-            }
-          ></div>
+            className={styles.Line} style={choice_TopicToday_or_usersTopics == 'todayTopics' ? { left: '0' } : { left: '50%' }}></div>
           <h2 onClick={() => change('todayTopics')}>{language.todayTopic}</h2>
-          <h2 onClick={() => change('otherPeopleStory')}>
-            {language.FriendsPosts}
-          </h2>
+          <h2 onClick={() => change('otherPeopleStory')}>{language.FriendsPosts}</h2>
         </div>
-        {choice_TopicToday_or_usersTopics == 'todayTopics' && (
-          <HomeTodayTopics></HomeTodayTopics>
-        )}
-        {choice_TopicToday_or_usersTopics == 'otherPeopleStory' && (
-          <HomeUsersStorys></HomeUsersStorys>
-        )}
+        {choice_TopicToday_or_usersTopics == 'todayTopics' && (<HomeTodayTopics></HomeTodayTopics>)}
+        {choice_TopicToday_or_usersTopics == 'otherPeopleStory' && (<HomeUsersStorys></HomeUsersStorys>)}
       </div>
     </div>
   )
@@ -85,6 +53,6 @@ function Home(props) {
 
 export default Home
 
-export async function getServerSideProps({req,res}) {
-  return req.cookies.token ?{props: {token:req.cookies.token}}:{props:{token:false}}
+export async function getServerSideProps({ req, res }) {
+  return req.cookies.token ? { props: { token: req.cookies.token } } : { props: { token: false } }
 }

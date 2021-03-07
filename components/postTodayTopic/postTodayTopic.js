@@ -1,29 +1,14 @@
 import React from 'react'
 import Styles from './TodayTopic.module.scss'
 import EmojiPicker from '../emojiPicker/emojiPicker'
-import languageDoc from '../Language/Language'
+import LanguageContext from '../../context/languageContext'
 
 const PostTodayTopic = () => {
   const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)//if its true emoji container will be open if its false it will be close
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
   const [mask, setMask] = React.useState(false)
-  /******************************************************************************************
-*this code will change language
-******************************************************************************************/
-  const [language, setlanguage] = React.useState({
-    placeholderInput: languageDoc.Language.placeholderInput["eng"],
-    Uploadphotowithyourpost: languageDoc.Language.iconHovertexts.Uploadphotowithyourpost["eng"],
-    postAnonymously: languageDoc.Language.iconHovertexts.postAnonymously["eng"],
-  })
-  React.useEffect(() => {
+  const [language , setLanguage]=React.useContext(LanguageContext)
 
-    setlanguage({
-      placeholderInput: languageDoc.Language.placeholderInput[localStorage.getItem("language")],
-      Uploadphotowithyourpost: languageDoc.Language.iconHovertexts.Uploadphotowithyourpost[localStorage.getItem("language")],
-      postAnonymously: languageDoc.Language.iconHovertexts.postAnonymously[localStorage.getItem("language")],
-    })
-
-  }, [])
 
   /************************************************/
   /****************open  emoji container************/

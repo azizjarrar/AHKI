@@ -3,25 +3,16 @@ import Styles from './publication.module.scss'
 import Comment from '../comment/comment'
 import EmojiPicker from '../emojiPicker/emojiPicker'
 import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSettings'
-import languageDoc from '../Language/Language'
-
+import LanguageContext from '../../context/languageContext'
 const publication = (props) => {
   const [slice, setSlice] = React.useState(100)
   const [comments, setComments] = React.useState(false)
   const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)//if its true emoji container will be open if its false it will be close
   const [settings, setSettings] = React.useState(false)
   const [mask, setMask] = React.useState(false)
-  /******************************************************************************************
-  *this code will change language
-  ******************************************************************************************/
-  const [language, setlanguage] = React.useState({
-    placeholderInput: languageDoc.Language.placeholderInput["eng"],
-  })
-  React.useEffect(() => {
-    setlanguage({
-      placeholderInput: languageDoc.Language.placeholderInput[localStorage.getItem("language")],
-    })
-  }, [])
+  const [language , setLanguage]=React.useContext(LanguageContext)
+
+
   /************************************************/
   /*when load publicationn that had more then 100 car
   /*slice anything after 100 the show it later 

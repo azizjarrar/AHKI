@@ -5,8 +5,10 @@ import { withStyles } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import MenuItem from '@material-ui/core/MenuItem';
 import PhoneInput from 'react-phone-input-2'
-import languageDoc from '../Language/Language'
 import 'react-phone-input-2/lib/material.css'
+import UserContext from '../../context/userContext'
+import LanguageContext from '../../context/languageContext'
+
 const BootstrapInput = withStyles((theme) => ({
   root: {
     'label + &': {
@@ -54,40 +56,19 @@ const updateProfileData = () => {
   const [day, setday] = React.useState(18);
   const [month, setmonth] = React.useState(1);
   const [year, setyear] = React.useState(1991);
-  const [registerState, setregisterState] = React.useState({ userName: "", tel: "", password: "", birthDay: { day: '', month: '', year: '' }, dialCode: "" })
-  /******************************************************************************************
-**************************this code will change language************************************
-******************************************************************************************/
-  const [language, setlanguage] = React.useState({
-    username: languageDoc.Language.ProfileSettings.username["eng"],
-    firstname: languageDoc.Language.ProfileSettings.firstname["eng"],
-    lastname: languageDoc.Language.ProfileSettings.lastname["eng"],
-    biography: languageDoc.Language.ProfileSettings.biography["eng"],
-    email: languageDoc.Language.ProfileSettings.email["eng"],
-    phone: languageDoc.Language.ProfileSettings.phone["eng"],
-    savechange: languageDoc.Language.ProfileSettings.savechange["eng"],
-    day: languageDoc.Language.ProfileSettings.date.day["eng"],
-    month: languageDoc.Language.ProfileSettings.date.month["eng"],
-    year: languageDoc.Language.ProfileSettings.date.year["eng"],
-  })
-  React.useEffect(() => {
-    setlanguage({
-      username: languageDoc.Language.ProfileSettings.username[localStorage.getItem("language")],
-      firstname: languageDoc.Language.ProfileSettings.firstname[localStorage.getItem("language")],
-      lastname: languageDoc.Language.ProfileSettings.lastname[localStorage.getItem("language")],
-      biography: languageDoc.Language.ProfileSettings.biography[localStorage.getItem("language")],
-      email: languageDoc.Language.ProfileSettings.email[localStorage.getItem("language")],
-      phone: languageDoc.Language.ProfileSettings.phone[localStorage.getItem("language")],
-      savechange: languageDoc.Language.ProfileSettings.savechange[localStorage.getItem("language")],
-      day: languageDoc.Language.ProfileSettings.date.day[localStorage.getItem("language")],
-      month: languageDoc.Language.ProfileSettings.date.month[localStorage.getItem("language")],
-      year: languageDoc.Language.ProfileSettings.date.year[localStorage.getItem("language")],
-    })
+  const [settingUserData, setsettingUserData] = React.useState({ userName: "", tel: "", password: "", birthDay: { day: '', month: '', year: '' }, dialCode: "" })
+  const {user,setUser}= React.useContext(UserContext)
+  const [language , setLanguage]=React.useContext(LanguageContext)
 
-  }, [])
+
   /******************************************************************************************
 *********************************************************************************************
 ******************************************************************************************/
+React.useEffect(()=>{
+  setsettingUserData((e)=>{
+    return {...e,userName:user.userName,firstName:user.firstName,lastName:user.lastName,biography:user.biography,email:user.email}
+  })
+},[user])
   var yearArray = []
   var dayArray = []
   var monthArray = []
@@ -107,20 +88,15 @@ const updateProfileData = () => {
   /****************************************/
   /****************Set bearhDay************/
   /****************************************/
-  const handleChangeday = (event) => {
+   const handleChangeday = (event) => {
     setregisterState(e => {
-      return { ...e, birthDay: { ...e.birthDay, day: event.target.value } }
-    })
-  };
+      return { ...e, birthDay: { ...e.birthDay, day: event.target.value } }})
+    };
   const handleChangeyear = (event) => {
-    setregisterState(e => {
-      return { ...e, birthDay: { ...e.birthDay, year: event.target.value } }
-    })
+    setregisterState(e => {return { ...e, birthDay: { ...e.birthDay, year: event.target.value } }})
   };
   const handleChangemonth = (event) => {
-    setregisterState(e => {
-      return { ...e, birthDay: { ...e.birthDay, month: event.target.value } }
-    })
+    setregisterState(e => {return { ...e, birthDay: { ...e.birthDay, month: event.target.value } }})
   };
   return (
     <div className={Style.container}>
@@ -128,12 +104,10 @@ const updateProfileData = () => {
       <div className={Style.userName}><h2>Aziz Jarrar</h2></div>
       <div className={Style.formContainer}>
         <form className={Style.form} onChange={(e) => formValidation(e)}>
-          <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.username}</span></label></div>
-          <div className={Style.inputContainer}><input name="FirstName" type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.firstname}</span></label></div>
-          <div className={Style.inputContainer}><input name="lastname" type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.lastname}</span></label></div>
-          <div className={Style.inputContainer}><input name="biography" type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.biography}</span></label></div>
-          <div className={Style.inputContainer}><input name="email" type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.email}</span></label></div>
-          <div className={Style.inputContainer}><PhoneInput specialLabel={language.phone} label={"gezgz"} country={'tn'} value={registerState.tel} onChange={(e, country) => onChangeHandlerRegisterPhone(e, country)} /></div>
+          <div className={Style.inputContainer}><input name="userName" defaultValue={""} value={settingUserData.userName} type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.username}</span></label></div>
+          <div className={Style.inputContainer}><input name="FirstName" defaultValue={""} value={settingUserData.FirstName} type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.firstname}</span></label></div>
+          <div className={Style.inputContainer}><input name="lastname" defaultValue={""} value={settingUserData.lastname} type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.lastname}</span></label></div>
+          <div className={Style.inputContainer}><input name="biography" defaultValue={""} value={settingUserData.biography} type="text" className={Style.input} required /><label><span className={Style.labelspan}>{language.biography}</span></label></div>
           <div className={Style.inputContainer}>
             <div className={Style.Age}>
               <div className={Style.selectContainer}>
@@ -183,8 +157,9 @@ const updateProfileData = () => {
               </div>
             </div>
           </div>
+          <div className={Style.inputContainer}><p>Your Email Address is {user.email}</p><span className={Style.update}>  UPDATE</span></div>
+          <div className={Style.inputContainer}><p>Your phone number is {user.tel}</p><span className={Style.update}>  UPDATE</span></div>
           <button>{language.savechange}</button>
-
         </form>
       </div>
     </div>
