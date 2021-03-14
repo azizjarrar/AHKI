@@ -24,17 +24,17 @@ const popUpMessage = (props) => {
         <DialogTitle id="alert-dialog-title">{"Smoufy"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            <p className={Styles.errorText}>
+            <span className={Styles.errorText}>
                 {props.openPopUp.text}
-            </p>
+            </span>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            <p className={Styles.errorBtns}>Disagree</p>
+            <span className={Styles.errorBtns}>Disagree</span>
           </Button>
           <Button onClick={handleClose} color="primary" autoFocus>
-            <p className={Styles.errorBtns}>Agree</p>
+            <span className={Styles.errorBtns}>Agree</span>
           </Button>
         </DialogActions>
       </Dialog>

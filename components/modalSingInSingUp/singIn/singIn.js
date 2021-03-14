@@ -10,8 +10,14 @@ const singIn = (props) => {
     const singIn=()=>{
         Login(loginState).then(res=>{
           if(res.data.state==false){
+            console.log(res)
             props.setErrorMessageProps({state:true,text:res.data.message})
+          }else if(res.data.data.verified){
+            console.log(res.data.data.verified)
+            props.openVerifieAccountModal()
           }else{
+            console.log(res.data.data.verified)
+
             fetch("/api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
               localStorage.setItem("ref_token",res.data.ref_token)
                 location.reload();
@@ -30,8 +36,8 @@ const singIn = (props) => {
         <div className={Style.singIn} style={props.showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '100%' }}>
             <form className={Style.form} onSubmit={e => {e.preventDefault();}}  autoComplete="new-password">
               <input type="text" name="" value="" readOnly={true} style={{display: "none"}}/>
-              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"identity"}              type="text" className={Style.input} required /><label><span className={Style.labelspan}>tel or email</span></label></div>
-              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}    name={"password"} type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
+              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"identity"}  type="text" className={Style.input} required /><label><span className={Style.labelspan}>tel or email</span></label></div>
+              <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"password"}  type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
               <button className={Style.btn} onClick={()=>singIn()}>{language.signin}</button>
               <p className={Style.message}>{language.YoudonthaveaccountClickhereto} <span className={Style.clickHere} onClick={() => props.fnshowSingInOrSingUp()}>{language.signup}</span></p>
               <FacebookLogIn></FacebookLogIn>

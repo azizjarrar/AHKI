@@ -36,7 +36,9 @@ const initLanguage=(e)=>{
                 signin:'sign in',
                 signup:'sign up',
                 AlreadyHaveAccount:'Already Have Account',
-                YoudonthaveaccountClickhereto:'You dont have account Click here to'
+                YoudonthaveaccountClickhereto:'You dont have account Click here to',
+                verificationcode:"verification code",
+                send:"send"
             }
           break;
         case "fr":
@@ -73,7 +75,9 @@ const initLanguage=(e)=>{
                 signin:"s'identifier",
                 signup:"S'inscrire",
                 AlreadyHaveAccount:'Vous avez déjà un compte',
-                YoudonthaveaccountClickhereto:"Vous n'avez pas de compte Cliquez ici pour"
+                YoudonthaveaccountClickhereto:"Vous n'avez pas de compte Cliquez ici pour",
+                verificationcode:"code de vérification",
+                send:"envoyer"
             }
           break;
           case "arabic":
@@ -111,7 +115,9 @@ const initLanguage=(e)=>{
                 signin:'تسجيل الدخول',
                 signup:'اشتراك',
                 AlreadyHaveAccount:'لديك حساب بالفعل',
-                YoudonthaveaccountClickhereto:'ليس لديك حساب انقر هنا'
+                YoudonthaveaccountClickhereto:'ليس لديك حساب انقر هنا',
+                verificationcode:"رمز التحقق",
+                send:"إرسال"
             }
               break;
         default:
@@ -148,7 +154,10 @@ const initLanguage=(e)=>{
                 signin:'sign in',
                 signup:'sign up',
                 AlreadyHaveAccount:'Already Have Account',
-                YoudonthaveaccountClickhereto:'You dont have account Click here to'
+                YoudonthaveaccountClickhereto:'You dont have account Click here to',
+                verificationcode:"verification code",
+                send:"send"
+
             }
       }
       return lang

@@ -35,7 +35,6 @@ function MyApp({Component, pageProps }) {
     <>
       <div className='appWrapper'>
       <LanguageContext.Provider value={languageProvider}>
-
         <UserContext.Provider value={userProvider} >
             <Component {...pageProps} />
         </UserContext.Provider>
