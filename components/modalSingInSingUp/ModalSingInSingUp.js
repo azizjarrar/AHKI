@@ -26,6 +26,7 @@ const ModalSingInSingUp = (props) => {
   const openVerifieAccountModalfn=()=>{
     setverifiedAccountModal(e=>!e)
   }
+  /***test */
   return (
     <div className={Style.contrainer}>
           {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
