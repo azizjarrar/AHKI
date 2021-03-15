@@ -43,7 +43,8 @@ const singIn = (props) => {
     return (
         <div className={Style.singIn} style={props.showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '100%' }}>
             <form className={Style.form} onSubmit={e => {e.preventDefault();}}  autoComplete="new-password">
-                    <div className={Style.pageHeader}><h2>Log in</h2></div>
+                    <div className={Style.pageHeader}><h2>Log in to SmouFy</h2></div>
+                    <div className={Style.descriptionHeader}><h3>create a profile follow other accounts talk about your owen experince and more</h3></div>
 
               <input type="text" name="" value="" readOnly={true} style={{display: "none"}}/>
               <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"identity"}  type="text" className={Style.input} required /><label><span className={Style.labelspan}>tel or email</span></label></div>

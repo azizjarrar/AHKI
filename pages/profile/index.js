@@ -5,6 +5,8 @@ import NavBar from '../../components/navBar/NavBar'
 import UserContext from '../../context/userContext'
 import LanguageContext from '../../context/languageContext'
 import {ChangeProfileImage} from '../../services/user'
+import PostUsersStorys from '../../components/postUsersStorys/postUsersStorys'
+
 const Profile = (props) => {
     const [yourFeeds, setYourFeeds] = React.useState("Your Posts")
     const [user,setUser]= React.useContext(UserContext)
@@ -41,10 +43,12 @@ const Profile = (props) => {
                 <div className={Style.timelineAndparameters}>
                     <div className={Style.timeLineContainer}>
                         <div className={Style.navbar}><div className={Style.Line} style={yourFeeds == "Your Posts" ? { left: '0' } : { left: "50%" }}></div><h2 onClick={() => change("Your Posts")}>{language.YourPosts}</h2><h2 onClick={() => change("Likes")}>{language.Likes}</h2></div>
-                        <div className={Style.timeLine}></div>
                     </div>
                 </div>
             </div>
+            <div className={Style.timeLine}>
+                            <PostUsersStorys></PostUsersStorys>
+                        </div>
         </div>
     )
 }

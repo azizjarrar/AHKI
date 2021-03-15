@@ -1,0 +1,168 @@
+@import "../../../styles/colors"; 
+
+.Container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    &::after{
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background-color: $gray;
+    }
+}
+.image{
+    position: relative;
+    height: 150px;
+    width: 100%;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .userImage{
+        position: relative;
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 5px solid rgba(110, 110, 110,0.1);
+
+        img{
+            position: absolute;
+            top: 0;
+            max-width: 100%;
+            min-height: 100%;
+            height: auto;
+
+        }
+    }
+    .imageContainer{
+        position: relative;
+        height: 120px;
+        width: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        overflow: visible;
+        &:after{
+            content: "";
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            background-color: #e4e6eb;
+            bottom: 0px;
+            right: 0px;
+            z-index: 3;
+            border-radius: 50%;
+            z-index: 1500;
+        }
+        img{
+            position: absolute;
+            top: 0;
+            height: auto;
+            max-width: 100%;
+        }
+    }
+}
+.name{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+        font-size: 1.8rem;
+        color: #1876f3;
+    }
+}
+.pages{
+    position: relative;
+    height: auto;
+    width: 100%;
+    svg{
+        height: 30px;
+        width: 30px;
+        margin: 0 20px;
+    }
+    ul{
+        position: absolute;
+        left:0;
+        padding: 0;
+        width: 100%;
+        li{
+            height: 70px;
+            font-size: 2rem;
+            list-style-type: none;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            &:hover{
+                background-color: $primary;
+                color: white;
+            }
+            &::after{
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom:  0;
+                width: 100%;
+                height: 2px;
+                background-color: $gray;
+            }
+
+        }
+    }
+}
+/**/
+.camera{
+    z-index: 4;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    bottom: 5px;
+    right: 5px;
+    z-index: 5156165;
+
+    input[type=file], /* FF, IE7+, chrome (except button) */
+    input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+        cursor: pointer; 
+        opacity: 0;
+
+    }
+    cursor: pointer;
+    input{
+        cursor: pointer;
+        opacity: 0;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+        width: 100%;
+        opacity: 1;
+        img{
+            margin: 0 1.5px;
+
+        }
+    }
+
+}
+@media (orientation: portrait) , (max-height: 500px){
+    .pages{
+
+        svg{
+            height: 30px;
+            width: 30px;
+            margin: 0 20px;
+        }
+        li{
+            height: 50px !important;
+        }
+    }
+
+}

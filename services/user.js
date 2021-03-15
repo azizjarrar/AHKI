@@ -23,4 +23,8 @@ const activeAccount=async (userid,verificationCode)=>{
 const reSendVerificationCode=async (userid,verificationCode)=>{
   return axiosApiInstance.post("/user/reSendVerificationCode",{userid,verificationCode});
 }
-export { Login , Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+const removeToken=async (userid)=>{
+  return axiosApiInstance.post("/user/removeToken",{userid});
+}
+
+export { Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

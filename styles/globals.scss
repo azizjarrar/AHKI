@@ -15,7 +15,8 @@ body {
   height: calc(100%);
   width: 100%;
   overflow-y: visible;
-  background-color: #f0f2f5;
+  //background-color: #f0f2f5;
+  background-color: #dae0e6;
   z-index: 1;
 }
 h1,h2{
@@ -39,9 +40,11 @@ td{
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
+ul{
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+}
 li{
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-
 }
 span{
   margin: 0;

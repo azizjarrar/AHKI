@@ -1,0 +1,110 @@
+@import "../../../../styles/button"; 
+@import "../../../../styles/colors"; 
+
+.container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+}
+.header{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    h1{
+        position: absolute;
+        font-size: 2.5rem;
+        margin-left: 30px;
+    }
+}
+.inputsContainer{
+    position: relative;
+    height: calc(100% - 170px);
+    width: 100%;
+    .bigInput{
+        width: 90% !important;
+        height: 100px !important;
+        padding: 0 !important;
+        textarea{
+            position: absolute !important;
+            height: 100% !important;
+            width: 100% !important;
+            outline: none;
+            padding: 20px;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 2px;
+        }
+    }
+    .inputContainer{
+        position: relative;
+        width: 40%;
+        height: 46px;
+        display: inline-block;
+        margin: 5% 5%;
+        input{
+            height: 100%;
+            width: 100%;
+            outline: none;
+            padding: 20px;
+            border: 1px solid rgba(22, 24, 35, 0.12);
+            border-radius: 2px;
+        }
+        label{
+            position: absolute;
+            bottom: 110%;
+            left:5%;
+            font-size: 1.8rem;
+            font-weight: 500;
+            font-family: sans-serif;
+        }
+    }
+}
+
+.btn{
+    height: 60x;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    button{
+        font-family: sans-serif;
+    }
+    button:nth-child(1){
+        position: absolute;
+        margin-left: 40px;
+        @include btn(white,$primary,$hover);
+        height: 40px;
+        width: 100px;
+        border-radius: 3px;
+    }
+    button:nth-child(2){
+        position: absolute;
+        margin-left: 40px;
+        @include btn(white,$gray,$hover);
+        height: 40px;
+        width: 100px;
+        border-radius: 3px;
+    }
+}
+@media  (max-width: 900px){
+    .inputContainer{
+        width: 80% !important;
+    }
+  }
+  @media (orientation: portrait) , (max-height: 500px){
+    .inputContainer{
+        width: 90% !important;
+        display: flex;
+        
+    }
+    .btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button{
+            margin: 0 10px !important;
+        }
+    }
+}

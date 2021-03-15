@@ -1,10 +1,9 @@
 import React from 'react'
 import Styles from '../../styles/settings.module.scss'
-import UpdateProfileData from '../../components/updateProfileData/updateProfileData'
 import NavBar from '../../components/navBar/NavBar'
 import { useRouter } from 'next/router'
-
-
+import SideNavBar from './sideNavBar/sideNavBar'
+import Account from './profileSettings/Account/Account'
 const ProfileSettings = (props) => {
   const router = useRouter()
 
@@ -12,11 +11,14 @@ const ProfileSettings = (props) => {
     return (
       <div className={Styles.container}>
         <NavBar token={props.token}></NavBar>
-        <div className={Styles.Settings}>
-          <div className={Styles.pagesContainer}>
-          <UpdateProfileData></UpdateProfileData>
+          <div className={Styles.settingsContainer}>
+            <div className={Styles.sideNavBar}>
+            <SideNavBar></SideNavBar>
+            </div>
+            <div className={Styles.profileSettings}>
+              <Account></Account>
+            </div>
           </div>
-        </div>
         </div>
     )
 }
