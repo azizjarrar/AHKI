@@ -120,7 +120,13 @@
     }
 }
 
-
+.pageHeader{
+    width: 100%;
+    padding: 10px;
+    h2{
+        font-size: 3rem;
+    }
+}
 .form{
     position: relative;
     width: auto;
@@ -137,8 +143,8 @@
 
 
     .inputContainer{
-        margin-top: 13px;
-        margin-bottom: 13px;
+        margin-top: 10px;
+        margin-bottom: 10px;
         position: relative;
         width: 100%;
        // max-height: 46px
@@ -378,7 +384,7 @@
 }
 .labelEmailOrPassword{
     position: absolute;
-    bottom: 110%;
+    bottom: 105%;
     right: 0;
     cursor: pointer;
     p{

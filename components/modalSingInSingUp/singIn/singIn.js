@@ -35,6 +35,8 @@ const singIn = (props) => {
     return (
         <div className={Style.singIn} style={props.showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '100%' }}>
             <form className={Style.form} onSubmit={e => {e.preventDefault();}}  autoComplete="new-password">
+                    <div className={Style.pageHeader}><h2>Log in</h2></div>
+
               <input type="text" name="" value="" readOnly={true} style={{display: "none"}}/>
               <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"identity"}  type="text" className={Style.input} required /><label><span className={Style.labelspan}>tel or email</span></label></div>
               <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"password"}  type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
