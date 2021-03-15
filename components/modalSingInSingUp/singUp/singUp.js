@@ -27,12 +27,10 @@ const singUp = (props) => {
       delete registerState["email"]
     }
     Register(registerState).then(res => {
-      console.log(res)
-
       if (res.data.state == false) {
         props.setErrorMessageProps({ state: true, text: res.data.message })
       } else {
-        props.openVerifieAccountModal()
+        props.openVerifieAccountModal(res.data.userid)
         props.fnshowSingInOrSingUp()
       }
     }).catch(e => {
@@ -99,7 +97,6 @@ const singUp = (props) => {
         document.getElementsByClassName(e.target.form[3].classList[1])[0].style.border = "1px solid rgba(22, 24, 35, 0.12)"
         document.getElementsByClassName(e.target.form[3].classList[1])[1].style.border = "1px solid rgba(22, 24, 35, 0.12)"
       }
-      console.log(birdhDay)
       if (userName.length > 0 && password.length > 0 && confirmPassword.length > 0  && (validateEmail(email) || tel.length > 6)) {
         if (password == confirmPassword) {
           

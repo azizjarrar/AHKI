@@ -11,6 +11,7 @@ const ModalSingInSingUp = (props) => {
   const [errorMessage,setErrorMessage]=useState({state:false,text:""})// when state true show  pop up 
   const [showSingIn_Or_SHowSingUp, setShowSingIn_Or_SHowSingUp] = useState(true)/*change between sing in and sing up */
   const [verifiedAccountModal,setverifiedAccountModal]=useState(false)//when trye open modal to put the code
+  const [userId,setUserId]=useState("")
   const fnsetShowSingIn_Or_SHowSingUp=()=>{
     setShowSingIn_Or_SHowSingUp(e=>!e)
   }
@@ -23,7 +24,8 @@ const ModalSingInSingUp = (props) => {
   const setErrorMessagefn=(e)=>{
     setErrorMessage({...e})
   }
-  const openVerifieAccountModalfn=()=>{
+  const openVerifieAccountModalfn=(userid)=>{
+    setUserId(userid)
     setverifiedAccountModal(e=>!e)
   }
   /***test */
@@ -32,7 +34,7 @@ const ModalSingInSingUp = (props) => {
           {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
       <div className={Style.changelang}><ChangeLanguage></ChangeLanguage></div>
       <div className={Style.formContainer}>
-      {verifiedAccountModal&&<VerifyAccount></VerifyAccount>}
+      {verifiedAccountModal&&<VerifyAccount setErrorMessageProps={setErrorMessagefn} userId={userId}></VerifyAccount>}
         <div className={Style.closebtn} onClick={()=>closeModal()}></div>
         <div className={Style.formsContainer}>
           <SingIn openVerifieAccountModal={openVerifieAccountModalfn} setErrorMessageProps={setErrorMessagefn}showSingIn_Or_SHowSingUp={showSingIn_Or_SHowSingUp} fnshowSingInOrSingUp={fnsetShowSingIn_Or_SHowSingUp}></SingIn>

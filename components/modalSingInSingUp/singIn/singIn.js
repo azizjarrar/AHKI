@@ -1,29 +1,37 @@
 import React from 'react'
 import Style from '../ModalSingInSingUp.module.scss'
 import LanguageContext from '../../../context/languageContext'
+import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
+
 import FacebookLogIn from '../../facebookLogIn/facebookLogIn'
 import {Login} from '../../../services/user'
 const singIn = (props) => {
   const [language, setLanguage] = React.useContext(LanguageContext)
+  const [isLoading, setIsLoading] = React.useContext(ApiIsLoadingContext)
+
   const [loginState,setLoginState]=React.useState({})
 
     const singIn=()=>{
+      setIsLoading(true)
         Login(loginState).then(res=>{
           if(res.data.state==false){
-            console.log(res)
             props.setErrorMessageProps({state:true,text:res.data.message})
-          }else if(res.data.data.verified){
-            console.log(res.data.data.verified)
-            props.openVerifieAccountModal()
+            setIsLoading(false)
+          }else if(res.data.verified==false){
+            props.openVerifieAccountModal(res.data.userid)
+            setIsLoading(false)
           }else{
-            console.log(res.data.data.verified)
-
             fetch("/api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
               localStorage.setItem("ref_token",res.data.ref_token)
-                location.reload();
+              setIsLoading(false)
+              location.reload();
             })
           }
-        }).catch(e=>{props.setErrorMessageProps({state:true,text:e.message})  })
+        }).catch(e=>{
+          setIsLoading(false)
+          props.setErrorMessageProps({state:true,text:e.message})
+        
+        })
       }
       const setLoginData=(e)=>{
         const { name, value } = e.target
