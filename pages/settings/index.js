@@ -1,22 +1,29 @@
 import React from 'react'
 import Styles from '../../styles/settings.module.scss'
 import NavBar from '../../components/navBar/NavBar'
-import { useRouter } from 'next/router'
 import SideNavBar from './sideNavBar/sideNavBar'
 import Account from './profileSettings/Account/Account'
+import Email from './profileSettings/Email/Email'
+import Password from './profileSettings/Password/Password'
+import Telephone from './profileSettings/Telephone/Telephone'
 const ProfileSettings = (props) => {
-  const router = useRouter()
+  const [page,setPage]=React.useState("account")
 
-
+    const changePage=(e)=>{
+      setPage(e)
+    }
     return (
       <div className={Styles.container}>
         <NavBar token={props.token}></NavBar>
           <div className={Styles.settingsContainer}>
             <div className={Styles.sideNavBar}>
-            <SideNavBar></SideNavBar>
+            <SideNavBar changePage={changePage} ></SideNavBar>
             </div>
             <div className={Styles.profileSettings}>
-              <Account></Account>
+              {page=="account"&&<Account></Account>}
+              {page=="email"&&<Email></Email>}
+              {page=="password"&&<Password></Password>}
+              {page=="Telephone"&&<Telephone></Telephone>}
             </div>
           </div>
         </div>

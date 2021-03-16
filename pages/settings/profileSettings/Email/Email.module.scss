@@ -1,0 +1,156 @@
+@import "../../../../styles/button"; 
+@import "../../../../styles/colors";
+.container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+}
+.warningText{
+    width: 70%;
+h1{
+    text-align: center;
+    color: rgba(22,24,35,0.5);
+    margin:30px
+}
+}
+
+.header{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    h1{
+        position: absolute;
+        font-size: 2.5rem;
+        margin-left: 30px;
+    }
+}
+.inputContainer{
+    position: relative;
+    width: 60%;
+    height: 40px;
+    display: inline-block;
+    margin: 2% 2%;
+    input{
+        height: 100%;
+        width: 100%;
+        outline: none;
+        padding: 20px;
+        border: 1px solid rgba(22, 24, 35, 0.12);
+        border-radius: 2px;
+        transition: 0.5s;
+        &:focus{
+            border-color: $primary;
+        }
+    }
+    label{
+        position: absolute;
+        bottom: 110%;
+        left:5%;
+        font-size: 1.8rem;
+        font-weight: 500;
+        font-family: sans-serif;
+    }
+}
+.centerInputs{
+    position: relative;
+    top: calc(35%);
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.btn{
+    position: absolute;
+    height: 60px;
+    width: 100%;
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    button{
+        font-family: sans-serif;
+    }
+    button:nth-child(1){
+        position: absolute;
+        margin-left: 40px;
+        @include btn(white,$primary,$hover);
+        height: 40px;
+        width: 100px;
+        border-radius: 3px;
+    }
+    button:nth-child(2){
+        position: absolute;
+        margin-left: 40px;
+        @include btn(white,$gray,rgb(255, 47, 47));
+        height: 40px;
+        width: 100px;
+        border-radius: 3px;
+    }
+}
+.emailContainer{
+    width: 60%;
+    display: flex;
+    margin: 2% 2%;
+    button{
+        @include btn(white,$primary,$hover);
+        border-radius: 0;
+        width: 70px;
+    }
+    .inputContainer{
+        width: 100%;
+        margin: 0;
+        
+    }
+}
+@media  (max-width: 900px){
+    .inputContainer{
+        width: 80% !important;
+    }
+  }
+  @media (orientation: portrait) , (max-height: 500px){
+    .inputContainer{
+        width: 90% !important;
+        display: flex;
+        
+    }
+
+    .header{
+        h1{
+            font-size: 1.7rem;
+
+        }
+    }
+    .warningText{
+        height: 60px;
+        width: 90%;
+        h1{
+            margin: 0;
+        }
+    }
+    .emailContainer{
+        margin: 20px 0 !important;
+        width: 90% !important;
+    }
+    .centerInputs{
+        position: relative;
+        top: 10px;
+        transform: translate(-50%,0%);
+    }
+    .btn{
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+         bottom: 5px !important;
+        top: 5px !important;
+        button{
+            margin: 10px 10px !important;
+        }
+    }
+}
