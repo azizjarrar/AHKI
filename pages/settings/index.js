@@ -1,11 +1,11 @@
 import React from 'react'
 import Styles from '../../styles/settings.module.scss'
 import NavBar from '../../components/navBar/NavBar'
-import SideNavBar from './sideNavBar/sideNavBar'
-import Account from './profileSettings/Account/Account'
-import Email from './profileSettings/Email/Email'
-import Password from './profileSettings/Password/Password'
-import Telephone from './profileSettings/Telephone/Telephone'
+import SideNavBar from '../../components/profileSettings/sideNavBar/sideNavBar'
+import Account from '../../components/profileSettings/Account/Account'
+import Email from '../../components/profileSettings/Email/Email'
+import Password from '../../components/profileSettings/Password/Password'
+import Telephone from '../../components/profileSettings/Telephone/Telephone'
 const ProfileSettings = (props) => {
   const [page,setPage]=React.useState("account")
 

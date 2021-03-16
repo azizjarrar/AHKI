@@ -26,5 +26,11 @@ const reSendVerificationCode=async (userid,verificationCode)=>{
 const removeToken=async (userid)=>{
   return axiosApiInstance.post("/user/removeToken",{userid});
 }
+const updateProfileInfo=async (newUserData,token)=>{
+  return axiosApiInstance.post("/user/updateProfileInfo",{...newUserData},{ headers: {Authorization: 'Bearer ' + token }});
+}
+const changePassword=async (passwordChange,token)=>{
+  return axiosApiInstance.post("/user/changePassword",{...passwordChange},{ headers: {Authorization: 'Bearer ' + token }});
+}
 
-export { Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+export {changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

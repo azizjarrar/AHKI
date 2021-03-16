@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Style from './ModalSingInSingUp.module.scss'
 import 'react-phone-input-2/lib/material.css'
 import PopUpMessage from '../popUpMessage/popUpMessage'

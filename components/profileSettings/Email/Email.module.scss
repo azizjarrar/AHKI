@@ -1,5 +1,5 @@
-@import "../../../../styles/button"; 
-@import "../../../../styles/colors";
+@import "../../../styles/button"; 
+@import "../../../styles/colors";
 .container{
     position: relative;
     height: 100%;
@@ -40,6 +40,10 @@ h1{
         padding: 20px;
         border: 1px solid rgba(22, 24, 35, 0.12);
         border-radius: 2px;
+        transition: 0.5s;
+        &:focus{
+            border-color: $primary;
+        }
     }
     label{
         position: absolute;
@@ -89,22 +93,18 @@ h1{
         border-radius: 3px;
     }
 }
-
-.phoneContainer{
+.emailContainer{
     width: 60%;
     display: flex;
     margin: 2% 2%;
-    input{
-        &:focus{
-            border-radius: 0 !important;
-        }
-    }
     button{
         @include btn(white,$primary,$hover);
         border-radius: 0;
         width: 70px;
     }
-    input{
+    .inputContainer{
+        width: 100%;
+        margin: 0;
         
     }
 }
@@ -117,14 +117,9 @@ h1{
     .inputContainer{
         width: 90% !important;
         display: flex;
-        margin: 20px 0 !important;
+        
+    }
 
-    }
-    .phoneContainer{
-        margin: 20px 0 !important;
-        width: 90% !important;
- 
-    }
     .header{
         h1{
             font-size: 1.7rem;
@@ -134,12 +129,13 @@ h1{
     .warningText{
         height: 60px;
         width: 90%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         h1{
             margin: 0;
         }
+    }
+    .emailContainer{
+        margin: 20px 0 !important;
+        width: 90% !important;
     }
     .centerInputs{
         position: relative;
@@ -152,7 +148,7 @@ h1{
         align-items: center;
         justify-content: center;
          bottom: 5px !important;
-
+        top: 5px !important;
         button{
             margin: 10px 10px !important;
         }

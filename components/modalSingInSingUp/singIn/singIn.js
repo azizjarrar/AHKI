@@ -2,7 +2,6 @@ import React from 'react'
 import Style from '../ModalSingInSingUp.module.scss'
 import LanguageContext from '../../../context/languageContext'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
-
 import FacebookLogIn from '../../facebookLogIn/facebookLogIn'
 import {Login} from '../../../services/user'
 const singIn = (props) => {
@@ -50,7 +49,7 @@ const singIn = (props) => {
               <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"identity"}  type="text" className={Style.input} required /><label><span className={Style.labelspan}>tel or email</span></label></div>
               <div className={Style.inputContainer}><input   onChange={(e)=>setLoginData(e)}  defaultValue={""}   name={"password"}  type="password" className={Style.input} required /><label><span className={Style.labelspan}>{language.password}</span></label></div>
               <button className={Style.btn} onClick={()=>singIn()}>{language.signin}</button>
-              <p className={Style.message}>{language.YoudonthaveaccountClickhereto} <span className={Style.clickHere} onClick={() => props.fnshowSingInOrSingUp()}>{language.signup}</span></p>
+              <p className={Style.message}>{language.YoudonthaveaccountClickhereto} <span className={Style.clickHere} onClick={() => props.fnshowSingInOrSingUp()}>{language.signup}</span><br /><span className={Style.forgetPassword}>Forget Password?</span></p>
               <FacebookLogIn></FacebookLogIn>
             </form>
         </div>

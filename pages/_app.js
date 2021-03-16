@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
         <LanguageContext.Provider value={languageProvider}>
           <UserContext.Provider value={userProvider} >
             <ApiIsLoadingContext.Provider value={loadingProvider}>
-              {isLoading&&<div class="loading"><LinearProgress /></div>}
+              {isLoading&&<div className="loading"><LinearProgress /></div>}
               <Component {...pageProps} />
             </ApiIsLoadingContext.Provider>
           </UserContext.Provider>

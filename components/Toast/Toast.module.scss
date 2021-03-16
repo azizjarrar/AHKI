@@ -1,0 +1,29 @@
+@import "../../styles/colors"; 
+.container{
+    position: fixed;
+    height: auto;
+    width: auto;
+    bottom: 20px;
+    left:50%;
+    transform: translateX(-50%);
+    background-color: $primary;
+    padding: 15px;
+    border-radius: 7px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    z-index: 16165;
+    animation-name: downtoUp;
+    animation-duration: 6s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+    h1{
+        color: white;
+        letter-spacing: 1px;
+        font-weight: 400;
+    }
+}
+@keyframes downtoUp{
+    0%{opacity: 0;}
+    15%{opacity: 1;}
+    90%{opacity: 1;}
+    100%{opacity: 0;}
+}
