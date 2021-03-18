@@ -1,6 +1,6 @@
 @mixin btn($color,$backgroundcolor,$hover) {
     position: relative;
-    border-radius: 76px; 
+    border-radius: 10px !important; 
     color: $color;
     background-color: $backgroundcolor;
     outline: none;

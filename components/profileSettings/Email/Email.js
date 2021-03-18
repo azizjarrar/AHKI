@@ -15,11 +15,9 @@ const Email = () => {
      }
     },[toastMessage])
  
- 
     return (
         <div className={Style.container}>
                 {toastMessage.state&&<Toast text={toastMessage.message} ></Toast>}
-
             <div className={Style.header}><h1>Update Your Password</h1></div>
             <div className={Style.centerInputs}>
                 <div className={Style.warningText}><h1>It's a good idea to use a strong password that you're not using elsewhere</h1></div>

@@ -217,6 +217,14 @@
 }
 /********************mobile***********************/
 @media (orientation: portrait) , (max-height: 500px){
+    .image{
+        height: 110px !important;
+        width: 110px !important;
+        .underimage{
+            height: 110px !important;
+            width: 110px !important;
+        }
+    }
     .profile{
         position: relative;
         margin-top: 0;

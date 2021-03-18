@@ -32,5 +32,13 @@ const updateProfileInfo=async (newUserData,token)=>{
 const changePassword=async (passwordChange,token)=>{
   return axiosApiInstance.post("/user/changePassword",{...passwordChange},{ headers: {Authorization: 'Bearer ' + token }});
 }
-
-export {changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+const searchAccountToForgetPassword=async (identity)=>{
+  return axiosApiInstance.post("/user/searchAccountToForgetPassword",{...identity});
+}
+const resetPasswordApi=async (dataResetPassword)=>{
+  return axiosApiInstance.post("/user/resetPassword",{...dataResetPassword});
+}
+const SetNewPasswordApi=async (newPasswordAndTokenAndTelOrEmail)=>{
+  return axiosApiInstance.post("/user/SetNewPassword",{...newPasswordAndTokenAndTelOrEmail});
+}
+export {SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

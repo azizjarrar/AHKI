@@ -3,9 +3,24 @@ import Style from './Telephone.module.scss'
 import PhoneInput from 'react-phone-input-2'
 
 const Telephone = () => {
+  /*  setToastMessage({state:true,message:"error.message"})
+
+    React.useEffect(()=>{
+     if(toastMessage.state==true){
+         setTimeout(() => {
+             setToastMessage({state:false,message:""})
+         }, 6000);
+ 
+     }
+    },[toastMessage])
+   import Toast from '../../Toast/Toast'
+ 
+    const [toastMessage,setToastMessage]=React.useState({state:false,message:""})
+ 
+    {toastMessage.state&&<Toast text={toastMessage.message} ></Toast>}
     const onChangeHandlerRegisterPhone=()=>{
 
-    }
+    }*/
     return (
         <div className={Style.container}>
             <div className={Style.header}><h1>Update Your Password</h1></div>
