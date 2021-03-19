@@ -4,6 +4,7 @@ import {changePassword} from '../../../services/user'
 import UserContext from '../../../context/userContext'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
 import Toast from '../../Toast/Toast'
+import LanguageContext from '../../../context/languageContext'
 
 
 
@@ -14,6 +15,7 @@ const Password = () => {
     const [user,setUser]=React.useContext(UserContext)
     const [isLoading, setIsLoading] = React.useContext(ApiIsLoadingContext)
     const [toastMessage,setToastMessage]=React.useState({state:false,message:""})
+    const [language , setLanguage]=React.useContext(LanguageContext)
 
 
     const changeHandler=(e)=>{
@@ -55,14 +57,14 @@ const Password = () => {
         <div className={Style.container}>
             {toastMessage.state&&<Toast text={toastMessage.message} color={toastMessage.color}></Toast>}
 
-            <div className={Style.header}><h1>Update Your Password</h1></div>
+            <div className={Style.header}><h1>{language.UpdateYourPassword}</h1></div>
             <div className={Style.centerInputs}>
-            <div className={Style.warningText}><h1>It's a good idea to use a strong password that you're not using elsewhere</h1></div>
-            <div className={Style.inputContainer}><input onChange={(e)=>changeHandler(e)} type="password"  name="oldPassword"/><label>old Password</label></div>
-            <div className={Style.warningText}><h1>new password need to be at least 8 length</h1></div>
-            <div className={Style.inputContainer}><input onChange={(e)=>changeHandler(e)} type="password"  name="newPassword"/><label>new Password</label></div>
+            <div className={Style.warningText}><h1>{language.Itsagoodideatouseastrongpasswordthatyou}</h1></div>
+            <div className={Style.inputContainer}><input onChange={(e)=>changeHandler(e)} type="password"  name="oldPassword"/><label>{language.oldPassword}</label></div>
+            <div className={Style.warningText}><h1>{language.newpasswordneedtobeatleastlength}</h1></div>
+            <div className={Style.inputContainer}><input onChange={(e)=>changeHandler(e)} type="password"  name="newPassword"/><label>{language.newPassword}</label></div>
             </div>
-            <div className={Style.btn}><button  onClick={()=>UpdatePassword()}>Update</button><button>Cancel</button></div>
+            <div className={Style.btn}><button  onClick={()=>UpdatePassword()}>{language.update}</button><button>{language.cancel}</button></div>
 
         </div>
     )

@@ -5,12 +5,15 @@ import { DatePicker } from 'react-rainbow-components';
 import {updateProfileInfo} from '../../../services/user'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
 import Toast from '../../Toast/Toast'
+import LanguageContext from '../../../context/languageContext'
 
 const Account = () => {
     const [user,setUser]=React.useContext(UserContext)
     const [isLoading, setIsLoading] = React.useContext(ApiIsLoadingContext)
     const [newUserData,setNewUserData] = React.useState("")
     const [toastMessage,setToastMessage]=React.useState({state:false,message:""})
+    const [language , setLanguage]=React.useContext(LanguageContext)
+
    const changeHandler=(e)=>{
     const {name,value}=e.target;
     setNewUserData(e=>{
@@ -38,21 +41,21 @@ const Account = () => {
     return (
         <div className={Style.container}>
             {toastMessage.state&&<Toast text={toastMessage.message} ></Toast>}
-            <div className={Style.header}><h1>Account Setting</h1></div>
+            <div className={Style.header}><h1>{language.AccountSetting}</h1></div>
             <div className={Style.inputsContainer}>
-                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.userName} name="userName"/><label>user Name</label></div>
-                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.firstname} name="firstname"/><label>first name</label></div>
-                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.lastname} name="lastname"/><label>last name</label></div>
+                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.userName} name="userName"/><label>{language.username}</label></div>
+                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.firstname} name="firstname"/><label>{language.firstname}</label></div>
+                <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.lastname} name="lastname"/><label>{language.lastname}</label></div>
                 <div className={Style.inputContainer}>
                         <DatePicker value={newUserData.age||user.age}
                         onChange={value => setNewUserData(e => {return { ...e, "age": value }})}
                         formatStyle="large"
                         //locale={language.age}
                         />
-                    <label>age</label></div>
-                <div className={`${Style.inputContainer} ${Style.bigInput}`}><textarea onChange={(e)=>changeHandler(e)} defaultValue={user.biography} maxLength="150" type="text"  name="biography"/><label>biography</label></div>
+                    <label>{language.birthday}</label></div>
+                <div className={`${Style.inputContainer} ${Style.bigInput}`}><textarea onChange={(e)=>changeHandler(e)} defaultValue={user.biography} maxLength="150" type="text"  name="biography"/><label>{language.biography}</label></div>
             </div>
-            <div onClick={()=>UpdateData()} className={Style.btn}><button>Update</button><button>Cancel</button></div>
+            <div  className={Style.btn}><button onClick={()=>UpdateData()}>{language.update}</button><button>{language.cancel}</button></div>
         </div>
     )
 }

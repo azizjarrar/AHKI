@@ -20,7 +20,7 @@ const ProfileSettings = (props) => {
             <SideNavBar changePage={changePage} ></SideNavBar>
             </div>
             <div className={Styles.profileSettings}>
-              {page=="account"&&<Account></Account>}
+            {page=="account"&&<Account></Account>}
               {page=="email"&&<Email></Email>}
               {page=="password"&&<Password></Password>}
               {page=="Telephone"&&<Telephone></Telephone>}

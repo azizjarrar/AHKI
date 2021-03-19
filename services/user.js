@@ -41,4 +41,11 @@ const resetPasswordApi=async (dataResetPassword)=>{
 const SetNewPasswordApi=async (newPasswordAndTokenAndTelOrEmail)=>{
   return axiosApiInstance.post("/user/SetNewPassword",{...newPasswordAndTokenAndTelOrEmail});
 }
-export {SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+const updateEmailSendCode=async (email,token)=>{
+  return axiosApiInstance.post("/user/updateEmailSendCode",{email:email},{ headers: {Authorization: 'Bearer ' + token }});
+}
+const updateEmailApi=async(email,code,token)=>{
+  return axiosApiInstance.post("/user/updateEmail",{email:email,code:code},{ headers: {Authorization: 'Bearer ' + token }});
+
+}
+export {updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

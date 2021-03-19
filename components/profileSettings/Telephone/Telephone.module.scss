@@ -70,7 +70,11 @@ h1{
     display: flex;
     align-items: center;
     button{
+        border-radius: 0px !important;
         font-family: sans-serif;
+        font-weight: 600;
+        font-size: 1.5rem;
+
     }
     button:nth-child(1){
         position: absolute;
@@ -152,9 +156,9 @@ h1{
         align-items: center;
         justify-content: center;
          bottom: 5px !important;
-
         button{
-            margin: 10px 10px !important;
+            margin: 10px 10px !important;   
+
         }
     }
 }
