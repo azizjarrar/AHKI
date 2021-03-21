@@ -4,16 +4,32 @@ import ModalSingInSingUp from '../modalSingInSingUp/ModalSingInSingUp'
 import PorfileMenu from '../profileMenu/profileMenu'
 import Link from 'next/link'
 import UserContext from '../../context/userContext'
+import SearchUser from '../../components/searchUser/searchUser'
 const NavBar = ({ token }) => {
     const [modalSingInSingUp, setModalSingInSingUp] = useState(false)//open modal
     const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: '', height: '' })//responsive handler
     const [openMenuProfileState, setOpenMenuProfile] = useState(false)//on hover profile pic open menu
+    const [disyplaySearch,setDisplaySearch]=React.useState({state:false,userName:""})
     const [user, setUser]= React.useContext(UserContext)
     React.useEffect(() => { setHeightAndWidthOfWindow({ height: window.innerHeight, width: window.innerWidth }) }, []);
     const openModalSingInSingUp = () => { setModalSingInSingUp(e => !e) }
     const openMenuProfile = () => { setOpenMenuProfile(true) }
     const closeMenuProfile = () => { setOpenMenuProfile(false) }
     const openMenuProfileonClick = () => { setOpenMenuProfile(e => !e) }
+    const OpensearchUsers=(e)=>{
+        setDisplaySearch({state:true,userName:""})
+        //
+    }
+    const SearchUserFn=(e)=>{
+        setDisplaySearch({state:true,userName:e.target.value})
+
+    }
+    const closeSearchUser=(e)=>{
+        setTimeout(() => {
+            setDisplaySearch({state:false,userName:""})
+
+        }, 300);
+    }
     if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
         return (
             <div className={Style.container}>
@@ -23,8 +39,9 @@ const NavBar = ({ token }) => {
 
                     <div className={Style.Search}>
                         <div className={Style.flexItems}>
-                            <form>
-                                <input name="search" type="text" placeholder="Search accounts"></input>
+                            <form onBlur={()=>closeSearchUser()} onFocus={(e)=>OpensearchUsers(e)}>
+                                {disyplaySearch.state&&<SearchUser searchUserName={disyplaySearch.userName}></SearchUser>}
+                                <input name="search" type="text" placeholder="Search accounts" autoComplete="off"  onChange={(e)=>SearchUserFn(e)} ></input>
                                 <span></span>
                                 <div className={Style.searchImg}>
                                     <svg width="20" height="20" viewBox="0 0 28 38" fill="#1876f3" xmlns="http://www.w3.org/2000/svg">
@@ -53,12 +70,13 @@ const NavBar = ({ token }) => {
         /*mobile */
         return (
             <div className={Style.container}>
-                {modalSingInSingUp && <ModalSingInSingUp openOrcloseModal={() => openModalSingInSingUp()}></ModalSingInSingUp>}
+               {modalSingInSingUp && <ModalSingInSingUp openOrcloseModal={() => openModalSingInSingUp()}></ModalSingInSingUp>}
                 <nav className={Style.nav}>
                     <div className={Style.Search}>
                         <div className={Style.flexItems}>
-                            <form>
-                                <input name="search" type="text" placeholder="Search accounts"></input>
+                            <form onBlur={()=>closeSearchUser()} onFocus={(e)=>OpensearchUsers(e)}>
+                                {disyplaySearch.state&&<SearchUser searchUserName={disyplaySearch.userName}></SearchUser>}
+                                <input name="search" type="text" autoComplete="off" placeholder="Search accounts"  onChange={(e)=>SearchUserFn(e)}></input>
                                 <span></span>
                                 <div className={Style.searchImg}>
                                     <svg width="20" height="20" viewBox="0 0 28 38" fill="#1876f3" xmlns="http://www.w3.org/2000/svg">

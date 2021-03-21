@@ -4,6 +4,7 @@ import Toast from '../../Toast/Toast'
 import {updateEmailSendCode,updateEmailApi} from '../../../services/user'
 import UserContext from '../../../context/userContext'
 import LanguageContext from '../../../context/languageContext'
+import Link from 'next/link'
 
 
 const Email = () => {
@@ -55,7 +56,7 @@ const Email = () => {
                 <div className={Style.warningText}><h1>{language.YouWillreciveconfermationCodeputithereAndClickUpdate}</h1></div>  
                 <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandlerNewEamilAndCode(e)} name="code"/><label>{language.ConfermationCode}</label></div>
             </div>
-            <div className={Style.btn}><button onClick={()=>updateEmail()}>{language.update}</button><button>{language.cancel}</button></div>
+            <div className={Style.btn}><button onClick={()=>updateEmail()}>{language.update}</button><Link href="/profile"><button>{language.cancel}</button></Link></div>
 
         </div>
     )

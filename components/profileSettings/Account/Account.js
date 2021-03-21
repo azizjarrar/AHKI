@@ -6,6 +6,7 @@ import {updateProfileInfo} from '../../../services/user'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
 import Toast from '../../Toast/Toast'
 import LanguageContext from '../../../context/languageContext'
+import Link from 'next/link'
 
 const Account = () => {
     const [user,setUser]=React.useContext(UserContext)
@@ -55,7 +56,7 @@ const Account = () => {
                     <label>{language.birthday}</label></div>
                 <div className={`${Style.inputContainer} ${Style.bigInput}`}><textarea onChange={(e)=>changeHandler(e)} defaultValue={user.biography} maxLength="150" type="text"  name="biography"/><label>{language.biography}</label></div>
             </div>
-            <div  className={Style.btn}><button onClick={()=>UpdateData()}>{language.update}</button><button>{language.cancel}</button></div>
+            <div  className={Style.btn}><button onClick={()=>UpdateData()}>{language.update}</button><Link href="/profile"><button>{language.cancel}</button></Link></div>
         </div>
     )
 }

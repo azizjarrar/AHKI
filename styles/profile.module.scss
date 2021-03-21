@@ -5,6 +5,9 @@
     width: 100%;
     height: 100%;
     overflow-Y: auto;
+    overflow-x:hidden;
+    z-index: 2;
+
 }
 .profile{
     position: relative;
@@ -15,8 +18,7 @@
     padding: 25px 28px 0 25px;
     background-color: white;
     margin: 0 auto;
-    margin-top: 20px;
-    
+    margin-top: 20px; 
 }
 .userName{
     height: 50px;
@@ -150,16 +152,9 @@
         width: 100%;
         position: absolute;
         top: 0;
-        height: 2px;
+        height: 1px;
     }
-    &::before{
-        content: "";
-        background-color: $gray;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        height: 2px;
-    }
+
     h3{
         font-size: 1.4rem !important;
         color: rgb(53, 53, 53);
@@ -184,12 +179,38 @@
              margin: 0% auto;
              margin-bottom: 10px;
          }
-         .timeLine{
-             position: relative;
-             height: calc(100% - 40px);
-             width: 100%;
-         }
+
     }
+}
+.timeLine{
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    .params{
+        position: -webkit-sticky;
+        position: relative;
+        width: 400px;
+        height: auto;
+        //height: 600px;
+      //  top: 18px !important;
+        margin-top: 15px;
+
+    }
+    .posts{
+        position: relative;
+        height: auto;
+        width: calc(100% - 400px);
+    }
+}
+.publicationContainer{
+    position: relative;
+    width: 95%;
+    margin: 0 auto;
+    height: auto;
 }
 .navbar{
     width: 80%;
@@ -215,8 +236,28 @@
         background-color: $primary;
     }
 }
+@media(orientation: portrait), (max-height: 500px) ,(max-width : 1100px)
+{
+    .posts{
+        margin: 0 auto;
+        width: 80% !important;
+    }
+    .params{
+        display: none;
+    }
+}
 /********************mobile***********************/
 @media (orientation: portrait) , (max-height: 500px){
+    .publicationContainer{
+        position: relative;
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+    }
+    .posts{
+        margin: 0 auto;
+        width: 100% !important;
+    }
     .image{
         height: 110px !important;
         width: 110px !important;
@@ -253,3 +294,10 @@
 /****************View **********************/
 /*******************************************************/
 /*******************************************************/
+.followingContainer{
+    position: sticky;
+    top: 60px;
+}
+.suggestionContainer{
+    position: relative;
+}

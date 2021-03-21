@@ -78,11 +78,20 @@
     justify-content: space-between;
     margin: 0 auto;
     .userImage{
+        position: relative;
         cursor: pointer;
-        height: 60px;
-        width: 60px;
+        height: 50px;
+        width: 50px;
         border: 1px solid $primary;
         border-radius: 50%;
+        overflow: hidden;
+        img{
+            position: absolute;
+            top: 0;
+            max-width: 100%;
+            height: auto;
+            min-height: 100%;
+        }
     }
     .postTopic{
         position: relative;
@@ -182,8 +191,8 @@
         width: 30%;
         cursor: pointer;
         svg{
-            height: 30px;
-            width: 30px;
+            height: 20px;
+            width: 20px;
             cursor: pointer;
         }
     }
@@ -269,8 +278,8 @@
             justify-content: space-around;
             width: 35%;
             svg{
-                height: 30px;
-                width: 30px;
+                height: 20px;
+                width: 20px;
                 cursor: pointer;
             }
             .EmojiLogo{

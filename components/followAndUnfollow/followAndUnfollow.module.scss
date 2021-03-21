@@ -1,0 +1,49 @@
+@import "../../styles/colors"; 
+.followAndUnfollow{
+    width: 130px;
+    height: 35px;
+    background-color: transparent;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    
+    p{
+        font-size: 1.5rem;
+        font-weight: bold;
+
+    }
+}
+.follow{
+    cursor: pointer;
+    background-color: $primary;
+    transition: 0.5s;
+    &:hover{
+        border-radius: 98% 2% 98% 2% / 2% 98% 2% 98% ;
+    }
+    p{
+        color: white;
+    }
+    &:hover{
+        background-color: $hover;
+    }
+}
+.unfollow{
+    cursor: pointer;
+    border: 1px solid $gray2;
+    transition: 0.5s;
+    &:hover{
+        border-radius: 98% 2% 98% 2% / 2% 98% 2% 98% ;
+    }
+    p{
+        color: $primary;
+        
+    }
+    &:hover{
+        background-color: $primary;
+        p{
+            color: white;
+        }
+    }
+}

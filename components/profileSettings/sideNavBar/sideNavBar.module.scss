@@ -11,7 +11,7 @@
         right: 0;
         top: 0;
         height: 100%;
-        width: 2px;
+        width: 1px;
         background-color: $gray;
     }
 }
@@ -84,8 +84,8 @@
     height: auto;
     width: 100%;
     svg{
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
         margin: 0 20px;
     }
     ul{
@@ -94,7 +94,7 @@
         padding: 0;
         width: 100%;
         li{
-            height: 70px;
+            height: 50px;
             font-size: 2rem;
             list-style-type: none;
             position: relative;
@@ -162,8 +162,8 @@
     .pages{
 
         svg{
-            height: 30px;
-            width: 30px;
+            height: 20px;
+            width: 20px;
             margin: 0 20px;
         }
         li{

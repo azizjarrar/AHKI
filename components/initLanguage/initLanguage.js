@@ -4,6 +4,9 @@ const initLanguage=(e)=>{
     switch(e) {
         case "eng":
             lang={
+                ForgotPassword:"Forgot Password?",
+                createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"create a profile follow other accounts talk about your own experience and more",
+                telephoneoremail:"telephone or email",
                 cancel:"cancel",
                 update:"update",
                 putyournewEmail:"put your new Email here",
@@ -45,7 +48,7 @@ const initLanguage=(e)=>{
                 month:'month',
                 year:'year',
                 confirmpassword:'confirmpassword',
-                placeholderInput:'placeholderInput',
+                placeholderInput:'say somthing',
                 Upload_photo_with_your_post_Hover:'Upload photo with your post',
                 post_Anonymously_hover:'post_Anonymously',
                 signin:'sign in',
@@ -58,6 +61,9 @@ const initLanguage=(e)=>{
           break;
         case "fr":
             lang={
+                ForgotPassword:"Mot de passe oublié?",
+                createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"créer un profil suivre d'autres comptes parler de votre propre expérience et plus",
+                telephoneoremail:"téléphone ou email",
                 cancel:"Annuler",
                 update:"mettre à jour",
                 putyournewEmail:"mettez votre nouveau courriel ici",
@@ -112,6 +118,9 @@ const initLanguage=(e)=>{
           break;
           case "arabic":
             lang={
+                ForgotPassword:"هل نسيت كلمة السر?",
+                createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"إنشاء حساب  تابع حسابات أخرى تحدث عن تجربتك الخاصة والمزيد",
+                telephoneoremail:"الهاتف أو البريد الإلكتروني",
                 cancel:"إلغاء",
                 update:"تحديث",
                 putyournewEmail:"ضع بريدك الإلكتروني الجديد هنا",
@@ -167,6 +176,9 @@ const initLanguage=(e)=>{
               break;
         default:
             lang={
+                ForgotPassword:"Forgot Password?",
+                createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"create a profile follow other accounts talk about your own experience and more",
+                telephoneoremail:"telephone or email",
                 cancel:"cancel",
                 update:"update",
                 putyournewEmail:"put your new Email here",
@@ -208,7 +220,7 @@ const initLanguage=(e)=>{
                 month:'month',
                 year:'year',
                 confirmpassword:'confirmpassword',
-                placeholderInput:'placeholderInput',
+                placeholderInput:'say Somthing',
                 Upload_photo_with_your_post_Hover:'Upload photo with your post',
                 post_Anonymously_hover:'post_Anonymously',
                 signin:'sign in',

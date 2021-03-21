@@ -1,0 +1,162 @@
+@import "../../styles/colors"; 
+
+.container{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    bottom: 0;
+    z-index: 156651;
+    background-color: rgba(0,0,0,0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 156156557;
+    overflow:hidden;
+   
+   }
+.userContainer{
+    z-index: 1561656156;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    height: 60px;
+    cursor: pointer;
+    &:hover{
+        background-color: $gray;
+    }
+    &::after{
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: $gray2;
+        left: 0;
+        bottom: 0;
+    }
+    .imgContainer{
+        position: relative;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+        margin-left: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        img{
+            position: absolute;
+            height: auto;
+            min-height: 100%;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+            max-width: 105%;
+            top: 0;
+        }
+    }
+    .userName{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        p{
+            font-size: 1.8rem;
+            color: #262626;
+            font-weight: normal;
+        }
+    }
+    .FollowAndUnfollowContainer{
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+    }
+}
+.listContainer{
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    overflow: hidden;
+    background-color: white;
+    border-radius: 15px;
+    animation-name: showUp;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    transform: perspective(1000px) translateZ(100px);
+}
+@keyframes showUp{
+    from{transform: perspective(1000px) translateZ(100px)}
+    to{transform: perspective(1000px) translateZ(0px)}
+
+}
+.header{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+        font-size: 2rem;
+    }
+    &::after{
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: $primary;
+        bottom: 0%;
+    }
+}
+.list{
+    position: relative;
+    width: 100%;
+    height: 440px;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    background-color: white;
+    border-radius: 15px;
+
+
+}
+.FollowAndUnfollowContainer{
+    position: absolute;
+    right: 0;
+}
+.closebtn{
+    position: absolute;
+    right: 0%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &::after{
+        content: "";
+        background-color: #262626;
+        height: 20px;
+        margin-left: -2px;
+        width: 2px;
+        transform: rotate(-45deg);
+
+    }
+    &::before{
+        content: "";
+        background-color: #262626;
+        height: 20px;
+        width: 2px;    
+        transform: rotate(45deg);
+    }
+}
+@media (orientation: portrait) , (max-height: 500px){
+
+    .userName{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        p{
+            font-weight: normal;
+            font-size: 1.8rem;
+        }
+    }
+}

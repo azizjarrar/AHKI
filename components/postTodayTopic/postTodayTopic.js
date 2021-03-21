@@ -2,12 +2,14 @@ import React from 'react'
 import Styles from './TodayTopic.module.scss'
 import EmojiPicker from '../emojiPicker/emojiPicker'
 import LanguageContext from '../../context/languageContext'
+import userContext from '../../context/userContext'
 
 const PostTodayTopic = () => {
   const [closeEmojiDisplayS, setcloseEmojiDisplayS] = React.useState(false)//if its true emoji container will be open if its false it will be close
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
   const [mask, setMask] = React.useState(false)
   const [language , setLanguage]=React.useContext(LanguageContext)
+  const [user,setUser]=React.useContext(userContext)
 
 
   /************************************************/
@@ -70,7 +72,7 @@ const PostTodayTopic = () => {
             </h1>
       </div>
       <div className={Styles.userTopicContainer}>
-        <div className={Styles.userImage}></div>
+        <div className={Styles.userImage}><div><img src={user.userProfileImageUrl || "/avatar.png"} /></div></div>
         <div className={Styles.postTopic}><p className={Styles.input} datetextplaceholder={language.placeholderInput} plaintext-only="true" contentEditable="true" role="textbox" maxLength="500"></p></div>
       </div>
       {imageOrVideo != false && <div className={Styles.image_video_Container}><div className={Styles.closeBtn} onClick={() => removeImage()}></div><img src={imageOrVideo} /></div>}

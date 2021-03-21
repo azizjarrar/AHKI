@@ -27,7 +27,9 @@ const singUp = (props) => {
       delete registerState["email"]
     }
     Register(registerState).then(res => {
-      if (res.data.state == false) {
+      if(res.data==undefined){
+        
+      }else if (res.data.state == false) {
         props.setErrorMessageProps({ state: true, text: res.data.message })
       } else {
         props.openVerifieAccountModal(res.data.userid)
@@ -153,7 +155,7 @@ const singUp = (props) => {
     <div className={Style.singUp} style={props.showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '-100%' }}>
       <form className={Style.form} onSubmit={e => { e.preventDefault(); }} onChange={(e) => { formValidation(e) }}>
       <div className={Style.pageHeader}><h2>Sing up For SmouFy</h2></div>
-      <div className={Style.descriptionHeader}><h3>create a profile follow other accounts talk about your owen experince and more</h3></div>
+      <div className={Style.descriptionHeader}><h3>{language.createaprofilefollowotheraccountstalkaboutyourownexperienceandmore}</h3></div>
         <div className={Style.inputContainer}>
           <input ref={userName} name="userName" type="text" className={Style.input} onChange={(e) => userName_Password_Handler(e)} required />
             <label><span className={Style.labelspan}>{language.username}</span></label>
@@ -162,7 +164,7 @@ const singUp = (props) => {
         <div className={Style.inputContainer}>
           <div className={Style.telOrEmail}>
             <div className={Style.labelEmailOrPassword} onClick={() => changeEmailOrTel()}>
-              <p>change to email</p>
+              <p>change to {changeEmailOrTelinit}</p>
             </div>{changeEmailOrTelinit == "tel" ? <div className={Style.tel}><PhoneInput name={"tel"} specialLabel={language.phone} country={'tn'}   inputProps={{ name: 'phone',required: true,autoFocus: true}} value={registerState.tel} onChange={(e, country) => onChangeHandlerRegisterPhone(e, country)} /></div> : <div className={Style.email}><input name="email" type="text" onChange={(e) => { userName_Password_Handler(e) }} className={`${Style.input} `} required /><label><span className={Style.labelspan}>{language.email}</span></label></div>}
           </div>
         </div>

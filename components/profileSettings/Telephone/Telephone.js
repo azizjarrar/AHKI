@@ -2,6 +2,7 @@ import React from 'react'
 import Style from './Telephone.module.scss'
 import PhoneInput from 'react-phone-input-2'
 import LanguageContext from '../../../context/languageContext'
+import Link from 'next/link'
 
 const Telephone = () => {
     const [language , setLanguage]=React.useContext(LanguageContext)
@@ -33,7 +34,7 @@ const Telephone = () => {
                 <div className={Style.inputContainer}><input type="password"  name="password"/><label>{language.ConfermationCode}</label></div>
 
             </div>
-            <div className={Style.btn}><button>{language.update}</button><button>{language.cancel}</button></div>
+            <div className={Style.btn}><button>{language.update}</button><Link href="/profile"><button>{language.cancel}</button></Link></div>
 
         </div>
     )

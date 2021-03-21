@@ -9,11 +9,11 @@
     border-radius: 15px;
 }
 .closeLangChange{
+    @include closebtnFn();
     position: absolute;
     bottom: 100%;
     left: 100%;
-    background-color: red;
-    @include closebtnFn();
+    top: -100%;
 }
 .svgContainer{
     svg{
@@ -70,4 +70,8 @@
         }
     
     } 
+    .closeLangChange{
+        top: -100%;
+
+    }
 }

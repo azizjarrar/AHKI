@@ -4,10 +4,13 @@ import NavBar from "../../components/navBar/NavBar";
 import { GetOtherUsersData } from "../../services/user";
 import NotFoundPage from "../../components/notFoundPage/notFoundPage";
 import LanguageContext from '../../context/languageContext'
+import FollowAndUnfollow from '../../components/followAndUnfollow/followAndUnfollow'
+import { useRouter } from 'next/router'
+
 const profile = (props) => {
   const [user, setUser] = React.useState({ ...props.user });
   const [language , setLanguage]=React.useContext(LanguageContext)
-
+  const router = useRouter()
 
   /******************************************************************************************
     this will change between your posts and your likes 
@@ -41,13 +44,10 @@ const profile = (props) => {
         <div className={Style.bio}>
           <h2>{user.biography}</h2>
         </div>
-        <div className={Style.profileStatus}><h3>{user.following} {language.Following}</h3>{" "}<h3>{user.Followers} {language.Followers}</h3></div>
+        <div className={Style.profileStatus}><h3>{user.following} {language.Following}</h3>{" "}<h3>{user.followers} {language.Followers}</h3><FollowAndUnfollow userid={user._id} theOtherPersonId={router.query.id}></FollowAndUnfollow></div>
         <div className={Style.timelineAndparameters}>
           <div className={Style.timeLineContainer}>
-            <div className={Style.navbar}>
-              <div className={Style.Line} style={{left: "50%",transform: "translateX(-50%)",width: "80%",}}></div>
-              <h2>{LanguageContextPosts}</h2>
-            </div>
+   
             <div className={Style.timeLine}></div>
           </div>
         </div>
@@ -59,13 +59,14 @@ const profile = (props) => {
 export default profile;
 export const getServerSideProps = async (context) => {
   const res = await GetOtherUsersData(context.params.id);
-  console.log(res.data.data);
+  if(context.req.cookies.token==undefined){
+    return {
+        redirect: { destination: '/', permanent: false, }
+    };
+  }
   if (res.data.data == undefined) {
     return {
-      props: {
-        token: context.req.cookies.token || undefined,
-        state: false,
-      },
+        redirect: { destination: '/', permanent: false, }
     };
   }
   return {

@@ -5,6 +5,7 @@ import UserContext from '../../../context/userContext'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
 import Toast from '../../Toast/Toast'
 import LanguageContext from '../../../context/languageContext'
+import Link from 'next/link'
 
 
 
@@ -64,7 +65,7 @@ const Password = () => {
             <div className={Style.warningText}><h1>{language.newpasswordneedtobeatleastlength}</h1></div>
             <div className={Style.inputContainer}><input onChange={(e)=>changeHandler(e)} type="password"  name="newPassword"/><label>{language.newPassword}</label></div>
             </div>
-            <div className={Style.btn}><button  onClick={()=>UpdatePassword()}>{language.update}</button><button>{language.cancel}</button></div>
+            <div className={Style.btn}><button  onClick={()=>UpdatePassword()}>{language.update}</button><Link href="/profile"><button>{language.cancel}</button></Link></div>
 
         </div>
     )
