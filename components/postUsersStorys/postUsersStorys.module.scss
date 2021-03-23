@@ -11,8 +11,7 @@
     border: 1px solid $gray;
     border-radius: 15px;
     overflow:visible;
-    padding: 0px 10px 0px 10px;
-    padding-bottom: 0;
+    padding: 10px 10px 10px 10px;
     background-color: white;
     min-width: 300px;
     max-width: 600px;
@@ -20,6 +19,40 @@
     margin-bottom: 15px;
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+    .image_video_Container{
+        position: relative;
+        max-width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 7px 0; 
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px 0 $gray,
+        0 2px 4px 0 $gray,
+        inset 0 0 0 1px $gray;
+        img{
+            position: relative;
+            max-width: 100%;
+            height: auto;
+            
+        }
+        .closeBtn{
+            @include closebtnFn();
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 65616;
+            cursor: pointer;
+        }
+        
+    }
 }
 .topic{
     position: relative;
@@ -41,15 +74,8 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    &::after{
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: $gray2;
-        left: 0;
-        bottom: 0;
-    }
+    padding-bottom: 2px;
+    padding-top: 5px;
     .userImage{
         position: relative;
         cursor: pointer;
@@ -57,7 +83,11 @@
         width: 50px;
         border: 1px solid $primary;
         border-radius: 50%;
+        margin-left: 10px;
+        margin-top: 5px;
         overflow: hidden;
+        align-self: flex-start;
+
         img{
             position: absolute;
             top: 0;
@@ -70,80 +100,183 @@
         position: relative;
         width: calc(95% - 60px);
         min-height: 50px;
+        height: 50px;
         outline: none;
-        background-color: $gray2;
-        border-radius: 15px;
+        border:1px solid $gray;
+        border-radius: 5px;
         padding: 5px;
         margin-left: 10px;
-
-        .input{
-            margin-left: 10px;
-            user-select: text; 
-            white-space: pre-wrap; 
-            overflow-wrap: break-word;
+        height: auto;
+        display: flex;
+        .textAreaContainer{
             position: relative;
-            height: 90%;
-            width: 95%;
-            outline: none;
-            font-size: 1.4rem;
-            line-height: 1.1667;
-            font-weight: 600 !important;
-            color:black;
-            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-            img{
-                height: 15px;
-                width: 15px;
-                margin: 0 1.5px;
-                
+            height: auto;
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            .textArea{
+                overflow: hidden;
+                margin-left: 10px;
+                user-select: text; 
+                //white-space: pre-wrap; 
+                position: relative;
+                height: auto;
+                width: 100%;
+                height: auto;
+                outline: none;
+                font-size: 1.4rem;
+                height: 18px;
+                line-height: 1.1667;
+                font-weight: 600 !important;
+                color:black;
+                word-break: break-all;
+                outline: none;
+                border: 0;
+                resize: none;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+        }
+        }
+        .countLettres{
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            .postText{
+                transform: translateY(-70%);
+                top: 50%;
+                color: $primary;
+                font-weight: bold;
+                position: absolute;
+                display: inline-block;
+                right: 10px;
+                bottom: 0;
+                font-weight: 600;
+                font-size: 14px;
+                font-weight: normal;
+                cursor: pointer;
             }
-            &:empty{
-                &::after{
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    content: attr(datetextplaceholder);
-                    color: gray;
-                  }
+            .countLettresCss{
+                transform: translateY(-70%);
+                top: 50%;
+                position: absolute;
+                display: inline-block;
+                margin-right: 10px;
+                margin-bottom: 3px;
+                font-size: 1.4rem;
+                font-weight: normal;
+                color: gray;
+                left: 10px;
+                bottom: 0;
+                }
+        }
+        .maskEmojiAndUploadImageContainer{
+            position: relative;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 30px;
+            align-self: flex-end;
+            .emojiPickerContainer{
+                position: relative;
+                z-index: 5166;
+                right: 200px;    
+
+            }
+            .openOrCloseEmojiPicker{
+                position: relative;
+                height: 20px;
+                width: 20px;
+                cursor: pointer;
+            .emojiLogo{
+                position: relative;
+                height: 20px;
+                width: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                svg{
+                    position: relative;
+                    height: 20px;
+                    width: 20px;
+                }
             }
         }
- 
-    }
-}
-.closeBtn{
-    @include closebtnFn();
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 65616;
-    cursor: pointer;
-}
-.image_video_Container{
-    position: relative;
-    max-width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 7px 0; 
-    border-radius: 5px;
-    overflow: hidden;
-    box-shadow: 0 12px 28px 0 $gray,
-    0 2px 4px 0 $gray,
-    inset 0 0 0 1px $gray;
-    img{
-        position: relative;
-        max-width: 100%;
-        height: auto;
-        
+            .mask{
+                position: relative;
+                height: 20px;
+                width: 20px;
+                cursor: pointer;
+                svg{
+                    position: relative;
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+            .uploadImage{
+                position: relative;
+                height: 20px;
+                width: 20px;
+                cursor: pointer;
 
-    }
+                img{
+                    position: relative;
+                    height: 20px;
+                    width: 20px;
+                }
+                &:hover{
+                    &::after{
+                        position: absolute;
+                        box-shadow: 0px 1px 2px #cfd1d3;
+                        background-color: white;
+                        content: attr(hovertextinputfile);
+                        font-family: sans-serif;
+                        height: auto;
+                        width: auto;
+                        font-size: 1.2rem;
+                        font-weight: 600;
+                        bottom:120%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        padding: 7px;
+                        white-space: nowrap;
+                        padding: 10px;
+                        border-radius: 5px;
+            
+                    }
+                }
+                position: relative;
+                input[type=file], /* FF, IE7+, chrome (except button) */
+                input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
+                    cursor: pointer; 
+                    opacity: 0;
+                    z-index: 16516161556;
+        
+                }
+                cursor: pointer;
+                input{
+                    z-index: 156156156;
+                    cursor: pointer;
+                    opacity: 0;
+                    position: absolute;
+                    height: 100%;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    opacity: 1;
+                }
+            }
+        }
+
 }
+
 .mask{
     position: relative;
     &:hover{
         &::after{
             white-space: nowrap;
-
             position: absolute;
             box-shadow: 0px 1px 2px #cfd1d3;
             background-color: white;
@@ -157,176 +290,60 @@
             left: 50%;
             transform: translateX(-50%);
             padding: 7px;
+            padding: 10px;
+            border-radius: 5px;
 
         }
     }
 }
-.btnContainer{
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+}
+@media (orientation: portrait) , (max-height: 500px){
+    .container{
+        width: 100%;
+        padding: 5px;
+    }
     .uploadImage{
+
         &:hover{
             &::after{
-                position: absolute;
-                box-shadow: 0px 1px 2px #cfd1d3;
-                background-color: white;
-                content: attr(hovertextinputfile);
-                white-space: nowrap;
+                content: "";
 
-                font-family: sans-serif;
-                height: auto;
-                width: auto;
-                font-size: 1.2rem;
-                font-weight: 600;
-                bottom:120%;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 7px;
-    
             }
         }
+    }
+    .mask{
         position: relative;
-        input[type=file], /* FF, IE7+, chrome (except button) */
-        input[type=file]::-webkit-file-upload-button { /* chromes and blink button */
-            cursor: pointer; 
-            opacity: 0;
-
-        }
-        cursor: pointer;
-        input{
-            cursor: pointer;
-            opacity: 0;
-            position: absolute;
-            height: 100%;
-            top: 0;
-            left: 0;
-            width: 100%;
-            opacity: 1;
-            img{
-                margin: 0 1.5px;
-
+        &:hover{
+            &::after{
+                content: "";
             }
         }
     }
-    .container_uploadImage_pickEmoji_mask{
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 30%;
-        cursor: pointer;
-        svg{
-            height: 25px;
-            width: 25px;
-            cursor: pointer;
+    .userTopicContainer{
+        padding: 0;
+        .userImage{
+            height: 40px !important;
+            width: 40px !important;
+        }
+        .postTopic{
+            margin-left: 0px;
+            width: calc(95% - 40px) !important;
+            flex-direction: column;
+            border:none;
+            .maskEmojiAndUploadImageContainer{
+                width: 100%;
+                justify-content: flex-end;
+                gap:25px
+            }
+            .textAreaContainer{
+                border: 1px solid #eaeaea;
+                border-radius: 5px;
+                width: 100%;
+
+                .textArea{
+                    width: 95%;
+                }
+            }
         }
     }
-    button{
-        @include btn(white,$primary,$hover);
-        margin: 0 auto;
-        border-radius: 5px;
-        height: 40px;
-        width: 65%;
-    }
-}
-.EmojiLogo{
-    position: relative;
-    height: 30px;
-    width: 30px;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 15;
-   
-    img{
-      height: 25px;
-      width: 25px;
-    }
-  }
-  @media (orientation: portrait) , (max-height: 500px){
- 
-      .container{
-          width: 100%;
-      }
-      .topic{
-          h1{
-              font-size: 1.3rem;
-          }
-      }
-      .userTopicContainer{
-            margin-left: 0;
-          padding: 10px 0;
-          justify-content: initial;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          .userImage{
-
-            display: none;
-          }
-          .postTopic{
-              margin-left: 0px;
-            min-height: 45px !important;
-            width: 90%;
-         
-          }
-      }
-      .btnContainer{
-        .container_uploadImage_pickEmoji_mask{
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            width: 35%;
-            svg{
-                height: 30px;
-                width: 30px;
-                cursor: pointer;
-            }
-            .EmojiLogo{
-                height: 25px;
-                width: 25px;
-            }
-        }
-          button{
-              width: 60%;
-          }
-
-    
-      }
-  }
-  @media (max-width: 330px) {
-      .postTopic{
-          margin-left: -10px !important;
-      }
-    .btnContainer{
-        .container_uploadImage_pickEmoji_mask{
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            width: 45%;
-            svg{
-                height: 30px;
-                width: 30px;
-                cursor: pointer;
-            }
-            .EmojiLogo{
-                height: 25px;
-                width: 25px;
-            }
-        }
-          button{
-              width: 50%;
-          }
-
-    
-      }
 }

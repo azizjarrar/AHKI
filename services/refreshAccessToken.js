@@ -4,4 +4,7 @@ import axiosApiInstance from '../interceptor/interceptor'
 const refreshAccessToken=async (token)=>{
    return axiosApiInstance.post("/token/getRefreshAccessToken",{ref_token:token})
 }
-export { refreshAccessToken }
+const deleteRefrechTokenOldOne=async (RefreshAccessToken)=>{
+   return axiosApiInstance.post("/token/deleteRefrechTokenOldOne",{RefreshAccessToken:RefreshAccessToken})
+}
+export { refreshAccessToken ,deleteRefrechTokenOldOne}

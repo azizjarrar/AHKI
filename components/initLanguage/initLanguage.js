@@ -4,6 +4,8 @@ const initLanguage=(e)=>{
     switch(e) {
         case "eng":
             lang={
+                postAnonymously:"post Anonymously",
+                Uploadphotowithyourpost:"Upload photo with your post",
                 ForgotPassword:"Forgot Password?",
                 createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"create a profile follow other accounts talk about your own experience and more",
                 telephoneoremail:"telephone or email",
@@ -61,6 +63,8 @@ const initLanguage=(e)=>{
           break;
         case "fr":
             lang={
+                postAnonymously:"publier de manière anonyme",
+                Uploadphotowithyourpost:"Télécharger une photo avec votre message",
                 ForgotPassword:"Mot de passe oublié?",
                 createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"créer un profil suivre d'autres comptes parler de votre propre expérience et plus",
                 telephoneoremail:"téléphone ou email",
@@ -118,6 +122,8 @@ const initLanguage=(e)=>{
           break;
           case "arabic":
             lang={
+                postAnonymously:"نشر مجهول",
+                Uploadphotowithyourpost:"تحميل الصورة مع منشورك",
                 ForgotPassword:"هل نسيت كلمة السر?",
                 createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"إنشاء حساب  تابع حسابات أخرى تحدث عن تجربتك الخاصة والمزيد",
                 telephoneoremail:"الهاتف أو البريد الإلكتروني",
@@ -176,6 +182,8 @@ const initLanguage=(e)=>{
               break;
         default:
             lang={
+                postAnonymously:"post Anonymously",
+                Uploadphotowithyourpost:"Upload photo with your post",
                 ForgotPassword:"Forgot Password?",
                 createaprofilefollowotheraccountstalkaboutyourownexperienceandmore:"create a profile follow other accounts talk about your own experience and more",
                 telephoneoremail:"telephone or email",

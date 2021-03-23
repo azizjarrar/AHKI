@@ -7,3 +7,39 @@
     overflow-y: visible;
     margin: 0 auto;
 }
+.followingContainer{
+    position: sticky;
+    top: 60px;
+}
+.suggestionContainer{
+    position: relative;
+}
+.timeLine{
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 1000px;
+    display: flex;
+    flex-wrap: nowrap;
+    margin: 0 auto;
+    .params{
+        position: relative;
+        width: 400px;
+        height: auto;
+        //height: 600px;
+      //  top: 18px !important;
+        margin-top: 15px;
+  
+    }
+    .posts{
+        position: relative;
+        height: auto;
+        width: calc(100% - 400px);
+    }
+  }
+  .publicationContainer{
+    position: relative;
+    width: 95%;
+    margin: 0 auto;
+    height: auto;
+  }

@@ -10,7 +10,6 @@
     max-width: 600px;
     box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
     
-    padding: 15px 15px 15px 15px;
     height: auto;
     margin: 15px auto;
     background-color: white;
@@ -27,7 +26,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    padding: 15px;
     &::after{
 
     }
@@ -54,7 +53,7 @@
             justify-content: center;
             height: 20px;
             width: 20px;
-            right: 0;
+            right: 10px;
 
             &:after{
                 cursor: pointer;
@@ -75,6 +74,8 @@
 .text{
     font-size: 2rem;
     color: black;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -99,27 +100,18 @@
 .likesAndComments{
     position: relative;
     width: 100% !important;
-    margin-top: 20px;
+    margin-top: 5px;
     height: 45px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    &::after{
-        content: "";
-        position: absolute;
-        width: 90%;
-        margin: 0 auto;
-        height: 2px;
-        background-color: $gray2;
-        top: 0;
-        
-    }
+
     &::before{
         content: "";
         position: absolute;
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
-        height: 2px;
+        height: 1px;
         background-color: $gray;
         bottom: 0;
     }
@@ -130,7 +122,7 @@
         justify-content: center;
         &:after{
             margin-left: 15px;
-            font-size: 2rem;
+            font-size: 1.5rem;
             content: attr(likesnumber);
         }
     }
@@ -141,7 +133,7 @@
         align-items: center;
         justify-content: center;
         &:after{
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-left: 15px;
 
             content: attr(commentsnumbers);
@@ -172,80 +164,150 @@
 }
 .userAddComments{
     position: relative;
+    width: 100%;
     height: auto;
-    width: 95%;
-    margin: 0 auto;
+    padding: 5px;
     display: flex;
     align-items: center;
-    flex-direction: row;
-    padding: 5px;
-    margin-top: 10px;
-.userImageInComments{
-    position: relative;
-    cursor: pointer;
-    height: 40px;
-    width: 40px;
-    border: 1px solid $primary;
-    border-radius: 50%;
-    align-self: flex-start;
-    
-}
-.inputContainer{
-    position: relative;
-    min-height: 35px;
-    width: calc(100% - 40px);
-    display: flex;
-    flex-direction: column;
-    .post{
-        p{
-            font-size: 1rem;
-            color: $primary;
+    .userImageInComments{
+        position: relative;
+        cursor: pointer;
+        height: 50px;
+        width: 50px;
+        max-width: 50px;
+        max-height: 50px;
+        min-height: 50px;
+        min-width: 50px;
+        border: 1px solid $primary;
+        border-radius: 50%;
+        overflow: hidden;
+        align-self: flex-start;
+        img{
+            position: absolute;
+            top: 0;
+            max-width: 100%;
+            height: auto;
+            min-height: 100%;
         }
     }
-    .inputAndBtns{
-         position: relative;
-        background-color: $gray2;
-        border-radius: 7px;
-        min-height: 35px;
-        width: 95%;
-        align-self: flex-end;
+    .textAreaContainer{
+        position: relative;
+        height: auto;
+        width: 75%;
         display: flex;
         flex-direction: column;
-        .inputContenteditable{
+        padding: 5px;
+        .countLettres{
             position: relative;
-            width: calc(100% );
-            min-height: 35px;
-            align-self: flex-end;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            align-items: center;
+
+            .countLettresCss{
+                position: absolute;
+                display: inline-block;
+                margin-right: 10px;
+                margin-bottom: 3px;
+                font-size: 1.0rem;
+                font-weight: normal;
+                color: gray;
+                left: 10px;
+                bottom: 0;
+                }
+        }
+        .textArea{
+            overflow: hidden;
+            margin-left: 10px;
+            user-select: text; 
+            //white-space: pre-wrap; 
+            position: relative;
+            height: auto;
+            width: 100%;
+            height: auto;
             outline: none;
             font-size: 1.4rem;
+            height: 18px;
             line-height: 1.1667;
             font-weight: 600 !important;
-            white-space: pre-wrap;
-            overflow-wrap: break-word;
-            padding: 5px;
+            color:black;
+            word-break: break-all;
+            outline: none;
+            border: 0;
+            resize: none;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    }
+    }
+    .emojiAndMaskAndPost{
+        position: relative;
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        align-self: flex-end;
 
-            cursor: text;
-            img{
-                height: 15px;
-                width: 15px;
-                margin: 0 1.5px;
+        .postAndCounterContainer{
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .postText{
+                color: $primary;
+                font-weight: bold;
+                position: relative;
+                display: inline-block;
+                font-weight: 600;
+                font-size: 14px;
+                font-weight: normal;
+                cursor: pointer;
+                width: 100%;
             }
-            &:empty{
-                &::after{
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    margin-left: 10px;
-                    content: attr(datetextplaceholder);
-                    color: gray;
-                    font-size: 1.3rem;
-                }
+
+        }
+        .emojiPickerContainer{
+            position: relative;
+            z-index: 5166;    
+            right: 200px;    
+        }
+        .openOrCloseEmojiPicker{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+        .emojiLogo{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg{
+                position: relative;
+                height: 20px;
+                width: 20px;
             }
-    
         }
     }
- 
-}
+        .mask{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg{
+                position: relative;
+                height: 20px;
+                width: 20px;
+            }
+        }
+    }
 }
 .btns{
     position: relative;

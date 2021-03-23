@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
     /********************fetch user data online if there is token************************/
     /***********************************************************/
     if (pageProps.token) {
+      console.log(pageProps.token)
       GetUserData(pageProps.token).then(data => { setUser(e => { return { ...e, ...data.data.data[0] } }) }).catch(e => { })
     }
   }, [])
@@ -58,5 +59,5 @@ function MyApp({ Component, pageProps }) {
 
 export default MyApp
 export async function getServerSideProps({ req, res }) {
-  return req.cookies.token ? { props: { token: true } } : { redirect: { destination: '/', permanent: false, } }
+  return await req.cookies.token ? { props: { token: true } } : { redirect: { destination: '/', permanent: false, } }
 }

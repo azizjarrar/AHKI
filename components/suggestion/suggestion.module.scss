@@ -87,11 +87,13 @@ margin-bottom: 10px;
         overflow: hidden;
         border-radius: 10%;
         cursor: pointer;
+        //box-shadow: 0 0 0 1px #d4d4d5, 0 3.0px 0 0 var(--c), 0 1px 3px 0 #d4d4d5;
+        box-shadow: 0 0 0 1px #d4d4d5, 0 3.0px 0 0 $primary, 0 1px 3px 0 #d4d4d5;
+
         img{
             position: absolute;
             height: auto;
             min-height: 100%;
-            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
             max-width: 105%;
             top: 0;
         }

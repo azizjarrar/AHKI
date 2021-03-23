@@ -1,7 +1,7 @@
 @import "../../styles/colors"; 
 .container{
     position: absolute;
-    bottom: 100%;
+    top: 30px;
     height: auto;
     width: 100px;
     background-color: white;
@@ -10,6 +10,14 @@
     z-index: 156;
     border-radius: 5px;
     border: 1px solid $gray2;
+    animation-name: showUp;
+    animation-duration: 0.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+    transform: perspective(1000px) translateX(0px);
+
+
+
     .paramsContainer{
         h3{
             display: inline-block;
@@ -23,4 +31,8 @@
         }
     }
 
+}
+@keyframes showUp{
+    from{transform: perspective(1000px) translateX(-50px);opacity: 0;}
+    to{transform: perspective(1000px) translateX(0px);opacity: 1;}
 }

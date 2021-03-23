@@ -40,12 +40,7 @@ const ModalSingInSingUp = (props) => {
           <SingIn openVerifieAccountModal={openVerifieAccountModalfn} setErrorMessageProps={setErrorMessagefn}showSingIn_Or_SHowSingUp={showSingIn_Or_SHowSingUp} fnshowSingInOrSingUp={fnsetShowSingIn_Or_SHowSingUp}></SingIn>
           <SingUp openVerifieAccountModal={openVerifieAccountModalfn} setErrorMessageProps={setErrorMessagefn}showSingIn_Or_SHowSingUp={showSingIn_Or_SHowSingUp} fnshowSingInOrSingUp={fnsetShowSingIn_Or_SHowSingUp}></SingUp>
         </div>
-        <div className={Style.description}>
-          <h1>smoufy</h1>
-          <p>
-          smoufy It is a long established fact that a reader will be distracted by the readable content
-          </p>
-        </div>
+
       </div>
     </div>
   )
