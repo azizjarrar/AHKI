@@ -11,14 +11,13 @@
 }
 .profile{
     position: relative;
-    border-top-left-radius:15px ;
-    border-top-right-radius:15px ;
+  //  border-top-left-radius:15px ;
+  //  border-top-right-radius:15px ;
     width: 100%;
-    max-width: 1000px;
     padding: 25px 28px 0 25px;
     background-color: white;
     margin: 0 auto;
-    margin-top: 20px; 
+  //  margin-top: 20px; 
 }
 .userName{
     height: 50px;
@@ -114,7 +113,7 @@
 .bio{
     position: relative;
     width: 100%;
-    height: 70px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,6 +129,7 @@
     position: relative;
     height: 50px;
     display: flex;
+    max-width: 1000px;
     margin: 0 auto;
     align-items: center;
     justify-content: space-around;
@@ -176,6 +176,7 @@
              position: relative;
              height: 40px;
              width: 80%;
+             max-width: 1000px;
              margin: 0% auto;
              margin-bottom: 10px;
          }
@@ -300,4 +301,11 @@
 }
 .suggestionContainer{
     position: relative;
+}
+.timeLineOfOtherUser{
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+
+    margin: 0 auto;
 }

@@ -14,14 +14,14 @@
     justify-content: center;
     overflow: visible;
     background-color: white !important;
-    border-bottom-left-radius:40px ;
-    border-bottom-right-radius: 40px;
+   // border-bottom-left-radius:40px ;
+   // border-bottom-right-radius: 40px;
     overflow: visible;
     &::after{
         content: "";
         position: absolute;
         bottom: 0;
-        width: 97%;
+        width: 100%;
         height: 2px;
         background-color: $primary;
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);

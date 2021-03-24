@@ -8,6 +8,11 @@
     flex-direction: column;
     margin-bottom: 15px;
 }
+.date{
+    font-size: 1.3rem;
+    color: rgb(163, 163, 163);
+    font-weight: 400;
+}
 .imageUserAndNameContainer{
     height: 40px;
     width: 100%;
@@ -27,6 +32,14 @@
         border-radius: 50%;
         display: flex;
         margin-left: 2%;
+        overflow: hidden;
+        img{
+            position: absolute;
+            min-height: 100%;
+            max-width: 100%;
+            height: auto;
+            top: 0;
+        }
 
     }
 }

@@ -6,6 +6,7 @@ import LanguageContext from '../../context/languageContext'
 import userContext from '../../context/userContext'
 import { Picker,Emoji  } from 'emoji-mart'
 import Heart from '../heart/heart'
+import {addComment,getComments} from '../../services/comments'
 const publication = (props) => {
   const [slice, setSlice] = React.useState(100)
   const [comments, setComments] = React.useState(false)
@@ -17,7 +18,8 @@ const publication = (props) => {
   const [countLettres,setCountLettres]=React.useState(0)
   const [closeOrOpenEmojiPickerState,setcloseOrOpenEmojiPickerState]=React.useState(false)
   const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
-
+  const [commentsData,setCommentsData]=React.useState([])
+  const maskRef=React.useRef(null)
   React.useEffect(() => { 
     if(window.innerWidth>500){
       setEmojiContainerHeight(9) 
@@ -59,9 +61,9 @@ const publication = (props) => {
   /*************************************************************/
   React.useEffect(() => {
     if (mask) {
-      document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "#1876f3"
+      maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3"
     } else {
-      document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "black"
+      maskRef.current.childNodes[0].childNodes[0].style.fill = "black"
     }
   }, [mask])
 
@@ -95,12 +97,41 @@ const publication = (props) => {
   const LikePost=()=>{
     
   }
+  const AddComment=()=>{
+
+    addComment({postid:props.id,anonyme:mask,commentText:textAreaData},user.token).then((result)=>{
+      getComments({postid:props.id},user.token).then(result=>{
+        setCommentsData([...result.data.data])
+      }).catch(error=>{
+          alert(error)
+      })
+    }).catch(e=>{
+      console.log(e)
+    })
+  }
   React.useEffect(()=>{
     setCountLettres(textAreaData.length)
   },[textAreaData])
+
+  React.useEffect(()=>{
+    if(user.token!=undefined){
+        getComments({postid:props.id},user.token).then(result=>{
+          setCommentsData([...result.data.data])
+        }).catch(error=>{
+            alert(error)
+        })
+    }
+},[user.token])
   return (
     <div className={Styles.container}>
-      <div className={Styles.userImageAndNameAndTimeAndSettings}><div className={Styles.userImage}></div><div className={Styles.Name}><h3 className={Styles.nameh3}>Aziz Jarrar</h3></div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings></CommentOrPostSettings>}</div></div>
+      
+      <div className={Styles.userImageAndNameAndTimeAndSettings}>
+        <div className={Styles.userImage}><img src={props.ownerOfPostImage||"/avatar.png"} alt={user.userName || ""}/></div>
+        <div className={Styles.Name}>
+        <h3 className={Styles.nameh3}>{props.userName}</h3>
+        <h3 className={Styles.date}>{props.date.slice(0,10)} {props.date.slice(11,16)}</h3>
+        </div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings></CommentOrPostSettings>}</div>
+      </div>
       {props.text.length < 50 && <div className={Styles.text}><p>{props.text}</p></div>}
       {props.text.length > 50 && <div className={Styles.text}><p>{props.text.slice(0, slice)}{slice != -1 && <span onClick={() => completeText(-1)}>...</span>}</p></div>}
       {props.image && <div className={Styles.imageContainer}><img src={props.image} /></div>}
@@ -126,19 +157,15 @@ const publication = (props) => {
           {closeOrOpenEmojiPickerState&&<div className={Styles.emojiPickerContainer}><Picker  perLine={EmojiContainerHeight}  onSelect={(e)=>addEmoji(e)} /></div>}
 
         </div>
-        <div className={Styles.mask} postanonymously={language.postAnonymously} onClick={() => maskOn()}><Masksvg></Masksvg></div>
+        <div className={Styles.mask} ref={maskRef} postanonymously={language.postAnonymously} onClick={() => maskOn()}><Masksvg></Masksvg></div>
         <div className={Styles.postAndCounterContainer}>
-           <span className={Styles.postText}>Publier</span>
+           <span className={Styles.postText} onClick={()=>{AddComment()}}>Publier</span>
           </div>
         </div>
       </div>
       {comments && <div className={Styles.commentsContainer}>
-        <Comment text={"كما أضاف: أسوأ سيناريو أصبح وراءنا. نحن نعرف المزيد عن الفيروس مقارنة بعام 2020، عندما بدأ الفيروس للتو في الانتشار، بحسب ما ذكرته قناة آر دي DR التلفزيونية الدنماركية."}></Comment>
-        <Comment text={"when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially uncha"}></Comment>
-        <Comment text={"1500s, when an unknown"}></Comment>
-        <Comment text={"1500s, simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever "}></Comment>
-        <Comment text={"able English. Many desktop publishing packages and web"}></Comment>
-        <Comment text={"1500s, when an unknown"}></Comment>
+        {commentsData.map(e=><Comment date={e.date} key={e._id} text={e.commentText} name={e.commentOwner.userName} userProfileImageUrl={e.commentOwner.userProfileImageUrl}></Comment>)}
+        
       </div>}
     </div>
 

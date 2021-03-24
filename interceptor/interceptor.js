@@ -21,9 +21,9 @@ axiosApiInstance.interceptors.response.use((response) => {
     return
   }
   if(error.response.status ===401){
-   // localStorage.removeItem('ref_token');
-   // await axios.post("api/logout") // change token in cookies to the bew one
-   // window.reload()
+    localStorage.removeItem('ref_token');
+    await axios.post("api/logout") // change token in cookies to the bew one
+    window.reload()
 
     return
   }

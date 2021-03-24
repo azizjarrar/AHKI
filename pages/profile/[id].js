@@ -6,12 +6,24 @@ import NotFoundPage from "../../components/notFoundPage/notFoundPage";
 import LanguageContext from '../../context/languageContext'
 import FollowAndUnfollow from '../../components/followAndUnfollow/followAndUnfollow'
 import { useRouter } from 'next/router'
+import {getOtherUserPosts} from '../../services/postNrmlTopic'
+import Publication from '../../components/publication/publication'
 
 const profile = (props) => {
   const [user, setUser] = React.useState({ ...props.user });
   const [language , setLanguage]=React.useContext(LanguageContext)
-  const router = useRouter()
+  const [posts,setPosts]=React.useState([])
 
+  const router = useRouter()
+  React.useEffect(()=>{
+    console.log(props.user._id)
+    getOtherUserPosts({userid:props.user._id}).then(result=>{
+      console.log(result)
+      setPosts([...result.data.data])
+  }).catch(error=>{
+      alert(error)
+  })
+  },[])
   /******************************************************************************************
     this will change between your posts and your likes 
     ******************************************************************************************/
@@ -45,13 +57,17 @@ const profile = (props) => {
           <h2>{user.biography}</h2>
         </div>
         <div className={Style.profileStatus}><h3>{user.following} {language.Following}</h3>{" "}<h3>{user.followers} {language.Followers}</h3><FollowAndUnfollow userid={user._id} theOtherPersonId={router.query.id}></FollowAndUnfollow></div>
+        </div>
+
         <div className={Style.timelineAndparameters}>
           <div className={Style.timeLineContainer}>
    
-            <div className={Style.timeLine}></div>
+            <div className={Style.timeLineOfOtherUser}>
+            {posts.map(e=><Publication userName={user.userName} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+
+            </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

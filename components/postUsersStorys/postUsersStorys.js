@@ -4,9 +4,11 @@ import LanguageContext from '../../context/languageContext'
 import userContext from '../../context/userContext'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker,Emoji  } from 'emoji-mart'
+import {postnrmltopic} from '../../services/postNrmlTopic'
 
-const PostTodayTopic = () => {
+const PostTodayTopic = (props) => {
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
+  const [imageOrVideoDataToSend, setImageOrVideoDataToSend] = React.useState(false)
   const [mask, setMask] = React.useState(false)
   const [language , setLanguage]=React.useContext(LanguageContext)
   const [user,setUser]=React.useContext(userContext)
@@ -14,6 +16,18 @@ const PostTodayTopic = () => {
   const [textAreaData,setTextAreaData]=React.useState("")
   const [countLettres,setCountLettres]=React.useState(0)
   const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
+  const PublishPost=()=>{
+    var formData = new FormData()
+    formData.append("postText",textAreaData)
+    if(imageOrVideo!=false){formData.append("postImage",imageOrVideoDataToSend)}
+    formData.append("anonyme",mask)
+
+    postnrmltopic(formData,user.token).then(result=>{
+      props.refrechData()
+    }).catch(error=>{
+      alert(error)
+    })
+  }
   React.useEffect(() => { 
     if(window.innerWidth>500){
       setEmojiContainerHeight(9) 
@@ -25,12 +39,14 @@ const PostTodayTopic = () => {
   /**********save image in var ************/
   /****************************************/
   const changeFile = (e) => {
+    setImageOrVideoDataToSend(e.target.files[0])
     setImageOrVideo(URL.createObjectURL(e.target.files[0]))
   }
   /****************************************/
   /************remove image****************/
   /****************************************/
   const removeImage = () => {
+    setImageOrVideoDataToSend(false)
     setImageOrVideo(false)
   }
   /******************************************************/
@@ -89,7 +105,7 @@ const PostTodayTopic = () => {
         <div className={Styles.postTopic}>
           <div className={Styles.textAreaContainer}>
           <textarea placeholder={"say somthing"}  onChange={(e)=>textAreaHolder(e)} value={textAreaData} className={Styles.textArea}/>
-          <div className={Styles.countLettres}><span className={Styles.countLettresCss} style={countLettres>=1000?{color:"red"}:{}}>{countLettres} : 1000</span><span className={Styles.postText}>Publier</span></div>
+          <div className={Styles.countLettres}><span className={Styles.countLettresCss} style={countLettres>=1000?{color:"red"}:{}}>{countLettres} : 1000</span><span className={Styles.postText} onClick={()=>PublishPost()}>Publish</span></div>
           </div>
             <div className={Styles.maskEmojiAndUploadImageContainer}>
               <div className={Styles.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>

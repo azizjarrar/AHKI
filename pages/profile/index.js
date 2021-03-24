@@ -11,12 +11,14 @@ import Following from '../../components/followingProfileList/following'
 import Suggestion from '../../components/suggestion/suggestion'
 import Followersnavbar from '../../components/followers/followers'
 import Followingnavbar from '../../components/following/following'
+import {getCurrentUserPosts} from '../../services/postNrmlTopic'
 const Profile = (props) => {
     const [yourFeeds, setYourFeeds] = React.useState("Your Posts")
     const [user,setUser]= React.useContext(UserContext)
     const [language , setLanguage]=React.useContext(LanguageContext)
     const [openFollowersState,setOpenFollowersState]=React.useState(false)
     const [openFollowingState,setOpenFollowingState]=React.useState(false)
+    const [posts,setPosts]=React.useState([])
     /******************************************************************************************
     this will change between your posts and your likes 
     ******************************************************************************************/
@@ -42,6 +44,24 @@ const Profile = (props) => {
     const openFollowing=()=>{
         setOpenFollowingState(e=>!e)
     }
+    const refrechDataFn=()=>{
+        getCurrentUserPosts(user.token).then(result=>{
+            setPosts([...result.data.data])
+        }).catch(error=>{
+            alert(error)
+        })
+    }
+    React.useEffect(()=>{
+        if(user.token!=undefined){
+            //console.log(user.token)
+            getCurrentUserPosts(user.token).then(result=>{
+                console.log(result)
+                setPosts([...result.data.data])
+            }).catch(error=>{
+                alert(error)
+            })
+        }
+    },[user.token])
     return (
         <div className={Style.container}>
             <NavBar token={props.token}></NavBar>
@@ -69,15 +89,10 @@ const Profile = (props) => {
    
                 </div>
                 <div className={Style.posts}>
-                <PostUsersStorys></PostUsersStorys>
-                <div className={Style.publicationContainer}>
-                    <Publication index={"1"} text={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five"} image={"/me.jpg"}></Publication>
-                    <Publication index={"2"} text={"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College  gze  innnnnnnaaa aaaaaaaaaaaaaaagezgzgze zzzzzzzzzzzzzzeggzg zn"} image={false}></Publication>
-                    <Publication index={"3"} text={"gzegzegzeg"} image={"hola.jpg"}></Publication>
-                    <Publication index={"4"} text={"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College  gze  innnnnnnaaa aaaaaaaaaaaaaaagezgzgze zzzzzzzzzzzzzzeggzg zn"} image={false}></Publication>
-                    <Publication index={"5"} text={"gzegzegzeg"} image={"hola.jpg"}></Publication>
-                    <Publication index={"6"} text={"Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College  gze  innnnnnnaaa aaaaaaaaaaaaaaagezgzgze zzzzzzzzzzzzzzeggzg zn"} image={false}></Publication>
-                </div>
+                <PostUsersStorys refrechData={refrechDataFn}></PostUsersStorys>
+                    <div className={Style.publicationContainer}>
+                        {posts.map(e=><Publication userName={user.userName} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+                    </div>
                 </div>
                          
             </div>
