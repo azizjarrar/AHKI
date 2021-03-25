@@ -15,7 +15,7 @@ const Post = () => {
                 <meta name="keywords" content="speak, talk, subjict"></meta>
             </Head>
             <div className={Styles.pubContainer}>
-            <Publication index={1} text={"gezg"}></Publication>
+          {/*  <Publication index={1} text={"gezg"}></Publication>*/}
             </div>
         </div>
     )

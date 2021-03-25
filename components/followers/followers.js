@@ -12,8 +12,8 @@ const followers = (props) => {
          })
     },[])
     React.useEffect(()=>{
-        if(user.token!=undefined){
-            getFollowersOfUser(user.token).then(result=>{
+        if(user._id!=undefined){
+            getFollowersOfUser({id:props.id},user.token).then(result=>{
            setFollowers(e=>{
               return [...e,...result.data.data.followers]
            })
@@ -21,7 +21,7 @@ const followers = (props) => {
             console.log(error)
         })
     }
-    },[user.token])
+    },[user._id])
     React.useEffect(()=>{
 
     },[])

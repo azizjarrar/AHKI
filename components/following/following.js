@@ -13,15 +13,14 @@ const following = (props) => {
          })
     },[])
     React.useEffect(()=>{
-        if(user.token!=undefined){
-            getFollowingOfUser(user.token).then(result=>{
-                console.log(result)
+        if(user._id!=undefined){
+            getFollowingOfUser({id:props.id},user.token).then(result=>{
                 setFollowing(e=>{
               return [...e,...result.data.data.following]
            })
         }).catch(error=>{})
     }
-    },[user.token])
+    },[user._id])
     return (
         <div className={Style.container}>
             <div className={Style.listContainer}>

@@ -110,3 +110,21 @@
         top: 3px;  
     }
 }
+@media (orientation: portrait) , (max-height: 500px){
+    .Settings{
+        position: absolute;
+        right: 20px;
+        top: 8px;
+        &:after{
+            cursor: pointer;
+            content: "...";
+            position: absolute;
+            height: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            top: 3px;  
+        }
+    }
+}

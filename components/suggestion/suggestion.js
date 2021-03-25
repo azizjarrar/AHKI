@@ -3,16 +3,21 @@ import Style from './suggestion.module.scss'
 import {getrandomUsersApi} from '../../services/user'
 import Link from 'next/link'
 
-const suggestion = () => {
+const suggestion = (props) => {
+    
     const [randomUser,setRandomUser]=React.useState([])
     React.useEffect(()=>{
-        getrandomUsersApi().then(result=>{
-            setRandomUser(e=>{
-                return [...e,...result.data.data]
-             })
-        }).catch(error=>{
+        console.log(props.token)
+        if(props.token.length>2){
+            getrandomUsersApi(props.token).then(result=>{
+                setRandomUser(e=>{
+                    return [...e,...result.data.data]
+                 })
+            }).catch(error=>{
+    
+            })
+        }
 
-        })
     },[])
     return (
         <div className={Style.container}>

@@ -1,9 +1,9 @@
 import React from 'react'
-import Style from './heart.module.scss'
+import Style from './heartComment.module.scss'
 import {addLikeToPost,checklikeToPost,dislikePost} from '../../services/likes'
-const heart = (props) => {
+const HeartComment = (props) => {
     const [clicked,setClicked]=React.useState(false)
-    React.useEffect(()=>{
+   /* React.useEffect(()=>{
         checklikeToPost({postid:props.postid},props.token).then(result=>{
             if(result.data.liked==true){
                 
@@ -14,9 +14,9 @@ const heart = (props) => {
         }).catch(e=>{
             console.log(e)
         })
-    },[])
+    },[])*/
 
-    const sendLikeOrDislike=()=>{
+    /*const sendLikeOrDislike=()=>{
         if(clicked==true){
             dislikePost({postid:props.postid},props.token).then(result=>{
                 props.addLikeInTime(-1)
@@ -33,7 +33,7 @@ const heart = (props) => {
             })
         }
 
-    }
+    }*/
     
     return (
         
@@ -44,4 +44,4 @@ const heart = (props) => {
     )
 }
 
-export default heart
+export default HeartComment

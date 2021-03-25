@@ -2,6 +2,7 @@
 .container{
     position: absolute;
     top: 30px;
+    left: 0;
     height: auto;
     width: 100px;
     background-color: white;
@@ -33,6 +34,6 @@
 
 }
 @keyframes showUp{
-    from{transform: perspective(1000px) translateX(-50px);opacity: 0;}
-    to{transform: perspective(1000px) translateX(0px);opacity: 1;}
+    from{transform: perspective(1000px) translateX(0px);opacity: 0;}
+    to{transform: perspective(1000px) translateX(-70px);opacity: 1;}
 }

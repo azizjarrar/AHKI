@@ -13,10 +13,10 @@ const homeTodayTopics = () => {
             <div className={Styles.timeLine}>
                 <div className={Styles.params}>
                     <div className={Styles.suggestionContainer}>
-                        <Suggestion></Suggestion>
+                        {/*<Suggestion></Suggestion>*/}
                     </div>
                     <div className={Styles.followingContainer}>
-                        <Following></Following>
+                        {/*<Following></Following>*/}
                     </div>
                 </div>
                 <div className={Styles.posts}>

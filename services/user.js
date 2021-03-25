@@ -63,16 +63,16 @@ const getFollowersApi=async(token)=>{
   return axiosApiInstance.post("/user/getFollowers",{},{ headers: {Authorization: 'Bearer ' + token }});
 }
 const getrandomUsersApi=async(token)=>{
-  return axiosApiInstance.post("/user/getrandomUsers");
+  return axiosApiInstance.post("/user/getrandomUsers",{},{ headers: {Authorization: 'Bearer ' + token }});
 }
 const searchUserNameApi=async(searchUserName)=>{
   return axiosApiInstance.post("/user/SearchUserByUserName",{searchUserName:searchUserName});
 }
-const getFollowersOfUser=async(token)=>{
-  return axiosApiInstance.post("/user/getFollowersOfUser",{},{ headers: {Authorization: 'Bearer ' + token }});
+const getFollowersOfUser=async(data,token)=>{
+  return axiosApiInstance.post("/user/getFollowersOfUser",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
-const getFollowingOfUser=async(token)=>{
-  return axiosApiInstance.post("/user/getFollowingOfUser",{},{ headers: {Authorization: 'Bearer ' + token }});
+const getFollowingOfUser=async(data,token)=>{
+  return axiosApiInstance.post("/user/getFollowingOfUser",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
 
 export {getFollowingOfUser,getFollowersOfUser,searchUserNameApi,getrandomUsersApi,getFollowingApi,getFollowersApi,unfollowUserApi,checkIffollowApi,followUserApi,updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

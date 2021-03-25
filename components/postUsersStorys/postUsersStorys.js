@@ -4,7 +4,7 @@ import LanguageContext from '../../context/languageContext'
 import userContext from '../../context/userContext'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker,Emoji  } from 'emoji-mart'
-import {postnrmltopic} from '../../services/postNrmlTopic'
+import {postnrmltopic} from '../../services/post'
 
 const PostTodayTopic = (props) => {
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
@@ -23,6 +23,8 @@ const PostTodayTopic = (props) => {
     formData.append("anonyme",mask)
 
     postnrmltopic(formData,user.token).then(result=>{
+      setTextAreaData("")
+      setImageOrVideo(false)
       props.refrechData()
     }).catch(error=>{
       alert(error)

@@ -32,9 +32,8 @@
     display: flex;
     align-items: center;
     padding: 15px;
-    &::after{
 
-    }
+
     .userImage{
         position: relative;
         cursor: pointer;
@@ -165,18 +164,20 @@
     margin: 0 auto;
     width: 90%;
 }
-@media (orientation: portrait) , (max-height: 500px){
-    .container{
-        width: 100%;
-    }
-    .text{
+.loadMoreComments{
+    width: 100%;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    p{
         font-size: 1.4rem;
-    }
-    .userImage{
-        height: 45px !important;
-        width: 45px !important;
+        color: $primary;
     }
 }
+
 .userAddComments{
     position: relative;
     width: 100%;
@@ -389,4 +390,26 @@
     width: 20px;
     margin: 0 10px;
 
+}
+@media (orientation: portrait) , (max-height: 500px){
+    .container{
+        width: 100%;
+        border-radius: 0px;
+    }
+    .text{
+        font-size: 1.4rem;
+    }
+    .userImage{
+        height: 45px !important;
+        width: 45px !important;
+    }
+    .userImageInComments{
+        display: none;
+    }
+    .textAreaContainer{
+        width: 60% !important;
+    }
+    .emojiAndMaskAndPost{
+        width: 37% !important;
+    }
 }

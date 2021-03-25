@@ -11,7 +11,7 @@ import Following from '../../components/followingProfileList/following'
 import Suggestion from '../../components/suggestion/suggestion'
 import Followersnavbar from '../../components/followers/followers'
 import Followingnavbar from '../../components/following/following'
-import {getCurrentUserPosts} from '../../services/postNrmlTopic'
+import {getCurrentUserPosts} from '../../services/post'
 const Profile = (props) => {
     const [yourFeeds, setYourFeeds] = React.useState("Your Posts")
     const [user,setUser]= React.useContext(UserContext)
@@ -65,8 +65,8 @@ const Profile = (props) => {
     return (
         <div className={Style.container}>
             <NavBar token={props.token}></NavBar>
-            {openFollowersState&&<Followersnavbar closepopUp={openFollowers}></Followersnavbar>}
-            {openFollowingState&&<Followingnavbar closepopUp={openFollowing}></Followingnavbar>}
+            {openFollowersState&&<Followersnavbar  id={user._id} closepopUp={openFollowers}></Followersnavbar>}
+            {openFollowingState&&<Followingnavbar  id={user._id} closepopUp={openFollowing}></Followingnavbar>}
             <div className={Style.profile}>
                 <div className={Style.ProfileImage}><div className={Style.image} ><div className={Style.underimage}><img src={user.userProfileImageUrl||"/avatar.png"} alt={user.userName || ""}/></div><div className={Style.camera}><input onChange={e => changeFile(e)} type="file" /><svg  xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" /></svg></div></div></div>
                 <div className={Style.userName}><h2>{user.userName||user.firstName||"No Name"}</h2></div>
@@ -81,7 +81,7 @@ const Profile = (props) => {
             <div className={Style.timeLine}>
                 <div className={Style.params}>
                     <div className={Style.suggestionContainer}>
-                        <Suggestion></Suggestion>
+                        <Suggestion token={props.token}></Suggestion>
                     </div>
                     <div className={Style.followingContainer}>
                         <Following></Following>
@@ -91,7 +91,7 @@ const Profile = (props) => {
                 <div className={Style.posts}>
                 <PostUsersStorys refrechData={refrechDataFn}></PostUsersStorys>
                     <div className={Style.publicationContainer}>
-                        {posts.map(e=><Publication userName={user.userName} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+                        {posts.map(e=><Publication  userName={user.userName} ownerid={e.userNameOwnerOfPost} commentsNumber={e.comments} likesNumber={e.likes}  id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
                     </div>
                 </div>
                          
@@ -102,5 +102,6 @@ const Profile = (props) => {
 
 export default Profile
 export async function getServerSideProps({req,res}) {
+
     return req.cookies.token ?{props: {token:req.cookies.token}}:{redirect: { destination: '/', permanent: false, }}
 }

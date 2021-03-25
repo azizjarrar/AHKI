@@ -6,17 +6,18 @@ import NotFoundPage from "../../components/notFoundPage/notFoundPage";
 import LanguageContext from '../../context/languageContext'
 import FollowAndUnfollow from '../../components/followAndUnfollow/followAndUnfollow'
 import { useRouter } from 'next/router'
-import {getOtherUserPosts} from '../../services/postNrmlTopic'
+import {getOtherUserPosts} from '../../services/post'
 import Publication from '../../components/publication/publication'
-
+import Followersnavbar from '../../components/followers/followers'
+import Followingnavbar from '../../components/following/following'
 const profile = (props) => {
   const [user, setUser] = React.useState({ ...props.user });
   const [language , setLanguage]=React.useContext(LanguageContext)
   const [posts,setPosts]=React.useState([])
-
+  const [openFollowersState,setOpenFollowersState]=React.useState(false)
+  const [openFollowingState,setOpenFollowingState]=React.useState(false)
   const router = useRouter()
   React.useEffect(()=>{
-    console.log(props.user._id)
     getOtherUserPosts({userid:props.user._id}).then(result=>{
       console.log(result)
       setPosts([...result.data.data])
@@ -35,8 +36,16 @@ const profile = (props) => {
       </div>
     );
   }
+  const openFollowers=()=>{
+    setOpenFollowersState(e=>!e)
+}
+const openFollowing=()=>{
+    setOpenFollowingState(e=>!e)
+}
   return (
     <div className={Style.container}>
+            {openFollowersState&&<Followersnavbar id={props.user._id} closepopUp={openFollowers}></Followersnavbar>}
+            {openFollowingState&&<Followingnavbar id={props.user._id} closepopUp={openFollowing}></Followingnavbar>}
       <NavBar token={props.token}></NavBar>
       <div className={Style.profile}>
         <div className={Style.ProfileImage}>
@@ -56,14 +65,21 @@ const profile = (props) => {
         <div className={Style.bio}>
           <h2>{user.biography}</h2>
         </div>
-        <div className={Style.profileStatus}><h3>{user.following} {language.Following}</h3>{" "}<h3>{user.followers} {language.Followers}</h3><FollowAndUnfollow userid={user._id} theOtherPersonId={router.query.id}></FollowAndUnfollow></div>
+        <div className={Style.profileStatus}>
+          <h3 onClick={()=>openFollowing()}>{user.following} {language.Following}</h3> 
+          <h3 onClick={()=>openFollowers()}>{user.followers} {language.Followers}</h3>
+          <FollowAndUnfollow userid={user._id} theOtherPersonId={router.query.id}></FollowAndUnfollow>
+
+          </div>
+
+   
         </div>
 
         <div className={Style.timelineAndparameters}>
           <div className={Style.timeLineContainer}>
    
             <div className={Style.timeLineOfOtherUser}>
-            {posts.map(e=><Publication userName={user.userName} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+            {posts.map(e=><Publication userName={user.userName} commentsNumber={e.comments} likesNumber={e.likes} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
 
             </div>
           </div>

@@ -14,8 +14,12 @@ axiosApiInstance.interceptors.request.use(
 axiosApiInstance.interceptors.response.use((response) => {
   return response
 }, async function (error) {
+  console.log(error)
   const originalRequest = error.config;
   if(error.message=="Network Error"){
+    localStorage.removeItem('ref_token');
+    await axios.post("api/logout") // change token in cookies to the bew one
+
     alert(error.message)
     location.reload();
     return

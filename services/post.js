@@ -9,4 +9,7 @@ const getCurrentUserPosts = async (token) => {
 const getOtherUserPosts = async (data,token) => {
     return axiosApiInstance.post('/postnrmltopic/getOtherUserPosts',{...data})
   }
-export { getOtherUserPosts,postnrmltopic ,getCurrentUserPosts}
+  const deletePost = async (data,token) => {
+    return axiosApiInstance.post('/postnrmltopic/deletePost',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+  }
+export {deletePost, getOtherUserPosts,postnrmltopic ,getCurrentUserPosts}

@@ -7,6 +7,7 @@ import userContext from '../../context/userContext'
 import { Picker,Emoji  } from 'emoji-mart'
 import Heart from '../heart/heart'
 import {addComment,getComments} from '../../services/comments'
+
 const publication = (props) => {
   const [slice, setSlice] = React.useState(100)
   const [comments, setComments] = React.useState(false)
@@ -19,6 +20,10 @@ const publication = (props) => {
   const [closeOrOpenEmojiPickerState,setcloseOrOpenEmojiPickerState]=React.useState(false)
   const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
   const [commentsData,setCommentsData]=React.useState([])
+  const [skip,setSkip]=React.useState(0)
+  const [addsOneToCommentCount,setaddOneToCommentCount]=React.useState(0)
+  const [addOneToLike,setAddOneToLike]=React.useState(props.likesNumber)
+
   const maskRef=React.useRef(null)
   React.useEffect(() => { 
     if(window.innerWidth>500){
@@ -39,6 +44,7 @@ const publication = (props) => {
   /*******this will load list of comments************/
   /************************************************/
   const openComments = () => {
+    
     setComments(e => !e)
   }
 
@@ -94,17 +100,15 @@ const publication = (props) => {
       }
     })
   };
-  const LikePost=()=>{
-    
-  }
-  const AddComment=()=>{
 
+  const AddComment=()=>{
     addComment({postid:props.id,anonyme:mask,commentText:textAreaData},user.token).then((result)=>{
-      getComments({postid:props.id},user.token).then(result=>{
-        setCommentsData([...result.data.data])
-      }).catch(error=>{
-          alert(error)
-      })
+      console.log(result.data.data)
+        setCommentsData(e=>[{...result.data.data,commentOwner:{userName:user.userName,userProfileImageUrl:user.userProfileImageUrl,_id:user._id}},...e])
+        setComments(true)
+        setaddOneToCommentCount(1)
+        setTextAreaData("")
+        setMask(false)
     }).catch(e=>{
       console.log(e)
     })
@@ -113,15 +117,23 @@ const publication = (props) => {
     setCountLettres(textAreaData.length)
   },[textAreaData])
 
-  React.useEffect(()=>{
-    if(user.token!=undefined){
-        getComments({postid:props.id},user.token).then(result=>{
-          setCommentsData([...result.data.data])
-        }).catch(error=>{
-            alert(error)
-        })
-    }
-},[user.token])
+
+const LoadMoreComments=()=>{
+  setSkip(e=>e+3)
+}
+React.useEffect(()=>{
+  getComments({postid:props.id,skip:skip},user.token).then(result=>{
+    
+    setCommentsData(e=>[...e,...result.data.data])
+  }).catch(error=>{
+      alert(error)
+  })
+},[skip])
+
+const addLikeInTime=(newLikesNumber)=>{
+  setAddOneToLike(e=>e+newLikesNumber)
+}
+
   return (
     <div className={Styles.container}>
       
@@ -130,15 +142,16 @@ const publication = (props) => {
         <div className={Styles.Name}>
         <h3 className={Styles.nameh3}>{props.userName}</h3>
         <h3 className={Styles.date}>{props.date.slice(0,10)} {props.date.slice(11,16)}</h3>
-        </div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings></CommentOrPostSettings>}</div>
+        </div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings currentUserId={user._id} ownerid={props.ownerid} token={user.token} postid={props.id}></CommentOrPostSettings>}</div>
       </div>
       {props.text.length < 50 && <div className={Styles.text}><p>{props.text}</p></div>}
       {props.text.length > 50 && <div className={Styles.text}><p>{props.text.slice(0, slice)}{slice != -1 && <span onClick={() => completeText(-1)}>...</span>}</p></div>}
       {props.image && <div className={Styles.imageContainer}><img src={props.image} /></div>}
       <div className={Styles.likesAndComments}>
-        <div className={Styles.Comments} onClick={() => openComments()} commentsnumbers="651656"><svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M49.8333 24.6429C49.8333 11.0277 38.6807 0 24.9167 0C11.1526 0 0 11.0277 0 24.6429C0 29.9257 1.68906 34.7926 4.55208 38.8125C2.94688 43.4638 0.299479 47.1603 0.263542 47.2065C0 47.5607 -0.071875 48.0844 0.0838542 48.5464C0.239583 49.0085 0.575 49.2857 0.958333 49.2857C5.34271 49.2857 8.97239 47.3913 11.5839 45.4353C15.4411 47.8533 20.0052 49.2857 24.9167 49.2857C38.6807 49.2857 49.8333 38.258 49.8333 24.6429ZM64.4479 58.5268C67.3109 54.5223 69 49.64 69 44.3571C69 34.0533 62.5911 25.2281 53.5109 21.5471C53.6188 22.5636 53.6667 23.5955 53.6667 24.6429C53.6667 40.9533 40.7651 54.2143 24.9167 54.2143C23.6229 54.2143 22.3651 54.0911 21.1193 53.9216C24.8927 62.7777 33.7573 69 44.0833 69C48.9948 69 53.5589 67.583 57.4161 65.1496C60.0276 67.1056 63.6573 69 68.0417 69C68.425 69 68.7724 68.7074 68.9161 68.2607C69.0719 67.8141 69 67.2904 68.7365 66.9208C68.7005 66.8745 66.0531 63.1935 64.4479 58.5268Z" fill="#212121" /></svg></div>
-        <div className={Styles.likes} onClick={()=>LikePost()} likesnumber="156">
-            <Heart ></Heart>
+    
+        <div className={Styles.Comments} onClick={() => openComments()} commentsnumbers={props.commentsNumber+addsOneToCommentCount}><svg width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M49.8333 24.6429C49.8333 11.0277 38.6807 0 24.9167 0C11.1526 0 0 11.0277 0 24.6429C0 29.9257 1.68906 34.7926 4.55208 38.8125C2.94688 43.4638 0.299479 47.1603 0.263542 47.2065C0 47.5607 -0.071875 48.0844 0.0838542 48.5464C0.239583 49.0085 0.575 49.2857 0.958333 49.2857C5.34271 49.2857 8.97239 47.3913 11.5839 45.4353C15.4411 47.8533 20.0052 49.2857 24.9167 49.2857C38.6807 49.2857 49.8333 38.258 49.8333 24.6429ZM64.4479 58.5268C67.3109 54.5223 69 49.64 69 44.3571C69 34.0533 62.5911 25.2281 53.5109 21.5471C53.6188 22.5636 53.6667 23.5955 53.6667 24.6429C53.6667 40.9533 40.7651 54.2143 24.9167 54.2143C23.6229 54.2143 22.3651 54.0911 21.1193 53.9216C24.8927 62.7777 33.7573 69 44.0833 69C48.9948 69 53.5589 67.583 57.4161 65.1496C60.0276 67.1056 63.6573 69 68.0417 69C68.425 69 68.7724 68.7074 68.9161 68.2607C69.0719 67.8141 69 67.2904 68.7365 66.9208C68.7005 66.8745 66.0531 63.1935 64.4479 58.5268Z" fill="#212121" /></svg></div>
+        <div className={Styles.likes}  likesnumber={addOneToLike}>
+            <Heart  addLikeInTime={(e)=>addLikeInTime(e)} token={user.token} postid={props.id}></Heart>
           </div>
         
       </div>
@@ -165,7 +178,7 @@ const publication = (props) => {
       </div>
       {comments && <div className={Styles.commentsContainer}>
         {commentsData.map(e=><Comment date={e.date} key={e._id} text={e.commentText} name={e.commentOwner.userName} userProfileImageUrl={e.commentOwner.userProfileImageUrl}></Comment>)}
-        
+        <div className={Styles.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>
       </div>}
     </div>
 
