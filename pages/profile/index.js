@@ -55,7 +55,6 @@ const Profile = (props) => {
         if(user.token!=undefined){
             //console.log(user.token)
             getCurrentUserPosts(user.token).then(result=>{
-                console.log(result)
                 setPosts([...result.data.data])
             }).catch(error=>{
                 alert(error)

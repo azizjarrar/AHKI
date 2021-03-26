@@ -1,12 +1,13 @@
 import React from 'react'
 import Style from './heartComment.module.scss'
-import {addLikeToPost,checklikeToPost,dislikePost} from '../../services/likes'
+import {addLikeToComment,checklikeToComment,dislikePost} from '../../services/likes'
 const HeartComment = (props) => {
     const [clicked,setClicked]=React.useState(false)
-   /* React.useEffect(()=>{
-        checklikeToPost({postid:props.postid},props.token).then(result=>{
+    React.useEffect(()=>{
+        checklikeToComment({commentid:props.commentid},props.token).then(result=>{
+            
             if(result.data.liked==true){
-                
+                console.log("d5al hne mara")
                 setClicked(true)
             }else{
                 setClicked(false)
@@ -14,18 +15,18 @@ const HeartComment = (props) => {
         }).catch(e=>{
             console.log(e)
         })
-    },[])*/
+    },[])
 
-    /*const sendLikeOrDislike=()=>{
+    const sendLikeOrDislike=()=>{
         if(clicked==true){
-            dislikePost({postid:props.postid},props.token).then(result=>{
+            dislikePost({commentid:props.commentid},props.token).then(result=>{
                 props.addLikeInTime(-1)
                 setClicked(false)
             }).catch(e=>{
                 console.log(e)
             })
         }else{
-            addLikeToPost({postid:props.postid},props.token).then(result=>{
+            addLikeToComment({commentid:props.commentid},props.token).then(result=>{
                 props.addLikeInTime(1)
                 setClicked(true)
             }).catch(e=>{
@@ -33,7 +34,7 @@ const HeartComment = (props) => {
             })
         }
 
-    }*/
+    }
     
     return (
         

@@ -9,4 +9,11 @@ const checklikeToPost = async (data,token) => {
 const dislikePost = async (data,token) => {
     return axiosApiInstance.post('/like/dislikePost',{...data},{ headers: {Authorization: 'Bearer ' + token }})
 }
-  export {dislikePost,addLikeToPost,checklikeToPost}
+const addLikeToComment = async (data,token) => {
+    return axiosApiInstance.post('/like/addLikeToComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
+const checklikeToComment = async (data,token) => {
+    return axiosApiInstance.post('/like/checklikeToComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
+
+  export {checklikeToComment,addLikeToComment,dislikePost,addLikeToPost,checklikeToPost}

@@ -103,8 +103,9 @@ const publication = (props) => {
 
   const AddComment=()=>{
     addComment({postid:props.id,anonyme:mask,commentText:textAreaData},user.token).then((result)=>{
-      console.log(result.data.data)
-        setCommentsData(e=>[{...result.data.data,commentOwner:{userName:user.userName,userProfileImageUrl:user.userProfileImageUrl,_id:user._id}},...e])
+
+
+        setCommentsData(e=>[{...result.data.data,commentOwnerData:[{userName:user.userName,userProfileImageUrl:user.userProfileImageUrl,_id:user._id}]},...e])
         setComments(true)
         setaddOneToCommentCount(1)
         setTextAreaData("")
@@ -123,7 +124,7 @@ const LoadMoreComments=()=>{
 }
 React.useEffect(()=>{
   getComments({postid:props.id,skip:skip},user.token).then(result=>{
-    
+
     setCommentsData(e=>[...e,...result.data.data])
   }).catch(error=>{
       alert(error)
@@ -177,7 +178,11 @@ const addLikeInTime=(newLikesNumber)=>{
         </div>
       </div>
       {comments && <div className={Styles.commentsContainer}>
-        {commentsData.map(e=><Comment date={e.date} key={e._id} text={e.commentText} name={e.commentOwner.userName} userProfileImageUrl={e.commentOwner.userProfileImageUrl}></Comment>)}
+        {commentsData.map(e=>
+        {
+          return  <Comment likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].userProfileImageUrl}></Comment>
+        }
+        )}
         <div className={Styles.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>
       </div>}
     </div>

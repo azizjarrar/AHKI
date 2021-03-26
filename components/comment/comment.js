@@ -2,13 +2,20 @@ import React from 'react'
 import Styles from './comment.module.scss'
 import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSettings'
 import HeartComment from '../heartComment/heartComment'
+
 const Comment = (props) => {
   const [settings, setSettings] = React.useState(false)
+  const [addOneToLike,setAddOneToLike]=React.useState(props.likesNumber)
+
+
   /******************************************************************************************
   *on click on the 3 dots will show settings like delete or report 
   ******************************************************************************************/
   const ShowSettings = () => {
     setSettings(e => !e)
+  }
+  const addLikeInTime=(newLikesNumber)=>{
+    setAddOneToLike(e=>e+newLikesNumber)
   }
   return (
     <div className={Styles.container}>
@@ -21,7 +28,10 @@ const Comment = (props) => {
           <div className={Styles.Settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings></CommentOrPostSettings>}</div></div>
       <div className={Styles.comments}><p>{props.text}</p></div>
       <div className={Styles.likesAndComments}>
-        <div className={Styles.likes} likesnumber="156"><HeartComment></HeartComment></div>
+        <div className={Styles.likes} likesnumber={addOneToLike}>
+          <HeartComment  addLikeInTime={(e)=>addLikeInTime(e)} token={props.token} commentid={props.commentid}></HeartComment>
+
+          </div>
         <div className={Styles.Comments} ><p>Replay</p></div>
       </div>
     </div>
