@@ -88,6 +88,8 @@
     color: black;
     padding-left: 10px;
     padding-right: 10px;
+    word-break: break-all !important;
+
 }
 
 
@@ -128,10 +130,19 @@
         bottom: 0;
     }
     .likes{
-        cursor: pointer;
+
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
+        cursor: pointer;
+        height: 30px;
+
+        .likesNumber{
+            position: relative;
+            font-size: 1.5rem;
+            margin-left: 15px;
+
+        }
         &:after{
             margin-left: 15px;
             font-size: 1.5rem;
@@ -391,6 +402,7 @@
     margin: 0 10px;
 
 }
+
 @media (orientation: portrait) , (max-height: 500px){
     .container{
         width: 100%;

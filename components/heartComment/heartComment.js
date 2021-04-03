@@ -1,6 +1,6 @@
 import React from 'react'
 import Style from './heartComment.module.scss'
-import {addLikeToComment,checklikeToComment,dislikePost} from '../../services/likes'
+import {addLikeToComment,checklikeToComment,dislikeToComment} from '../../services/likes'
 const HeartComment = (props) => {
     const [clicked,setClicked]=React.useState(false)
     React.useEffect(()=>{
@@ -19,7 +19,7 @@ const HeartComment = (props) => {
 
     const sendLikeOrDislike=()=>{
         if(clicked==true){
-            dislikePost({commentid:props.commentid},props.token).then(result=>{
+            dislikeToComment({commentid:props.commentid},props.token).then(result=>{
                 props.addLikeInTime(-1)
                 setClicked(false)
             }).catch(e=>{

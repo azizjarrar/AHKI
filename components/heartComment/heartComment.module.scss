@@ -1,11 +1,11 @@
 
 .heartFaded {
     display: inline-block;
-    height: 15px;
+    height: 10px;
     margin: 0 10px;
     position: absolute;
     top: 0;
-    transform: rotate(-1deg) translate(-60%,-5%);
+    transform: rotate(-1deg) translate(-100%,-0%);
     width: 10px;
     transition: 0.5s;
     animation-name: faded;
@@ -14,10 +14,12 @@
     display: inline-block;
     opacity: 1;
     z-index: 116916165156165;
+    z-index: 1561616165156;
+    overflow: visible;
   }
   @keyframes faded{
-    0%{transform: rotate(-1deg) translate(-60%,-5%)  scale(0);opacity: (1);}
-    95%{transform: rotate(-1deg) translate(-60%,-5%) scale(3);opacity: (0)}
+    0%{transform: rotate(-1deg) translate(-100%,-0%)  scale(0);opacity: (1);}
+    95%{transform: rotate(-1deg) translate(-100%,-0%) scale(3);opacity: (0)}
     100%{display:  none;opacity: (0);}
 }
   .heartFaded:before,
@@ -28,16 +30,16 @@
     border-radius: 50%;
     height: 10px;
     position: absolute;
-    width: 15px;
+    width: 10px;
   }
   
   .heartFaded:before {
-    top: -7px;
+    top: -5px;
     left: 0;
   }
   
   .heartFaded:after {
-    left: 7px;
+    left: 5px;
     top: 0;
   }  
 
@@ -49,7 +51,7 @@
     position: relative;
     top: 0;
     transform: rotate(-45deg) ;
-    width: 15px;
+    width: 10px;
     transition: 0.5s;
 
   }
@@ -66,11 +68,11 @@
   }
   
   .heart:before {
-    top: -7px;
+    top: -5px;
     left: 0;
   }
   
   .heart:after {
-    left: 7px;
+    left: 5px;
     top: 0;
   }                

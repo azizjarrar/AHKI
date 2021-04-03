@@ -15,5 +15,14 @@ const addLikeToComment = async (data,token) => {
 const checklikeToComment = async (data,token) => {
     return axiosApiInstance.post('/like/checklikeToComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
 }
+const dislikeToComment = async (data,token) => {
+    return axiosApiInstance.post('/like/dislikeToComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
+const getLikestUserNameFromPost = async (data,token) => {
+    return axiosApiInstance.post('/like/getLikestUserNameFromPost',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
+const getLikestUserNameFromComment = async (data,token) => {
+    return axiosApiInstance.post('/like/getLikestUserNameFromComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
 
-  export {checklikeToComment,addLikeToComment,dislikePost,addLikeToPost,checklikeToPost}
+  export {getLikestUserNameFromComment,getLikestUserNameFromPost,dislikeToComment,checklikeToComment,addLikeToComment,dislikePost,addLikeToPost,checklikeToPost}

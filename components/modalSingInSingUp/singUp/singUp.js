@@ -154,7 +154,7 @@ const singUp = (props) => {
   return (
     <div className={Style.singUp} style={props.showSingIn_Or_SHowSingUp ? { left: '0%' } : { left: '-100%' }}>
       <form className={Style.form} onSubmit={e => { e.preventDefault(); }} onChange={(e) => { formValidation(e) }}>
-      <div className={Style.pageHeader}><h2>Sing up For SmouFy</h2></div>
+      <div className={Style.pageHeader}><h2>Sing up For NOZZLA</h2></div>
       <div className={Style.descriptionHeader}><h3>{language.createaprofilefollowotheraccountstalkaboutyourownexperienceandmore}</h3></div>
         <div className={Style.inputContainer}>
           <input ref={userName} name="userName" type="text" className={Style.input} onChange={(e) => userName_Password_Handler(e)} required />

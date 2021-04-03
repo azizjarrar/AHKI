@@ -1,0 +1,182 @@
+@import "../styles/button";
+@import "../styles/colors"; 
+.pageContainer{
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow-y:scroll;
+}
+.formContainer{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    border: 1px solid rgba(219,219,219,1);
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+
+}
+.inputContainerTelOrEmail{
+
+}
+.inputContainer{
+    position: relative;
+    width: 80%;
+    height: 40px;
+    margin: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    label{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 146156156;
+        pointer-events: none;
+        left: 0%;
+        span{
+            transition: 0.5s;
+
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 5%;
+            font-size: 1.3rem;
+            color: rgba(142,142,142,1);
+        }
+    }
+    input{
+        position: relative;
+        width: 100%;
+        height: 40px;
+        border: 1px solid rgba(219,219,219,1);
+        outline: none;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: 0.5s;
+        text-indent: 4%;
+        padding-top: 10px;
+        &:focus{
+            border: 2px solid #1871ca !important;
+            transition: 0.1s;
+            //filter: drop-shadow(0px 0px 1px #FF3367);
+        }
+        &:focus + label span{
+            top: 20%;
+            transition: 0.5s;
+        }
+        &:valid + label span{
+            top: 20%;
+            transition: 0.5s;
+        }
+    }
+}
+.Header{
+    position: relative;
+    width: 100%;
+    margin: 22px auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h1{
+        position: relative;
+        font-size: 3rem;
+        color: #262626;
+        font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    }
+
+}
+.descriptionHeader{
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    h3{
+        position: relative;
+        font-size: 1.3rem;
+        text-align: center;
+        width: 80%;
+        transform: translateX(-50%);
+        left:50%;
+        color: rgba(22,24,35,0.5);
+    }
+}
+.btnContainer{
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+        @include btn(white,$primary,$hover);
+        transition: 0.5s;
+        width: 80%;
+        height: 40px;
+        border-radius: 3px;
+        &:hover{
+            color: white;
+
+        }
+    }
+}
+.messageToCreateAccounOrForgetPassword{
+    position: relative;
+    width: 80%;
+    margin: 10px auto;
+}
+.message{
+    font-size: 1.5rem;
+    width: 100%;
+    text-align: center;
+    .clickHere{
+        color: $primary;
+        cursor: pointer;
+    }
+    .forgetPassword{
+        color: $primary;
+        cursor: pointer;
+        font-size: 1.4rem;
+    }
+}
+.birthDay{
+    margin-top: 15px ;
+}
+.switchContainer{
+    position: relative;
+    width: 90%;
+    cursor: pointer;
+    p{
+        width: 100%;
+        text-align: right;
+        font-size: 1.3rem;
+        color: $primary;
+    }
+
+}
+.error{
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+    p{
+        font-size: 1.3rem;
+        font-family: sans-serif;
+        color: rgb(216, 7, 7);
+        
+    }
+}
+@media (orientation: portrait) , (max-height: 500px){
+    .formContainer{
+        position: relative;
+        top: 0%;
+        left: 50%;
+        transform: translate(-50%,-0%);
+        background-color: white;
+        border: 1px solid rgba(219,219,219,1);
+        width: 100%;
+        max-width: 400px;
+        padding: 15px;
+        background-color: white;
+    
+    }
+}

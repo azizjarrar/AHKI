@@ -1,8 +1,7 @@
 import React from 'react'
-import Style from '../ModalSingInSingUp.module.scss'
-import LanguageContext from '../../../context/languageContext'
-import UserContext from '../../../context/userContext'
-import {activeAccount,reSendVerificationCode} from '../../../services/user'
+import Style from './verifyAccount.module.scss'
+import LanguageContext from '../../context/languageContext'
+import {activeAccount,reSendVerificationCode} from '../../services/user'
 const verifyAccount = (props) => {
     const [language, setLanguage] = React.useContext(LanguageContext)
     const [code,setCode]=React.useState("")
@@ -30,7 +29,7 @@ const verifyAccount = (props) => {
                     <div className={Style.VerificationHeader}><h1>Smoufy</h1></div>
                     <div className={Style.discrption}><p>verification code is sent to your email ou telefone type it here</p></div>
                     <form className={Style.form} onSubmit={e => {e.preventDefault();}}>
-                    <div className={Style.inputContainer}><input name="userName" type="text" className={Style.input} onChange={(e) => codeHandler(e)} required /><label><span className={Style.labelspan}>{language.verificationcode}</span></label></div>
+                    <div className={Style.inputContainer}><input name="userName" type="text" placeholder={language.verificationcode} className={Style.input} onChange={(e) => codeHandler(e)} required /></div>
                     <h1 className={Style.Resendcode} onClick={()=>reSendCode()}>Resend code</h1>
                     <button onClick={()=>verifyUserAccount()}  className={Style.btn}>{language.send}</button>
                     </form>

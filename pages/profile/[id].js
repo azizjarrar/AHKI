@@ -19,7 +19,6 @@ const profile = (props) => {
   const router = useRouter()
   React.useEffect(()=>{
     getOtherUserPosts({userid:props.user._id}).then(result=>{
-      console.log(result)
       setPosts([...result.data.data])
   }).catch(error=>{
       alert(error)
@@ -51,7 +50,7 @@ const openFollowing=()=>{
         <div className={Style.ProfileImage}>
           <div className={`${Style.image} ${Style.removeAfter}`}>
             <div className={Style.underimage}>
-              <img src={user.userProfileImageUrl || "/avatar.png"}alt={user.userName || ""}/>
+              <img src={user.currentImageUrl || "/avatar.png"}alt={user.userName || ""}/>
             </div>
             <div className={Style.camera}>
               <input onChange={(e) => changeFile(e)} type="file" />
@@ -79,7 +78,7 @@ const openFollowing=()=>{
           <div className={Style.timeLineContainer}>
    
             <div className={Style.timeLineOfOtherUser}>
-            {posts.map(e=><Publication userName={user.userName} commentsNumber={e.comments} likesNumber={e.likes} id={e._id}  date={e.date} ownerOfPostImage={user.userProfileImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+            {posts.map(e=><Publication userName={user.userName} commentsNumber={e.comments} likesNumber={e.likes} id={e._id}  date={e.date} ownerOfPostImage={user.currentImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
 
             </div>
           </div>

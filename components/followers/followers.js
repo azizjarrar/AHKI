@@ -3,6 +3,8 @@ import Style from './followers.module.scss'
 import {getFollowersOfUser} from '../../services/user'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
+import { useRouter } from 'next/router'
+
 const followers = (props) => {
     const [user,setUser]=React.useContext(UserContext)
     const [followers,setFollowers]=React.useState([])
@@ -39,12 +41,13 @@ const followers = (props) => {
 export default followers
 const Users=(props)=>{
 
- 
+    const router = useRouter()
+
     return(
         <div className={Style.userContainer}>
-                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.userProfileImageUrl || "/avatar.png"} /></div></a>
+                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div></a>
                 <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.userName}><p>{props.userData.userName}</p></div></a>
-                <div className={Style.FollowAndUnfollowContainer}><FollowAndUnfollow theOtherPersonId={props.userData._id}></FollowAndUnfollow></div>
+                <div className={Style.FollowAndUnfollowContainer}><FollowAndUnfollow YouAreInYourProfile={router.pathname=="/profile"} theOtherPersonId={props.userData._id}></FollowAndUnfollow></div>
         </div>
     )
 }

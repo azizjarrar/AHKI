@@ -9,9 +9,8 @@ import LanguageContext from '../context/languageContext'
 
 function Home(props) {
   const [language, setLanguage] = React.useContext(LanguageContext)
-  const [choice_TopicToday_or_usersTopics, setChoice_TopicToday_or_usersTopics,] = React.useState('todayTopics') //user topics is friends publication in the page i will change it later
+  const [choice_TopicToday_or_usersTopics, setChoice_TopicToday_or_usersTopics] = React.useState('todayTopics') //user topics is friends publication in the page i will change it later
 
-  
   /******************************************************************************************
   *this code will change between 2 page today topic
   *or friends publication

@@ -101,13 +101,16 @@ const PostTodayTopic = (props) => {
   },[textAreaData])
 
   return (
+    
     <div className={Styles.container}>
       <div className={Styles.userTopicContainer}>
-      <div className={Styles.userImage}><img src={user.userProfileImageUrl || "/avatar.png"} /></div>
+      <div className={Styles.userImage}><img src={user.currentImageUrl || "/avatar.png"} /></div>
         <div className={Styles.postTopic}>
           <div className={Styles.textAreaContainer}>
           <textarea placeholder={"say somthing"}  onChange={(e)=>textAreaHolder(e)} value={textAreaData} className={Styles.textArea}/>
-          <div className={Styles.countLettres}><span className={Styles.countLettresCss} style={countLettres>=1000?{color:"red"}:{}}>{countLettres} : 1000</span><span className={Styles.postText} onClick={()=>PublishPost()}>Publish</span></div>
+          <div className={Styles.countLettres}>
+            <span className={Styles.countLettresCss} style={countLettres>=1000?{color:"red"}:{}}>{countLettres} : 1000</span>
+            <span className={Styles.postText} onClick={()=>PublishPost()}>Publish</span></div>
           </div>
             <div className={Styles.maskEmojiAndUploadImageContainer}>
               <div className={Styles.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>

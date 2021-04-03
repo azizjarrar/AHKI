@@ -38,7 +38,7 @@ export default following
 const Users=(props)=>{
     return(
         <div className={Style.userContainer}>
-                <Link href={`/profile/${props.userData._id}`}><div className={Style.imgContainer}><img src={props.userData.userProfileImageUrl || "/avatar.png"} /></div></Link>
+                <Link href={`/profile/${props.userData._id}`}><div className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div></Link>
                 <Link href={`/profile/${props.userData._id}`}><div className={Style.userName}><p>{props.userData.userName}</p></div></Link>
                 <div className={Style.FollowAndUnfollowContainer}><FollowAndUnfollow theOtherPersonId={props.userData._id}></FollowAndUnfollow></div>
         </div>

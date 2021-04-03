@@ -13,7 +13,6 @@ const removeCookie=(userid)=>{
 }
 const profileMenu = (props) => {
     const [user,setUser]= React.useContext(UserContext)
-
     return (
         <div className={Styles.container}>
             <div className={Styles.hoverHandler}>

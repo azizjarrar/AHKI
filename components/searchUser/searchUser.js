@@ -26,17 +26,11 @@ const searchUser = (props) => {
 
 export default searchUser
 const Users=(props)=>{
-    const router = useRouter()
-
-    const goToPage=()=>{
-        //router.push(`/profile/${props.userData._id}`)
-       // location.reload()
-
-    }
     return(
-        <div className={Style.userContainer}>
-                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.userProfileImageUrl || "/avatar.png"} /></div></a>
-                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.userName}><p>{props.userData.userName}</p></div></a>
+        <a href={`/profile/${props.userData._id}`}><div className={Style.userContainer}>
+                <div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
+                <div onClick={()=>goToPage()} className={Style.userName}><p>{props.userData.userName}</p></div>
         </div>
+        </a>
     )
 }
