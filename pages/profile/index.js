@@ -22,6 +22,10 @@ const Profile = (props) => {
     const [openFollowingState,setOpenFollowingState]=React.useState(false)
     const [posts,setPosts]=React.useState([])
     const [MakeImageBigger,setMakeImageBigger]=React.useState(false)
+    const [doYouWanaAddTextToImage,setDoYouWanaAddTextToImage]=React.useState(false)
+    const [textAreaUpdateImage,setTextAreaUpdateImage]=React.useState("")
+    const [image,setImage]=React.useState(undefined)
+
     /******************************************************************************************
     this will change between your posts and your likes 
     ******************************************************************************************/
@@ -29,18 +33,9 @@ const Profile = (props) => {
         setYourFeeds(e)
     }
     const changeFile=(e)=>{
-        var formData = new FormData()
-        formData.append('file', e.target.files[0]);
-        
-        ChangeProfileImage(formData,user.token).then((data)=>{
-            console.log(data)
-            setUser(e=>{
-                return{
-                    ...e,
-                    currentImageUrl:data.data.Picurl
-                }
-            })
-        })
+        setImage(e.target.files[0])
+        setDoYouWanaAddTextToImage(true)
+
 
     }
     const openFollowers=()=>{
@@ -66,8 +61,41 @@ const Profile = (props) => {
         }
         
     },[user.token])
+    const textAreaHandlerUpdateImage=(e)=>{
+        setTextAreaUpdateImage(e.target.value)
+    }
     const MakeImageBiggerfn=()=>{
         setMakeImageBigger(e=>!e)
+    }
+    const alertFn=(alert)=>{
+        var formData = new FormData()
+
+        if(alert=="yes"){
+            formData.append('bio' , textAreaUpdateImage);
+            formData.append('file', image);
+
+            ChangeProfileImage(formData,user.token).then((data)=>{
+                setUser(e=>{
+                    return{
+                        ...e,
+                        currentImageUrl:data.data.Picurl
+                    }
+                })
+            })
+            setDoYouWanaAddTextToImage(false)
+        }else{
+            formData.append('file', image);
+
+            ChangeProfileImage(formData,user.token).then((data)=>{
+                setUser(e=>{
+                    return{
+                        ...e,
+                        currentImageUrl:data.data.Picurl
+                    }
+                })
+            })
+            setDoYouWanaAddTextToImage(false)
+        }
     }
 
         return (
@@ -75,8 +103,13 @@ const Profile = (props) => {
                 <NavBar token={props.token}></NavBar>
                 {openFollowersState&&<Followersnavbar  id={user._id} closepopUp={openFollowers}></Followersnavbar>}
                 {openFollowingState&&<Followingnavbar  id={user._id} closepopUp={openFollowing}></Followingnavbar>}
-                
-                {MakeImageBigger&&<BiggerImagewithcomments close={()=>MakeImageBiggerfn()} imgurl={user.currentImageUrl||"/avatar.png"}></BiggerImagewithcomments>}
+                {MakeImageBigger&&<BiggerImagewithcomments userid={user._id} token={props.token} close={()=>MakeImageBiggerfn()} imgid={user.currentImgId} imgurl={user.currentImageUrl||"/avatar.png"}></BiggerImagewithcomments>}
+                {doYouWanaAddTextToImage&&<div className={Style.alertYesNoContainer}>
+                    <div className={Style.alert}>
+                        <div className={Style.header}><h2>Leave something nice for the visitor</h2></div>
+                        <textarea onChange={(e)=>textAreaHandlerUpdateImage(e)} className={Style.contenteditable} maxLength="200" contenteditable="true"></textarea>
+                        <div className={Style.btnContainer}><button className={Style.btnAlert}onClick={()=>alertFn("yes")} >Yes</button><button className={Style.btnAlert}onClick={()=>alertFn("no")} >No</button></div>
+                </div></div>}
                 <div className={Style.profile}>
                     <div className={Style.ProfileImage}><div className={Style.image} ><div className={Style.underimage}><img onClick={()=>MakeImageBiggerfn()} src={user.currentImageUrl||"/avatar.png"} alt={user.userName || ""}/></div><div className={Style.camera}><input onChange={e => changeFile(e)} type="file" /><svg  xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="camera" role="img" viewBox="0 0 512 512"><path fill="currentColor" d="M512 144v288c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48h88l12.3-32.9c7-18.7 24.9-31.1 44.9-31.1h125.5c20 0 37.9 12.4 44.9 31.1L376 96h88c26.5 0 48 21.5 48 48zM376 288c0-66.2-53.8-120-120-120s-120 53.8-120 120 53.8 120 120 120 120-53.8 120-120zm-32 0c0 48.5-39.5 88-88 88s-88-39.5-88-88 39.5-88 88-88 88 39.5 88 88z" /></svg></div></div></div>
                     <div className={Style.userName}><h2>{user.userName||user.firstName||"No Name"}</h2></div>

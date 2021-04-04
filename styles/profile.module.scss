@@ -195,7 +195,7 @@
         position: -webkit-sticky;
         position: relative;
         width: 400px;
-        height: auto;
+        min-height: 800px;
         //height: 600px;
       //  top: 18px !important;
         margin-top: 15px;
@@ -236,6 +236,87 @@
         height: 3px;
         background-color: $primary;
     }
+}
+.alertYesNoContainer{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 15615651156156565615;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    .btnContainer{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        position: relative;
+        height: 30%;
+        .btnAlert{
+            width: 100px;
+            height: 30px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.5;
+            font-size: 1.3rem;
+            color: white;
+        }
+ 
+
+        button:nth-child(1){
+            transition: 0.5s;
+            &:hover:nth-child(1){
+                border-radius: 90% 10% 92% 8% / 8% 90% 10% 92%  !important;
+            }
+            background-color: $primary;
+        }
+        button:nth-child(2){
+            transition: 0.5s;
+
+            &:hover:nth-child(2){
+                border-radius: 90% 10% 92% 8% / 8% 90% 10% 92%  !important;
+            }
+            background-color: rgb(216, 11, 11);
+        }
+    }
+    .alert{
+        height: 220px;
+        width: 100%;
+        max-width: 500px;
+        background-color: white;
+        border-radius: 15px;
+    }
+    .header{
+        height: 30%;
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h2{
+            font-size: 2rem;
+        }
+    }
+    .contenteditable{
+        position: relative;
+        width: 90%;
+        height: 40%;
+        background-color: rgb(248, 248, 248);
+        outline: none;
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0;
+        font-size: 1.8rem;
+        resize: none;
+        border: 0;
+    }
+
 }
 @media(orientation: portrait), (max-height: 500px) ,(max-width : 1100px)
 {
@@ -310,6 +391,5 @@
     position: relative;
     width: 100%;
     max-width: 1000px;
-
     margin: 0 auto;
 }

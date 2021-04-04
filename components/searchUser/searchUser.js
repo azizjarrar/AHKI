@@ -1,8 +1,7 @@
 import React from 'react'
 import Style from './searchUser.module.scss'
 import {searchUserNameApi} from '../../services/user'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 
 const searchUser = (props) => {
     const [listOfUsers,setListOfUsers]=React.useState([])
@@ -28,8 +27,8 @@ export default searchUser
 const Users=(props)=>{
     return(
         <a href={`/profile/${props.userData._id}`}><div className={Style.userContainer}>
-                <div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
-                <div onClick={()=>goToPage()} className={Style.userName}><p>{props.userData.userName}</p></div>
+                <div  className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
+                <div  className={Style.userName}><p>{props.userData.userName}</p></div>
         </div>
         </a>
     )

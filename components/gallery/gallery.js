@@ -18,7 +18,7 @@ const gallery = (props) => {
         <div className={Style.container}>
             <div className={Style.galleryHeader}><p>gallery</p></div>
             <div className={Style.imagesContainer}>
-                {gelleryData.map(e=><div className={Style.image}><img src={e.imageUrl}/></div>)}
+                {gelleryData.map(e=><div key={e.imageUrl} className={Style.image}><img src={e.imageUrl}/></div>)}
             </div>
 
         </div>

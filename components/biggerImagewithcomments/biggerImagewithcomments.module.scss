@@ -9,7 +9,13 @@
     z-index: 1561565565;
     display: flex;
     background-color: rgba(0,0,0,0.5);
-
+    .bio{
+        position: relative;
+        width: 100%;
+        height: auto;
+        font-size: 1.4rem;
+        padding: 15px;
+    }
     .imageContainer{
         position: relative;
         width: calc(100% - 400px);
@@ -20,6 +26,59 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        .left{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            background-color: white;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            span{        
+                position: absolute;        
+                font-size:100px;
+                top: -55px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: 0.5s;
+                &:hover{
+                    color: $primary;
+                }
+            }
+            z-index: 16165156;
+
+        }
+        .Right{
+            position: absolute;
+            height: 50px;
+            width: 50px;
+            background-color: white;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5px;
+            z-index: 16165156;
+            span{        
+                position: absolute;        
+                font-size:100px;
+                top: -55px;
+                left: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: 0.5s;
+                &:hover{
+                    color: $primary;
+                }
+            }
+        }
         img{
             position: relative;
             height: auto;
@@ -41,4 +100,125 @@
     position: absolute;
     right: 20px;
     top: 20px;
+}
+
+.imageOwnerAndNameAndDateAndParams{
+    width: 100%;
+    padding: 15px;
+    height: auto;
+    position: relative;
+    margin-top: 60px;
+    display: flex;
+
+    .imageContainerForUserCommentsSection{
+        position: relative;
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        border:1px solid $primary;
+        img{
+            position: absolute;
+            min-height: 100%;
+            max-width: 100%;
+            pointer-events: none;
+        }
+    }
+    .UserNameAndDate{
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
+        height: 60px;
+        margin-left: 20px;
+        gap: 5px;
+        &::after{
+            position: absolute;
+            content: "";
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: $primary;
+        }
+        p:nth-child(1) {
+            font-size: 1.4rem;
+            color: #050505;
+            font-weight: 700;
+
+        }
+        p:nth-child(2) {
+            font-size: 1.3rem;
+             color: #a3a3a3;
+            font-weight: 400;
+
+        }
+    }
+    .Params{
+        position: absolute;
+        right: 15px;
+        font-size: 2.5rem;
+        cursor: pointer;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+}
+.LikesAndCommentsContainer{
+    position: relative;
+    height: 45px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .Comments{
+        position: relative;
+        height:40px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        svg{
+            height:30px;
+            width: 30px;
+        }
+        .CommentsNumber{
+                position: relative;
+                margin-left: 15px;
+                font-size: 1.5rem;
+            
+        }
+    }
+    .likes{
+        cursor: pointer;
+
+        position: relative;
+        height:40px;
+        width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p{
+            position: relative;
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height:1px;
+        background-color: $gray;
+    }
+    &:before{
+        content: "";
+        position: absolute;            
+        bottom: 0;
+        width: 100%;
+        height:1px;
+        background-color: $gray;
+    }
 }

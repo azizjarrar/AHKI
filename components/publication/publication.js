@@ -156,7 +156,6 @@ const openshowLikesUserNames=()=>{
         <div className={Styles.likes}  >
             <Heart  addLikeInTime={(e)=>addLikeInTime(e)} token={user.token} postid={props.id}></Heart>
             <p className={Styles.likesNumber} onClick={()=>openshowLikesUserNames()}>{addOneToLike}</p>
-
           </div>
         
       </div>
