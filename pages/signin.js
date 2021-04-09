@@ -32,11 +32,7 @@ const singin = () => {
               fetch("/api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:res.data.token})}).then(()=>{
                 localStorage.setItem("ref_token",res.data.ref_token)
                 setIsLoading(false)
-
                 router.push({pathname:"/",query: { refrech: true }})
-   
-                
-
               })
             }
           }).catch(error=>{

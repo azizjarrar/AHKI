@@ -28,26 +28,33 @@
         justify-content: center;
         .left{
             position: absolute;
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             background-color: white;
             border-radius: 50%;
+            opacity: 0.7;
             top: 50%;
             transform: translateY(-50%);
             left: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: 0.5s;
+            &:hover{
+                opacity: 1;
+            }
             span{        
                 position: absolute;        
-                font-size:100px;
-                top: -55px;
+                font-size:70px;
+                top: -37px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
                 transition: 0.5s;
                 &:hover{
+                    opacity: 1;
+
                     color: $primary;
                 }
             }
@@ -56,18 +63,24 @@
         }
         .Right{
             position: absolute;
-            height: 50px;
-            width: 50px;
+            height: 40px;
+            width: 40px;
             background-color: white;
             border-radius: 50%;
             top: 50%;
             transform: translateY(-50%);
             right: 5px;
             z-index: 16165156;
+            opacity: 0.7;
+            transition: 0.5s;
+
+            &:hover{
+                opacity: 1;
+            }
             span{        
                 position: absolute;        
-                font-size:100px;
-                top: -55px;
+                font-size:70px;
+                top: -37px;
                 left: 10px;
                 display: flex;
                 align-items: center;
@@ -76,6 +89,7 @@
                 transition: 0.5s;
                 &:hover{
                     color: $primary;
+
                 }
             }
         }
@@ -161,12 +175,13 @@
         cursor: pointer;
         top: 50%;
         transform: translateY(-50%);
+        z-index: 99999999;
     }
 
 }
 .LikesAndCommentsContainer{
     position: relative;
-    height: 45px;
+    height: 50px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -180,8 +195,8 @@
         justify-content: center;
         cursor: pointer;
         svg{
-            height:30px;
-            width: 30px;
+            height:25px;
+            width: 25px;
         }
         .CommentsNumber{
                 position: relative;
@@ -221,4 +236,230 @@
         height:1px;
         background-color: $gray;
     }
+}
+.userAddComments{
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    &::after{
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-bottom: 1px solid #eaeaea;
+
+    }
+    .userImageInComments{
+        position: relative;
+        cursor: pointer;
+        height: 50px;
+        width: 50px;
+        max-width: 50px;
+        max-height: 50px;
+        min-height: 50px;
+        min-width: 50px;
+        border: 1px solid $primary;
+        border-radius: 50%;
+        overflow: hidden;
+        align-self: flex-start;
+        img{
+            position: absolute;
+            top: 0;
+            max-width: 100%;
+            height: auto;
+            min-height: 100%;
+        }
+    }
+    .textAreaContainer{
+        position: relative;
+        height: auto;
+        width: 75%;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        .countLettres{
+            position: relative;
+            width: 100%;
+            height: 30px;
+            display: flex;
+            align-items: center;
+
+            .countLettresCss{
+                position: absolute;
+                display: inline-block;
+                margin-right: 10px;
+                margin-bottom: 3px;
+                font-size: 1.0rem;
+                font-weight: normal;
+                color: gray;
+                left: 10px;
+                bottom: 0;
+                }
+        }
+        .textArea{
+            overflow: hidden;
+            margin-left: 10px;
+            user-select: text; 
+            //white-space: pre-wrap; 
+            position: relative;
+            height: auto;
+            width: 100%;
+            height: auto;
+            outline: none;
+            font-size: 1.4rem;
+            height: 18px;
+            line-height: 1.1667;
+            font-weight: 600 !important;
+            color:black;
+            word-break: break-all;
+            outline: none;
+            border: 0;
+            resize: none;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    }
+    }
+    .emojiAndMaskAndPost{
+        position: relative;
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 50px;
+        align-self: flex-end;
+
+        .postAndCounterContainer{
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .postText{
+                color: $primary;
+                font-weight: bold;
+                position: relative;
+                display: inline-block;
+                font-weight: 600;
+                font-size: 14px;
+                font-weight: normal;
+                cursor: pointer;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                svg{
+                    height: 30px;
+                    width: 30px;
+                }
+            }
+
+        }
+        .emojiPickerContainer{
+            position: relative;
+            z-index: 5166;    
+            right: 255px;    
+            top: 20px;
+        }
+        .openOrCloseEmojiPicker{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+        .emojiLogo{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            svg{
+                position: relative;
+                height: 40px;
+                width: 40px;
+            }
+        }
+    }
+        .mask{
+            position: relative;
+            height: 20px;
+            width: 20px;
+            cursor: pointer;
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg{
+                position: relative;
+                height: 20px;
+                width: 20px;
+            }
+        }
+    }
+}
+.commentsContainer{
+    margin-top: 10px;
+    height: auto;
+    transition: 0.5s;
+    position: relative;
+    margin: 0 auto;
+    width: 90%;
+}
+.loadMoreComments{
+    width: 100%;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    cursor: pointer;
+    p{
+        font-size: 1.4rem;
+        color: $primary;
+    }
+}
+.commentsData{
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100% - (60px + 50px + 230px));
+    &::-webkit-scrollbar {
+        width:  1px;
+        height: auto;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+        background: #3333;
+        width: 3px;
+    }
+  
+    &::-webkit-scrollbar-track {
+        background: $gray2;
+    }
+}
+@media (orientation: portrait) , (max-height: 500px){
+    .imageOwnerAndNameAndDateAndParams{
+   
+        margin-top: 5px !important;
+        
+    }
+    .container{
+        display: flex;
+        flex-direction: column !important;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        .imageContainer{
+            width: 100%;
+        }
+        .commentsContainer{
+            width: 100%;
+        }
+    }
+ 
 }

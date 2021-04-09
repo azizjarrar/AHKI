@@ -16,7 +16,7 @@
     opacity: 0;
     animation-fill-mode: forwards;
     transform: perspective(1000px) translateX(0px);
-
+    z-index: 999999;
 
 
     .paramsContainer{

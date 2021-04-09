@@ -1,6 +1,7 @@
 import React from 'react'
 import Style from './showLikesUserNames.module.scss'
 import {getLikestUserNameFromPost,getLikestUserNameFromComment} from '../../services/likes'
+import {getLikestUserNameFromCommentImage,getLikestUserNameFromImage} from '../../services/imageLikes'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
 const followers = (props) => {
@@ -12,9 +13,9 @@ const followers = (props) => {
          })
     },[])
     React.useEffect(()=>{
-        if(user._id!=undefined){
+        if(props.imgid!=undefined){
             if(props.showLikesForComment!=undefined && props.showLikesForComment==true){
-                getLikestUserNameFromComment({commentid:props.commentid},user.token).then(result=>{
+                getLikestUserNameFromCommentImage({commentid:props.commentid},user.token).then(result=>{
                     setUsers(e=>{
                   return [...e,...result.data.data.likes]
                })
@@ -22,7 +23,7 @@ const followers = (props) => {
                 console.log(error)
             })
             }else{
-                getLikestUserNameFromPost({postid:props.postid},user.token).then(result=>{
+                getLikestUserNameFromImage({imgid:props.imgid},user.token).then(result=>{
                     setUsers(e=>{
                   return [...e,...result.data.data.likes]
                })
@@ -30,8 +31,29 @@ const followers = (props) => {
                 console.log(error)
             })
             }
+        }else{
+            if(user._id!=undefined){
+                if(props.showLikesForComment!=undefined && props.showLikesForComment==true){
+                    getLikestUserNameFromComment({commentid:props.commentid},user.token).then(result=>{
+                        setUsers(e=>{
+                      return [...e,...result.data.data.likes]
+                   })
+                }).catch(error=>{
+                    console.log(error)
+                })
+                }else{
+                    getLikestUserNameFromPost({postid:props.postid},user.token).then(result=>{
+                        setUsers(e=>{
+                      return [...e,...result.data.data.likes]
+                   })
+                }).catch(error=>{
+                    console.log(error)
+                })
+                }
+    
+        }
+        }
 
-    }
     },[user._id])
     React.useEffect(()=>{
 
@@ -53,7 +75,7 @@ const Users=(props)=>{
  
     return(
         <div className={Style.userContainer}>
-                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.userProfileImageUrl || "/avatar.png"} /></div></a>
+                <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div></a>
                 <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.userName}><p>{props.userData.userName}</p></div></a>
                 <div className={Style.FollowAndUnfollowContainer}><FollowAndUnfollow theOtherPersonId={props.userData._id}></FollowAndUnfollow></div>
         </div>
