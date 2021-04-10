@@ -1,13 +1,14 @@
 import React from 'react'
 import Styles from './publication.module.scss'
 import Comment from '../comment/comment'
-import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSettings'
 import LanguageContext from '../../context/languageContext'
 import userContext from '../../context/userContext'
 import { Picker,Emoji  } from 'emoji-mart'
 import Heart from '../heart/heart'
 import {addComment,getComments} from '../../services/comments'
 import ShowLikesUserNames from '../showLikesUserNames/showLikesUserNames'
+import {deletePost} from '../../services/post'
+
 const publication = (props) => {
   const [slice, setSlice] = React.useState(100)
   const [comments, setComments] = React.useState(false)
@@ -137,6 +138,10 @@ const addLikeInTime=(newLikesNumber)=>{
 const openshowLikesUserNames=()=>{
   setLikesModal(e=>!e)
 }
+const closeComponenet=()=>{
+setSettings({state:false,firstClick:false})
+
+}
   return (
     <div className={Styles.container}>
       {likesModal&&<ShowLikesUserNames closepopUp={openshowLikesUserNames} postid={props.id}></ShowLikesUserNames>}
@@ -145,7 +150,7 @@ const openshowLikesUserNames=()=>{
         <div className={Styles.Name}>
         <h3 className={Styles.nameh3}>{props.userName}</h3>
         <h3 className={Styles.date}>{props.date.slice(0,10)} {props.date.slice(11,16)}</h3>
-        </div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings publication={true} currentUserId={user._id} ownerid={props.ownerid} token={user.token} postid={props.id}></CommentOrPostSettings>}</div>
+        </div><div className={Styles.settings} onClick={() => ShowSettings()}>{settings && <SettingsPost closeComponenetfn={closeComponenet} currentUserId={user._id} ownerid={props.ownerid} token={user.token} postid={props.id}></SettingsPost>}</div>
       </div>
       {props.text.length < 50 && <div className={Styles.text}><p>{props.text}</p></div>}
       {props.text.length > 50 && <div className={Styles.text}><p>{props.text.slice(0, slice)}{slice != -1 && <span onClick={() => completeText(-1)}>...</span>}</p></div>}
@@ -183,7 +188,7 @@ const openshowLikesUserNames=()=>{
       {comments && <div className={Styles.commentsContainer}>
         {commentsData.map(e=>
         {
-          return  <Comment publication={true} likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].currentImageUrl}></Comment>
+          return  <Comment postid={props.id} publication={true} likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].currentImageUrl}></Comment>
         }
         )}
         <div className={Styles.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>
@@ -200,4 +205,26 @@ const SentSvg=()=>{
   return (
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g id="Layer_95" data-name="Layer 95"><path d="M53.06,10.94a1.5,1.5,0,0,0-1.53-.36l-40,13.33a1.51,1.51,0,0,0-.06,2.83l18.7,7.09,7.09,18.7a1.51,1.51,0,0,0,1.44,1,1.49,1.49,0,0,0,1.39-1l13.33-40A1.5,1.5,0,0,0,53.06,10.94Z"/><path d="M20.22,35.48a1.5,1.5,0,0,0-2.12-2.12l-4.48,4.48a1.51,1.51,0,0,0,0,2.12,1.49,1.49,0,0,0,2.12,0Z"/><path d="M23.88,40.12a1.49,1.49,0,0,0-2.12,0L16.08,45.8a1.5,1.5,0,0,0,2.12,2.12l5.68-5.68A1.49,1.49,0,0,0,23.88,40.12Z"/><path d="M28.52,43.78,24,48.26a1.5,1.5,0,0,0,2.12,2.12l4.48-4.48A1.5,1.5,0,0,0,28.52,43.78Z"/></g></svg>
       )
+}
+const SettingsPost=(props)=>{
+  const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
+
+ const deleteImageFn=()=>{
+     deletePost({postid:props.postid},props.token).then(result=>{
+      location.reload();
+      }).catch(error=>{
+          console.log(error)
+      })
+  }
+  const closePopUp=()=>{
+      setErrorMessage({state:false,text:""})
+    }
+  return (
+          <div className={Styles.containerSettings}>
+              {errorMessage.state==true&&<PopUpMessage fnclose={()=>closePopUp()} openPopUp={errorMessage}></PopUpMessage>}
+              <div className={Styles.paramsContainer}><h3>Report</h3></div>
+              {props.ownerid==props.currentUserId&&<div className={Styles.paramsContainer} onClick={()=>deleteImageFn()}><h3>Delete</h3></div>}
+              <div className={Styles.paramsContainer} onClick={()=>props.closeComponenetfn()}><h3>Close</h3></div>
+          </div>
+          )
 }

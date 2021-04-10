@@ -9,14 +9,20 @@ import LanguageContext from '../../context/languageContext'
 import {addCommentToImage,getCommentsImage} from '../../services/imageComments'
 import Comment from '../comment/comment'
 import ShowLikesUserNames from '../showLikesUserNames/showLikesUserNames'
-import CommentOrPostSettings from '../commentOrPostSettings/commentOrPostSettings'
+import {deleteImage} from '../../services/images'
+import PopUpMessage from '../../components/popUpMessage/popUpMessage'
 
 const biggerImagewithcomments = (props) => {
     const [currentimage, setCurrentimage] = React.useState({})
     const [nextimage, setNextimage] = React.useState()
     const [previmage, setPrevimage] = React.useState()
     const [comments, setComments] = React.useState(false)
-    const [setOwnerOfImageData, setSetOwnerOfImageData] = React.useState({})
+    const [setOwnerOfImageData, setSetOwnerOfImageData] = React.useState({
+        userData:{
+            currentImageUrl:"",
+            userName:""
+        }
+    })
     const [user,setUser]=React.useContext(userContext)
     const [textAreaData,setTextAreaData]=React.useState("")
     const [countLettres,setCountLettres]=React.useState(0)
@@ -27,14 +33,15 @@ const biggerImagewithcomments = (props) => {
     const [addsOneToCommentCount,setaddOneToCommentCount]=React.useState(0)
     const [moreComments,setMoreComments]=React.useState(false)
     const [likesModal,setLikesModal]=React.useState(false)
-    const [settings, setSettings] = React.useState(false)
-
+    const [settings, setSettings] = React.useState({state:false,firstClick:false})
+    
     React.useEffect(()=>{
         setCountLettres(textAreaData.length)
       },[textAreaData])
     React.useState(() => {
         getImageData({ currentImgId: props.imgid, userid: props.userid }, props.token).then(result => {
-            setSetOwnerOfImageData(result.data.userData)
+            console.log(result.data)
+            setSetOwnerOfImageData(result.data)
             setCurrentimage(e => {
                 return { ...result.data.currentimage }
             })
@@ -171,7 +178,17 @@ const biggerImagewithcomments = (props) => {
         setLikesModal(e=>!e)
       }
       const ShowSettings = () => {
-        setSettings(e => !e)
+          if(settings.firstClick!=true){
+            console.log(settings)
+
+            setSettings({state:true,firstClick:true})
+
+          }
+      }
+      const closeComponenet=()=>{
+          console.log(settings)
+        setSettings({state:false,firstClick:false})
+
       }
     return (
         <div className={Style.container}>
@@ -185,12 +202,13 @@ const biggerImagewithcomments = (props) => {
             </div>
             <div className={Style.commentsContainer}>
                 <div className={Style.imageOwnerAndNameAndDateAndParams}>
-                    <div className={Style.imageContainerForUserCommentsSection}><img src={setOwnerOfImageData.currentImageUrl} /></div>
+                    
+                    <div className={Style.imageContainerForUserCommentsSection}><img src={setOwnerOfImageData.userData.currentImageUrl} /></div>
                     <div className={Style.UserNameAndDate}>
-                        <p>{setOwnerOfImageData.userName}</p>
+                        <p>{setOwnerOfImageData.userData.userName}</p>
                         {currentimage.date != undefined && <p>{currentimage.date.slice(0, 10)} {currentimage.date.slice(11, 16)}</p>}
                     </div>
-                    <div className={Style.Params} onClick={() => ShowSettings()}>{settings && <CommentOrPostSettings userImage={true} currentUserId={user._id} ownerid={props.ownerid} token={user.token} postid={props.id}></CommentOrPostSettings>}&hellip;</div>
+                    <div className={Style.Params} onClick={() => ShowSettings("firstClick")}>{settings.state==true && <SettingsImage closeComponenetfn={closeComponenet}   userImageid={currentimage._id||props.imgid} currentUserId={user._id} ownerid={setOwnerOfImageData.currentimage.ImageOwner} token={user.token} ></SettingsImage>}&hellip;</div>
                 </div>
                 {currentimage.imageText != undefined && <div className={Style.bio}><p>{currentimage.imageText}</p></div>}
                 <div className={Style.LikesAndCommentsContainer}>
@@ -243,4 +261,37 @@ const SentSvg=()=>{
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g id="Layer_95" data-name="Layer 95"><path d="M53.06,10.94a1.5,1.5,0,0,0-1.53-.36l-40,13.33a1.51,1.51,0,0,0-.06,2.83l18.7,7.09,7.09,18.7a1.51,1.51,0,0,0,1.44,1,1.49,1.49,0,0,0,1.39-1l13.33-40A1.5,1.5,0,0,0,53.06,10.94Z"/><path d="M20.22,35.48a1.5,1.5,0,0,0-2.12-2.12l-4.48,4.48a1.51,1.51,0,0,0,0,2.12,1.49,1.49,0,0,0,2.12,0Z"/><path d="M23.88,40.12a1.49,1.49,0,0,0-2.12,0L16.08,45.8a1.5,1.5,0,0,0,2.12,2.12l5.68-5.68A1.49,1.49,0,0,0,23.88,40.12Z"/><path d="M28.52,43.78,24,48.26a1.5,1.5,0,0,0,2.12,2.12l4.48-4.48A1.5,1.5,0,0,0,28.52,43.78Z"/></g></svg>
         )
+}
+
+const SettingsImage=(props)=>{
+    const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
+
+   const deleteImageFn=()=>{
+        deleteImage({imageid:props.userImageid},props.token).then(result=>{
+            console.log(result.data.state)
+            if(result.data.state==true){
+                setErrorMessage(e=>{
+                    return {...e,state:true,text:"you should at least have one image"}
+                })
+
+            }else{
+                location.reload();
+
+            }
+            //location.reload();
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+    const closePopUp=()=>{
+        setErrorMessage({state:false,text:""})
+      }
+    return (
+            <div className={Style.containerSettings}>
+                {errorMessage.state==true&&<PopUpMessage fnclose={()=>closePopUp()} openPopUp={errorMessage}></PopUpMessage>}
+                <div className={Style.paramsContainer}><h3>Report</h3></div>
+                {props.ownerid==props.currentUserId&&<div className={Style.paramsContainer} onClick={()=>deleteImageFn()}><h3>Delete</h3></div>}
+                <div className={Style.paramsContainer} onClick={()=>props.closeComponenetfn()}><h3>Close</h3></div>
+            </div>
+            )
 }

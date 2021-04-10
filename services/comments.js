@@ -5,5 +5,8 @@ const addComment = async (data,token) => {
 const getComments = async (data,token) => {
   return axiosApiInstance.post('/comments/getComments',{...data},{ headers: {Authorization: 'Bearer ' + token }})
 }
+const deleteComment = async (data,token) => {
+  return axiosApiInstance.post('/comments/deleteComment',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
 /*****************************/
-export { addComment ,getComments}
+export { deleteComment,addComment ,getComments}

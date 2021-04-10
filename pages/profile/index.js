@@ -103,7 +103,7 @@ const Profile = (props) => {
                 <NavBar token={props.token}></NavBar>
                 {openFollowersState&&<Followersnavbar  id={user._id} closepopUp={openFollowers}></Followersnavbar>}
                 {openFollowingState&&<Followingnavbar  id={user._id} closepopUp={openFollowing}></Followingnavbar>}
-                {MakeImageBigger&&<BiggerImagewithcomments userid={user._id} token={props.token} close={()=>MakeImageBiggerfn()} imgid={user.currentImgId} imgurl={user.currentImageUrl||"/avatar.png"}></BiggerImagewithcomments>}
+                {MakeImageBigger&&<BiggerImagewithcomments userid={user._id} token={props.token} close={()=>MakeImageBiggerfn()} imgid={user.currentImgId} ></BiggerImagewithcomments>}
                 {doYouWanaAddTextToImage&&<div className={Style.alertYesNoContainer}>
                     <div className={Style.alert}>
                         <div className={Style.header}><h2>Leave something nice for the visitor</h2></div>

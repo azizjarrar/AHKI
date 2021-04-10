@@ -36,6 +36,7 @@ const heart = (props) => {
         if(props.imgid!=undefined){
             if(clicked==true){
                 dislikeImage({imgid:props.imgid},props.token).then(result=>{
+                    console.log(result)
                     props.addLikeInTime(-1)
                     setClicked(false)
                 }).catch(e=>{

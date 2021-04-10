@@ -21,7 +21,7 @@ const popUpMessage = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Smoufy"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Nozzla"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <span className={Styles.errorText}>
@@ -30,9 +30,7 @@ const popUpMessage = (props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            <span className={Styles.errorBtns}>Disagree</span>
-          </Button>
+
           <Button onClick={handleClose} color="primary" autoFocus>
             <span className={Styles.errorBtns}>Agree</span>
           </Button>
