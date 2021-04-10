@@ -5,5 +5,8 @@ const addCommentToImage = async (data,token) => {
 const getCommentsImage = async (data,token) => {
   return axiosApiInstance.post('/imageComments/getCommentsImage',{...data},{ headers: {Authorization: 'Bearer ' + token }})
 }
+const deleteCommentFromImage = async (data,token) => {
+  return axiosApiInstance.post('/imageComments/deleteCommentFromImage',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
 /*****************************/
-export { addCommentToImage ,getCommentsImage}
+export {deleteCommentFromImage, addCommentToImage ,getCommentsImage}

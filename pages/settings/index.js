@@ -6,6 +6,7 @@ import Account from '../../components/profileSettings/Account/Account'
 import Email from '../../components/profileSettings/Email/Email'
 import Password from '../../components/profileSettings/Password/Password'
 import Telephone from '../../components/profileSettings/Telephone/Telephone'
+import Privacy from '../../components/profileSettings/privacy/privacy'
 const ProfileSettings = (props) => {
   const [page,setPage]=React.useState("account")
 
@@ -24,6 +25,7 @@ const ProfileSettings = (props) => {
               {page=="email"&&<Email></Email>}
               {page=="password"&&<Password></Password>}
               {page=="Telephone"&&<Telephone></Telephone>}
+              {page=="Privacy"&&<Privacy></Privacy>}
             </div>
           </div>
         </div>

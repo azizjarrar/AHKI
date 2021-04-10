@@ -80,4 +80,10 @@ const deleteFollowApi=async(data,token)=>{
 const getUserImages=async(data,token)=>{
   return axiosApiInstance.post("/user/getUserImages",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
-export {getUserImages,deleteFollowApi,getFollowingOfUser,getFollowersOfUser,searchUserNameApi,getrandomUsersApi,getFollowingApi,getFollowersApi,unfollowUserApi,checkIffollowApi,followUserApi,updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+const getPrivacy=async(token)=>{
+  return axiosApiInstance.post("/user/getPrivacy",{},{ headers: {Authorization: 'Bearer ' + token }});
+}
+const updatePrivacy=async(data,token)=>{
+  return axiosApiInstance.post("/user/updatePrivacy",{...data},{ headers: {Authorization: 'Bearer ' + token }});
+}
+export {updatePrivacy,getPrivacy,getUserImages,deleteFollowApi,getFollowingOfUser,getFollowersOfUser,searchUserNameApi,getrandomUsersApi,getFollowingApi,getFollowersApi,unfollowUserApi,checkIffollowApi,followUserApi,updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

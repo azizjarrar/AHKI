@@ -30,7 +30,7 @@ const heart = (props) => {
             })
         }
 
-    },[props])
+    },[props.postid]) // badaltha kenet props khw ou ki keent props khw ay tabdila i awed ya3beth checklikedtoImage api
 
     const sendLikeOrDislike=()=>{
         if(props.imgid!=undefined){

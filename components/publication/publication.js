@@ -26,6 +26,8 @@ const publication = (props) => {
   const [addOneToLike,setAddOneToLike]=React.useState(props.likesNumber)
   const [likesModal,setLikesModal]=React.useState(false)
   const maskRef=React.useRef(null)
+  const [moreComments,setMoreComments]=React.useState(false) //show more comment fetch  with 3 by 3
+
   React.useEffect(() => { 
     if(window.innerWidth>500){
       setEmojiContainerHeight(9) 
@@ -33,6 +35,33 @@ const publication = (props) => {
       setEmojiContainerHeight(8) 
     }
   },[]);
+    /*************************************************************/
+  /****************if mask on it will turn into blue************/
+  /*************************************************************/
+  React.useEffect(() => {
+    if (mask) {
+      maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3"
+    } else {
+      maskRef.current.childNodes[0].childNodes[0].style.fill = "black"
+    }
+  }, [mask])
+
+  React.useEffect(()=>{
+    setCountLettres(textAreaData.length)
+  },[textAreaData])
+  React.useEffect(()=>{
+    getComments({postid:props.id,skip:skip},user.token).then(result=>{
+      setComments(true)
+      if(result.data.data.length>0){
+          setMoreComments(true)
+      }else{
+          setMoreComments(false)
+      }
+      setCommentsData(e=>[...e,...result.data.data])
+    }).catch(error=>{
+        alert(error)
+    })
+  },[skip])
   /************************************************/
   /*when load publicationn that had more then 100 car
   /*slice anything after 100 the show it later 
@@ -63,16 +92,7 @@ const publication = (props) => {
   const maskOn = () => {
     setMask(e => !e)
   }
-  /*************************************************************/
-  /****************if mask on it will turn into blue************/
-  /*************************************************************/
-  React.useEffect(() => {
-    if (mask) {
-      maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3"
-    } else {
-      maskRef.current.childNodes[0].childNodes[0].style.fill = "black"
-    }
-  }, [mask])
+
 
   const closeOrOpenEmojiPicker=()=>{
     setcloseOrOpenEmojiPickerState(e=>!e)
@@ -103,9 +123,8 @@ const publication = (props) => {
   };
 
   const AddComment=()=>{
+
     addComment({postid:props.id,anonyme:mask,commentText:textAreaData},user.token).then((result)=>{
-
-
         setCommentsData(e=>[{...result.data.data,commentOwnerData:[{userName:user.userName,currentImageUrl:user.currentImageUrl,_id:user._id}]},...e])
         setComments(true)
         setaddOneToCommentCount(e=>e+1)
@@ -115,22 +134,13 @@ const publication = (props) => {
       console.log(e)
     })
   }
-  React.useEffect(()=>{
-    setCountLettres(textAreaData.length)
-  },[textAreaData])
+
 
 
 const LoadMoreComments=()=>{
   setSkip(e=>e+3)
 }
-React.useEffect(()=>{
-  getComments({postid:props.id,skip:skip},user.token).then(result=>{
 
-    setCommentsData(e=>[...e,...result.data.data])
-  }).catch(error=>{
-      alert(error)
-  })
-},[skip])
 
 const addLikeInTime=(newLikesNumber)=>{
   setAddOneToLike(e=>e+newLikesNumber)
@@ -141,6 +151,13 @@ const openshowLikesUserNames=()=>{
 const closeComponenet=()=>{
 setSettings({state:false,firstClick:false})
 
+}
+const deleteCommentInCurrentTimefn=(commentIdDeleted)=>{
+  setCommentsData(arrayOfComment=>{
+   return [...arrayOfComment.filter(e=>{
+     return e._id!=commentIdDeleted
+   })]
+  })
 }
   return (
     <div className={Styles.container}>
@@ -188,10 +205,10 @@ setSettings({state:false,firstClick:false})
       {comments && <div className={Styles.commentsContainer}>
         {commentsData.map(e=>
         {
-          return  <Comment postid={props.id} publication={true} likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].currentImageUrl}></Comment>
+          return  <Comment currentUserId={user._id} ownerid={e.commentOwner} deleteCommentInCurrentTime={deleteCommentInCurrentTimefn} postid={props.id} publication={true} likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].currentImageUrl}></Comment>
         }
         )}
-        <div className={Styles.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>
+        {moreComments&&<div className={Styles.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>}
       </div>}
     </div>
 
