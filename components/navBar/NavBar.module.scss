@@ -143,7 +143,9 @@
     gap: 20px;
     margin-right: 10px;
     .notification{
+        position: relative;
         cursor: pointer;
+  
     }
     .upload{
         cursor: pointer;

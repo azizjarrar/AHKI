@@ -1,27 +1,13 @@
 import React from 'react'
 import Style from './following.module.scss'
-import {getFollowersApi} from '../../services/user'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
 import Link from 'next/link'
-
+// hedi mta3 profilek enti
 const following = () => {
     const [user,setUser]=React.useContext(UserContext)
     const [followers,setFollowers]=React.useState([])
-    React.useEffect(()=>{
-        setFollowers(e=>{
-            return []
-         })
-    },[])
-    React.useEffect(()=>{
-        if(user.token!=undefined){
-        getFollowersApi(user.token).then(result=>{
-           setFollowers(e=>{
-              return [...e,...result.data.data.followers]
-           })
-        }).catch(error=>{})
-    }
-    },[user.token])
+
 
     return (
         <div className={Style.container}>

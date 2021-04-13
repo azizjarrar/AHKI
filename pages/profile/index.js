@@ -107,7 +107,7 @@ const Profile = (props) => {
                 {doYouWanaAddTextToImage&&<div className={Style.alertYesNoContainer}>
                     <div className={Style.alert}>
                         <div className={Style.header}><h2>Leave something nice for the visitor</h2></div>
-                        <textarea onChange={(e)=>textAreaHandlerUpdateImage(e)} className={Style.contenteditable} maxLength="200" contenteditable="true"></textarea>
+                        <textarea onChange={(e)=>textAreaHandlerUpdateImage(e)} className={Style.contenteditable} maxLength="200" ></textarea>
                         <div className={Style.btnContainer}><button className={Style.btnAlert}onClick={()=>alertFn("yes")} >Yes</button><button className={Style.btnAlert}onClick={()=>alertFn("no")} >No</button></div>
                 </div></div>}
                 <div className={Style.profile}>

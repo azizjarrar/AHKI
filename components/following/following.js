@@ -1,6 +1,5 @@
 import React from 'react'
 import Style from './following.module.scss'
-import {getFollowingOfUser} from '../../services/user'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
 
@@ -12,15 +11,7 @@ const following = (props) => {
             return []
          })
     },[])
-    React.useEffect(()=>{
-        if(user._id!=undefined){
-            getFollowingOfUser({id:props.id},user.token).then(result=>{
-                setFollowing(e=>{
-              return [...e,...result.data.data.following]
-           })
-        }).catch(error=>{})
-    }
-    },[user._id])
+
     return (
         <div className={Style.container}>
             <div className={Style.listContainer}>

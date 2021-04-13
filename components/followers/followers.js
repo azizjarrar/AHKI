@@ -1,6 +1,5 @@
 import React from 'react'
 import Style from './followers.module.scss'
-import {getFollowersOfUser} from '../../services/user'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
 import { useRouter } from 'next/router'
@@ -13,20 +12,7 @@ const followers = (props) => {
             return []
          })
     },[])
-    React.useEffect(()=>{
-        if(user._id!=undefined){
-            getFollowersOfUser({id:props.id},user.token).then(result=>{
-           setFollowers(e=>{
-              return [...e,...result.data.data.followers]
-           })
-        }).catch(error=>{
-            console.log(error)
-        })
-    }
-    },[user._id])
-    React.useEffect(()=>{
 
-    },[])
     return (
         <div className={Style.container}>
             <div className={Style.listContainer}>

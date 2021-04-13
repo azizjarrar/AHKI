@@ -21,15 +21,18 @@ const profile = (props) => {
   const [openFollowingState,setOpenFollowingState]=React.useState(false)
   const router = useRouter()
   const [MakeImageBigger,setMakeImageBigger]=React.useState(false)
-
   React.useEffect(()=>{
-    getOtherUserPosts({userid:props.user._id}).then(result=>{
-      setPosts([...result.data.data])
-  }).catch(error=>{
-      alert(error)
-  })
+    if(props.state!=false){
+      getOtherUserPosts({userid:props.user._id}).then(result=>{
+        setPosts([...result.data.data])
+    }).catch(error=>{
+        alert(error)
+    })
+    }
+ 
   },[])
-  /******************************************************************************************
+
+    /******************************************************************************************
     this will change between your posts and your likes 
     ******************************************************************************************/
   if (props.state == false) {
@@ -97,6 +100,7 @@ const MakeImageBiggerfn=()=>{
 export default profile;
 export const getServerSideProps = async (context) => {
   const res = await GetOtherUsersData(context.params.id);
+
   if(context.req.cookies.token==undefined){
     return {
         redirect: { destination: '/', permanent: false, }
@@ -105,6 +109,15 @@ export const getServerSideProps = async (context) => {
   if (res.data.data == undefined) {
     return {
         redirect: { destination: '/', permanent: false, }
+    };
+  }
+  if(res.data.state==false){
+    return {
+      props: {
+        token: context.req.cookies.token || undefined,
+        state:false,
+        message:"user nout found"
+      },
     };
   }
   return {
