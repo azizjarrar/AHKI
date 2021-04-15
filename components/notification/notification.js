@@ -54,6 +54,18 @@ const notification = (props) => {
                             </div>
                         </div>
                     </div>)
+                }else if(notif.type=="follow directly"){
+                    return (<div className={Style.notif}>
+                        <div className={Style.user}>
+                            <div className={Style.userImageContainer}>
+                                <img src={notif.from.currentImageUrl} />
+                            </div>
+                        </div>
+                        <div className={Style.text}>
+                            <h2>{notif.from.userName}</h2>
+                            <p> followd you</p>
+                        </div>
+                    </div>)
                 }
             })}
         </div>

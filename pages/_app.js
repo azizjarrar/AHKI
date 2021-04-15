@@ -7,7 +7,7 @@ import UserContext from '../context/userContext'
 import LanguageContext from '../context/languageContext'
 import ApiIsLoadingContext from '../context/apiIsLoadingContext'
 import { useRouter } from 'next/router'
-
+import Chat from '../components/chat/chat'
 
 
 
@@ -46,7 +46,7 @@ function MyApp({ Component, pageProps }) {
     if (pageProps.token) {
       GetUserData(pageProps.token).then(data => { setUser(e => { return { ...e, ...data.data.data[0] } }) }).catch(e => { })
     }
-  }, [])
+  }, [router.query.refrech])
 
 
   /******************************************************************************************
@@ -60,6 +60,7 @@ function MyApp({ Component, pageProps }) {
             <ApiIsLoadingContext.Provider value={loadingProvider}>
               {isLoading&&<div className="loading"><LinearProgress /></div>}
               <Component {...pageProps} />
+             
             </ApiIsLoadingContext.Provider>
           </UserContext.Provider>
         </LanguageContext.Provider>

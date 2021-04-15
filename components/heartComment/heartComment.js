@@ -1,13 +1,13 @@
 import React from 'react'
 import Style from './heartComment.module.scss'
-import {addLikeToComment,checklikeToComment,dislikeToComment} from '../../services/likes'
+import {addLikeToComment,checklikeToComment,dislikeToComment} from '../../services/post_likes'
 import {addLikeToCommentImage,checklikeToCommentImage,dislikeToCommentImage} from '../../services/imageLikes'
 const HeartComment = (props) => {
     const [clicked,setClicked]=React.useState(false)
     React.useEffect(()=>{
         if(props.imgid!=undefined){
             checklikeToCommentImage({commentid:props.commentid},props.token).then(result=>{
-                if(result.data.liked==true){
+                if(result.data.data!=null){
                     setClicked(true)
                 }else{
                     setClicked(false)
@@ -17,8 +17,7 @@ const HeartComment = (props) => {
             })
         }else{
             checklikeToComment({commentid:props.commentid},props.token).then(result=>{
-                if(result.data.liked==true){
-                    console.log("d5al hne mara")
+                if(result.data.data!=null){
                     setClicked(true)
                 }else{
                     setClicked(false)

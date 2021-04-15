@@ -5,4 +5,7 @@ const getImageData=async(data,token)=>{
 const deleteImage=async(data,token)=>{
   return axiosApiInstance.post("/image/deleteImage",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
-  export {getImageData,deleteImage}
+const getUserImages=async(data,token)=>{
+  return axiosApiInstance.post("/image/getUserImages",{...data},{ headers: {Authorization: 'Bearer ' + token }});
+}
+  export {getUserImages,getImageData,deleteImage}

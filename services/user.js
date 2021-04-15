@@ -14,8 +14,8 @@ const GetUserData = async (token) => {
 const ChangeProfileImage = async (file,token)=>{
   return axiosApiInstance.post("/user/changeprofileimage",file,{ headers: {Authorization: 'Bearer ' + token }})
 }
-const GetOtherUsersData=async (id)=>{
-  return axiosApiInstance.get("/user/getotherUsersData/"+id);
+const GetOtherUsersData=async (id,token)=>{
+  return axiosApiInstance.post("/user/getotherUsersData/"+id,{},{ headers: {Authorization: 'Bearer ' + token }});
 }
 const activeAccount=async (userid,verificationCode)=>{
   return axiosApiInstance.post("/user/activeAccount",{userid,verificationCode});
@@ -55,13 +55,11 @@ const searchUserNameApi=async(searchUserName)=>{
   return axiosApiInstance.post("/user/SearchUserByUserName",{searchUserName:searchUserName});
 }
 
-const getUserImages=async(data,token)=>{
-  return axiosApiInstance.post("/user/getUserImages",{...data},{ headers: {Authorization: 'Bearer ' + token }});
-}
+
 const getPrivacy=async(token)=>{
   return axiosApiInstance.post("/user/getPrivacy",{},{ headers: {Authorization: 'Bearer ' + token }});
 }
 const updatePrivacy=async(data,token)=>{
   return axiosApiInstance.post("/user/updatePrivacy",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
-export {updatePrivacy,getPrivacy,getUserImages,searchUserNameApi,getrandomUsersApi,updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}
+export {updatePrivacy,getPrivacy,searchUserNameApi,getrandomUsersApi,updateEmailApi,updateEmailSendCode,SetNewPasswordApi,resetPasswordApi,searchAccountToForgetPassword,changePassword ,updateProfileInfo,Login ,removeToken, Register,LoginFacebook,GetUserData,ChangeProfileImage,GetOtherUsersData,reSendVerificationCode,activeAccount}

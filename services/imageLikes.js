@@ -26,5 +26,11 @@ const getLikestUserNameFromImage = async (data,token) => {
 const getLikestUserNameFromCommentImage = async (data,token) => {
     return axiosApiInstance.post('/imageLikes/getLikestUserNameFromCommentImage',{...data},{ headers: {Authorization: 'Bearer ' + token }})
 }
+const countImageLikes = async (data,token) => {
+    return axiosApiInstance.post('/imageLikes/countImageLikes',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
+const countImageCommentsLikes = async (data,token) => {
+    return axiosApiInstance.post('/imageLikes/countImageCommentsLikes',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+}
 
-export {getLikestUserNameFromCommentImage,getLikestUserNameFromImage,addLikeToImage,checklikeToImage,dislikeImage,addLikeToCommentImage,checklikeToCommentImage,dislikeToCommentImage}
+export {countImageCommentsLikes,countImageLikes,getLikestUserNameFromCommentImage,getLikestUserNameFromImage,addLikeToImage,checklikeToImage,dislikeImage,addLikeToCommentImage,checklikeToCommentImage,dislikeToCommentImage}

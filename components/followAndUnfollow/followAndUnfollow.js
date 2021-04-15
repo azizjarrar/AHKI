@@ -1,13 +1,14 @@
 import React from 'react'
 import Style from './followAndUnfollow.module.scss'
-import {unfollowUserApi,followUserApi,checkIffollowApi,deleteFollowApi,removeFollowPending} from '../../services/following'
+import {unfollowUserApi,followUserApi,checkIffollowApi,removeFollowPending} from '../../services/following'
+import {deleteFollowApi} from '../../services/followers'
 import UserContext from '../../context/userContext'
 const followAndUnfollow = (props) => {
     const [user, setUser]= React.useContext(UserContext)
     const [followOrNot,setFollowOrNot]=React.useState(false)
     const [ifHeDeletedUser,setIfHeDeletedUser]=React.useState(false)
     const [Loading,setLoading]=React.useState(false)
-
+    const refDelte=React.useRef(null)
     React.useEffect(()=>{
         setLoading(true)
         if(user.token!=undefined && props.theOtherPersonId!=undefined){
@@ -17,13 +18,13 @@ const followAndUnfollow = (props) => {
         }
     },[user.token])
     React.useEffect(()=>{
-        console.log(followOrNot)
         setLoading(false)
     },[followOrNot])
     const followUser=(theOtherPersonId)=>{
+        console.log("followit")
         followUserApi(theOtherPersonId,user.token).then(result=>{
             //setFollowOrNot(e=>!e)
-            
+            console.log(result)
             setFollowOrNot(e=>{
                 return {...e,"state":result.data.state}
             })
@@ -45,17 +46,24 @@ const followAndUnfollow = (props) => {
             })
         }).catch(error=>console.log(error))
     }
+    const deleteFollow=(theOtherPersonId)=>{
+        deleteFollowApi(theOtherPersonId,user.token).then(result=>{
+            refDelte.current.innerHTML="done"
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
     if(followOrNot==undefined){
         return (<div className={Style.loadingAnimation}>
         {Loading&&<div className={Style.ldsring}><div></div><div></div><div></div><div></div></div>}
         </div>)
     }
-    /*else if (props.YouAreInYourProfile!=undefined && props.YouAreInYourProfile==true && ifHeDeletedUser==false){
+    else if (props.YouAreInYourProfile!=undefined && props.YouAreInYourProfile==true && ifHeDeletedUser==false){
         return(<div onClick={()=>deleteFollow({theOtherPersonId:props.theOtherPersonId})} className={`${Style.followAndUnfollow} ${Style.unfollow}`}>
-            <p>delete</p>
+            <p ref={refDelte}>delete</p>
         </div>)
     
-    }*/else if(followOrNot.state==1){
+    }else if(followOrNot.state==1){
         return (<div onClick={()=>removeFollowPendingfn(props.theOtherPersonId)} className={`${Style.followAndUnfollow} ${Style.unfollow}`}>
             <p>pending</p>
         </div>)

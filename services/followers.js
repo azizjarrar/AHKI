@@ -6,3 +6,7 @@ const deleteFollowApi=async(data,token)=>{
 const getFollowersOfUser=async(data,token)=>{
     return axiosApiInstance.post("/followers/getFollowersOfUser",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
+const countFollowersOfUser=async(data,token)=>{
+    return axiosApiInstance.post("/followers/countFollowersOfUser",{...data},{ headers: {Authorization: 'Bearer ' + token }});
+}
+export {countFollowersOfUser,getFollowersOfUser,deleteFollowApi}

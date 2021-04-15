@@ -2,7 +2,6 @@ import React from 'react'
 import Styles from './homeTodayTopics.module.scss'
 import PostTodayTopic from '../postTodayTopic/postTodayTopic'
 import Publication from '../../components/publication/publication'
-import Following from '../../components/followingProfileList/following'
 import Suggestion from '../../components/suggestion/suggestion'
 const homeTodayTopics = () => {
     React.useEffect(() => {

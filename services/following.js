@@ -16,9 +16,13 @@ const getFollowingOfUser=async(data,token)=>{
     return axiosApiInstance.post("/following/removeFollowPending",{followingid:theOtherPersonId},{ headers: {Authorization: 'Bearer ' + token }});
   }
   const acceptfollow=async(theOtherPersonId,idNotif,token)=>{
-    return axiosApiInstance.post("/following/acceptfollow",{idNotif:idNotif,followingid:theOtherPersonId},{ headers: {Authorization: 'Bearer ' + token }});
+    return axiosApiInstance.post("/following/acceptfollow",{idNotif:idNotif,theOtherPersonId:theOtherPersonId},{ headers: {Authorization: 'Bearer ' + token }});
   }
   const deniedfollow=async(theOtherPersonId,idNotif,token)=>{
     return axiosApiInstance.post("/following/deniedfollow",{idNotif:idNotif,followingid:theOtherPersonId},{ headers: {Authorization: 'Bearer ' + token }});
   }
-  export {deniedfollow,acceptfollow,removeFollowPending,checkIffollowApi,followUserApi,unfollowUserApi,getFollowingOfUser}
+  const countFollowingOfUser=async(data,token)=>{
+    return axiosApiInstance.post("/following/countFollowingOfUser",{...data},{ headers: {Authorization: 'Bearer ' + token }});
+  }
+
+  export {countFollowingOfUser,deniedfollow,acceptfollow,removeFollowPending,checkIffollowApi,followUserApi,unfollowUserApi,getFollowingOfUser}

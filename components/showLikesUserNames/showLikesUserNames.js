@@ -1,17 +1,13 @@
 import React from 'react'
 import Style from './showLikesUserNames.module.scss'
-import {getLikestUserNameFromPost,getLikestUserNameFromComment} from '../../services/likes'
+import {getLikestUserNameFromPost,getLikestUserNameFromComment} from '../../services/post_likes'
 import {getLikestUserNameFromCommentImage,getLikestUserNameFromImage} from '../../services/imageLikes'
 import UserContext from '../../context/userContext'
 import FollowAndUnfollow from '../followAndUnfollow/followAndUnfollow'
 const followers = (props) => {
     const [user,setUser]=React.useContext(UserContext)
     const [users,setUsers]=React.useState([])
-    React.useEffect(()=>{
-        setUsers(e=>{
-            return []
-         })
-    },[])
+
     React.useEffect(()=>{
         if(props.imgid!=undefined){
             if(props.showLikesForComment!=undefined && props.showLikesForComment==true){
@@ -23,9 +19,9 @@ const followers = (props) => {
                 console.log(error)
             })
             }else{
-                getLikestUserNameFromImage({imgid:props.imgid},user.token).then(result=>{
+                getLikestUserNameFromImage({imageid:props.imgid},user.token).then(result=>{
                     setUsers(e=>{
-                  return [...e,...result.data.data.likes]
+                  return [...result.data.data]
                })
             }).catch(error=>{
                 console.log(error)
@@ -44,7 +40,7 @@ const followers = (props) => {
                 }else{
                     getLikestUserNameFromPost({postid:props.postid},user.token).then(result=>{
                         setUsers(e=>{
-                      return [...e,...result.data.data.likes]
+                      return [...e,...result.data.data]
                    })
                 }).catch(error=>{
                     console.log(error)
@@ -63,7 +59,7 @@ const followers = (props) => {
             <div className={Style.listContainer}>
                 <div className={Style.header}><h1>Users</h1><div onClick={()=>props.closepopUp()} className={Style.closebtn}></div></div>
                 <div className={Style.list}>
-                {users.map(e=><Users key={e._id} userData={e}></Users>)}
+                {users.map(e=><Users key={e._id} userData={e.idOfWhoLikedImage}></Users>)}
                 </div>
             </div>
         </div>

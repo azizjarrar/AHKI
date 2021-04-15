@@ -1,6 +1,6 @@
 import React from 'react'
 import Style from './gallery.module.scss'
-import {getUserImages} from '../../services/user'
+import {getUserImages} from '../../services/images'
 import BiggerImagewithcomments from '../../components/biggerImagewithcomments/biggerImagewithcomments'
 const gallery = (props) => {
     const [gelleryData,setGelleryData]=React.useState([])
@@ -8,8 +8,7 @@ const gallery = (props) => {
     React.useEffect(()=>{
         if(props.userid!=undefined){
             getUserImages({userid:props.userid},props.token).then(result=>{
-                setGelleryData([...result.data.data.userProfileImagesUrl])
-             
+                setGelleryData([...result.data.data])
             }).catch(error=>{
                 console.log(error)
             })

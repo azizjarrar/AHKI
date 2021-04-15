@@ -6,10 +6,12 @@ import userContext from '../../context/userContext'
 import { Picker,Emoji  } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import LanguageContext from '../../context/languageContext'
-import {addCommentToImage,getCommentsImage} from '../../services/imageComments'
+import {addCommentToImage,getCommentsImage,countComments} from '../../services/imageComments'
+import {countImageLikes} from '../../services/imageLikes'
+import {deleteImage} from '../../services/images'
+
 import Comment from '../comment/comment'
 import ShowLikesUserNames from '../showLikesUserNames/showLikesUserNames'
-import {deleteImage} from '../../services/images'
 import PopUpMessage from '../../components/popUpMessage/popUpMessage'
 
 const biggerImagewithcomments = (props) => {
@@ -18,6 +20,8 @@ const biggerImagewithcomments = (props) => {
     const [previmage, setPrevimage] = React.useState() //has id fo prev image
     const [comments, setComments] = React.useState(false)//open or close comments
     const [imageLoading,setimageLoading]=React.useState(false)
+    const [likesNumber,setLikesNumber]=React.useState(0)
+    const [coummentNumber,setCoummentNumber]=React.useState(0)
     const [setOwnerOfImageData, setSetOwnerOfImageData] = React.useState({
         userData:{
             currentImageUrl:"",
@@ -41,6 +45,7 @@ const biggerImagewithcomments = (props) => {
     React.useState(() => {
         /*he i fetch cureent img data and the next and prev image id */
         setimageLoading(true)
+
         getImageData({ currentImgId: props.imgid, userid: props.userid }, props.token).then(result => {
             setimageLoading(false)
             setSetOwnerOfImageData(result.data)
@@ -48,10 +53,10 @@ const biggerImagewithcomments = (props) => {
                 return { ...result.data.currentimage }
             })
             setNextimage(e => {
-                return { ...result.data.nextimage.userProfileImagesUrl[0] }
+                return { ...result.data.nextimage}
             })
             setPrevimage(e => {
-                return { ...result.data.previmage.userProfileImagesUrl[0] }
+                return { ...result.data.previmage }
             })
         }).catch(error => {
             console.log(error)
@@ -67,6 +72,11 @@ const biggerImagewithcomments = (props) => {
         setCommentsData([])
         setSkip(0)
         setComments(false)
+        countImageLikes({ imageid: currentimage._id||props.imgid}, props.token).then(result=>{
+            setLikesNumber(result.data.count)
+        }).catch(error=>{
+            console.log(error)
+        })
         if(currentimage._id!=undefined){
           getCommentsImage({imageid:currentimage._id||props.imgid,skip:0},user.token).then(result=>{
               setComments(true)
@@ -79,7 +89,14 @@ const biggerImagewithcomments = (props) => {
             }).catch(error=>{
                 alert(error)
             })
+            countComments({imageid:currentimage._id||props.imgid,skip:0},user.token).then(result=>{
+                setCoummentNumber(result.data.count)
+            }).catch(error=>{
+                alert(error)
+
+            })
         }
+
     },[currentimage._id])//hedhi kenet t3awed tfetchi
     //when i click load more comments get 3 new comment evry time
     React.useEffect(()=>{
@@ -103,15 +120,16 @@ const biggerImagewithcomments = (props) => {
     const goPrev = () => {
         setimageLoading(true)
         getImageData({ currentImgId: previmage._id, userid: props.userid }, props.token).then(result => {
+            
             setimageLoading(false)
             setCurrentimage(e => {
                 return { ...e, ...result.data.currentimage }
             })
             setNextimage(e => {
-                return { ...result.data.nextimage.userProfileImagesUrl[0] }
+                return { ...result.data.nextimage }
             })
             setPrevimage(e => {
-                return { ...result.data.previmage.userProfileImagesUrl[0] }
+                return { ...result.data.previmage }
             })
         }).catch(error => {
             console.log(error)
@@ -126,10 +144,10 @@ const biggerImagewithcomments = (props) => {
                 return { ...e, ...result.data.currentimage }
             })
             setNextimage(e => {
-                return { ...result.data.nextimage.userProfileImagesUrl[0] }
+                return { ...result.data.nextimage }
             })
             setPrevimage(e => {
-                return { ...result.data.previmage.userProfileImagesUrl[0] }
+                return { ...result.data.previmage }
             })
         }).catch(error => {
             console.log(error)
@@ -155,8 +173,7 @@ const biggerImagewithcomments = (props) => {
       //add commnent
       const AddComment=()=>{
         addCommentToImage({imageid:currentimage._id,commentText:textAreaData},user.token).then((result)=>{
-           //add comment in time 
-            setCommentsData(e=>[{...result.data.data,commentOwnerData:[{userName:user.userName,currentImageUrl:user.currentImageUrl,_id:user._id}]},...e])
+            setCommentsData(e=>[{...result.data.data,commentOwner:{userName:user.userName,currentImageUrl:user.currentImageUrl,_id:user._id}},...e])
             setComments(true)
             setaddOneToCommentCount(e=>e+1)
             setTextAreaData("")
@@ -184,10 +201,7 @@ const biggerImagewithcomments = (props) => {
       }
       //when you like image it will add in time to numbers of likes
       const addLikeInTime=(newLikesNumber)=>{
-        setCurrentimage(e=>
-            {
-                return {...currentimage,likes:currentimage.likes+newLikesNumber}
-            })
+        setLikesNumber(e=>e+newLikesNumber)
       }
       // show usernames of people who liked image
       const openshowLikesUserNames=()=>{
@@ -228,17 +242,17 @@ const biggerImagewithcomments = (props) => {
                         <p>{setOwnerOfImageData.userData.userName}</p>
                         {currentimage.date != undefined && <p>{currentimage.date.slice(0, 10)} {currentimage.date.slice(11, 16)}</p>}
                     </div>
-                    <div className={Style.Params} onClick={() => ShowSettings("firstClick")}>{settings.state==true && <SettingsImage closeComponenetfn={closeComponenet}   userImageid={currentimage._id||props.imgid} currentUserId={user._id} ownerid={setOwnerOfImageData.currentimage.ImageOwner} token={user.token} ></SettingsImage>}&hellip;</div>
+                    <div className={Style.Params} onClick={() => ShowSettings("firstClick")}>{settings.state==true && <SettingsImage previmage={previmage} closeComponenetfn={closeComponenet}   userImageid={currentimage._id||props.imgid} currentUserId={user._id} ownerid={setOwnerOfImageData.currentimage.ImageOwner._id} token={user.token} ></SettingsImage>}&hellip;</div>
                 </div>
                 {currentimage.imageText != undefined && <div className={Style.bio}><p>{currentimage.imageText}</p></div>}
                 <div className={Style.LikesAndCommentsContainer}>
                    <div   className={Style.Comments} onClick={()=>{openComments()}}>
                         <svg  width="69" height="69" viewBox="0 0 69 69" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M49.8333 24.6429C49.8333 11.0277 38.6807 0 24.9167 0C11.1526 0 0 11.0277 0 24.6429C0 29.9257 1.68906 34.7926 4.55208 38.8125C2.94688 43.4638 0.299479 47.1603 0.263542 47.2065C0 47.5607 -0.071875 48.0844 0.0838542 48.5464C0.239583 49.0085 0.575 49.2857 0.958333 49.2857C5.34271 49.2857 8.97239 47.3913 11.5839 45.4353C15.4411 47.8533 20.0052 49.2857 24.9167 49.2857C38.6807 49.2857 49.8333 38.258 49.8333 24.6429ZM64.4479 58.5268C67.3109 54.5223 69 49.64 69 44.3571C69 34.0533 62.5911 25.2281 53.5109 21.5471C53.6188 22.5636 53.6667 23.5955 53.6667 24.6429C53.6667 40.9533 40.7651 54.2143 24.9167 54.2143C23.6229 54.2143 22.3651 54.0911 21.1193 53.9216C24.8927 62.7777 33.7573 69 44.0833 69C48.9948 69 53.5589 67.583 57.4161 65.1496C60.0276 67.1056 63.6573 69 68.0417 69C68.425 69 68.7724 68.7074 68.9161 68.2607C69.0719 67.8141 69 67.2904 68.7365 66.9208C68.7005 66.8745 66.0531 63.1935 64.4479 58.5268Z" fill="#212121" /></svg>
-                        <p  key="unha" className={Style.CommentsNumber} >{currentimage.Comments||0+addsOneToCommentCount}</p>
+                        <p  key="unha" className={Style.CommentsNumber} >{coummentNumber+addsOneToCommentCount}</p>
                     </div>
                     <div className={Style.likes}  >
                         <Heart addLikeInTime={(e)=>addLikeInTime(e)}  imgid={currentimage._id||props.imgid} token={props.token} ></Heart>
-                        <p className={Style.likesNumber}  onClick={()=>openshowLikesUserNames()}>{currentimage.likes}</p>
+                        <p className={Style.likesNumber}  onClick={()=>openshowLikesUserNames()}>{likesNumber}</p>
                     </div>
                 </div>
                 <div className={Style.userAddComments}>
@@ -264,13 +278,13 @@ const biggerImagewithcomments = (props) => {
             {comments && <div className={Style.commentsData}>
             {commentsData.map(e=>
             {
-            return  <Comment currentUserId={user._id} ownerid={e.commentOwner} deleteCommentInCurrentTime={deleteCommentInCurrentTimefn} imgid={currentimage._id||props.imgid} likesNumber={e.likes} token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwnerData[0].userName} userProfileImageUrl={e.commentOwnerData[0].currentImageUrl}></Comment>
+            return  <Comment currentUserId={user._id} ownerid={e.commentOwner} deleteCommentInCurrentTime={deleteCommentInCurrentTimefn} imgid={currentimage._id||props.imgid}  token={user.token} date={e.date} commentid={e._id} key={e._id} text={e.commentText} name={e.commentOwner.userName} userProfileImageUrl={e.commentOwner.currentImageUrl}></Comment>
             }
             )}
             {moreComments&&<div className={Style.loadMoreComments} onClick={()=>LoadMoreComments()}><p>View more comments</p></div>}
             </div>}
             </div>
- 
+
         </div>
     )
 }
@@ -287,7 +301,7 @@ const SettingsImage=(props)=>{
     // error handler
     const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
    const deleteImageFn=()=>{
-        deleteImage({imageid:props.userImageid},props.token).then(result=>{
+        deleteImage({imageid:props.userImageid,previmage:props.previmage},props.token).then(result=>{
             if(result.data.state==true){
                 //if you have only one image you cant deleted
                 setErrorMessage(e=>{

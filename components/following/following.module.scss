@@ -57,6 +57,7 @@
         cursor: pointer;
         display: flex;
         align-items: center;
+        flex-direction: column;
         margin-left: 20px;
         p{
             font-size: 1.8rem;
