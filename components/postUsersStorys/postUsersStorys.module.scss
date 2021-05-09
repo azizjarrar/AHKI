@@ -27,6 +27,7 @@
     .image_video_Container{
         position: relative;
         max-width: 100%;
+        
         height: auto;
         display: flex;
         align-items: center;
@@ -181,7 +182,7 @@
             width: 25%;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: space-around;
             height: 30px;
             align-self: flex-end;
             .emojiPickerContainer{
@@ -301,6 +302,17 @@
         }
     }
 }
+}
+.header{
+    position: relative;
+    margin: 14px 0;
+    h1{
+        font-size: 1.5rem;
+        
+    }
+    span{
+        color:$primary
+    }
 }
 @media (orientation: portrait) , (max-height: 500px){
     .container{

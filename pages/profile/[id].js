@@ -23,6 +23,8 @@ const profile = (props) => {
   const [MakeImageBigger,setMakeImageBigger]=React.useState(false)
   const [followingCount,setFollowingCount]=React.useState(0)
   const [followersCount,setFollowersCount]=React.useState(0)
+  const [galleryState,setGalleryState]=React.useState(false)
+
   const router = useRouter()
   React.useEffect(()=>{
     if(props.state!=false){
@@ -32,8 +34,6 @@ const profile = (props) => {
       }).catch(error=>{
           alert(error)
       })
-      }
-
       countFollowingOfUser({userid:props.user._id},props.token).then(result=>{
         setFollowingCount(result.data.count)
       }).catch(error=>{
@@ -44,6 +44,7 @@ const profile = (props) => {
       }).catch(error=>{
         alert(error)
       })
+      }
     }
 
   },[])
@@ -68,12 +69,15 @@ const openFollowing=()=>{
 const MakeImageBiggerfn=()=>{
   setMakeImageBigger(e=>!e)
 }
-
+const galleryStatefn=(state)=>{
+  console.log(galleryState)
+  setGalleryState(state)
+}
   return (
     <div className={Style.container}>
-            {openFollowersState&&<Followersnavbar token={props.token} id={props.user._id} closepopUp={openFollowers}></Followersnavbar>}
-            {openFollowingState&&<Followingnavbar token={props.token} id={props.user._id} closepopUp={openFollowing}></Followingnavbar>}
-            {MakeImageBigger&&<BiggerImagewithcomments userid={user._id} token={props.token} close={()=>MakeImageBiggerfn()} imgid={user.currentImgId} imgurl={user.currentImageUrl||"/avatar.png"}></BiggerImagewithcomments>}
+            {(openFollowersState&&props.private!=true)&&<Followersnavbar token={props.token} id={props.user._id} closepopUp={openFollowers}></Followersnavbar>}
+            {(openFollowingState&&props.private!=true)&&<Followingnavbar token={props.token} id={props.user._id} closepopUp={openFollowing}></Followingnavbar>}
+            {(MakeImageBigger&&props.private!=true)&&<BiggerImagewithcomments userid={user._id} token={props.token} close={()=>MakeImageBiggerfn()} imgid={user.currentImgId} imgurl={user.currentImageUrl||"/avatar.png"}></BiggerImagewithcomments>}
 
       <NavBar token={props.token}></NavBar>
       <div className={Style.profile}>
@@ -102,13 +106,14 @@ const MakeImageBiggerfn=()=>{
         <PrivateProfile></PrivateProfile>:
         <div className={Style.timeLine}>
         <div className={Style.params}>
-            <div className={Style.GelleryContainer} style={{position:"sticky",top:"60px"}}>
-                <Gellery userid={user._id} token={props.token}></Gellery>
+        
+            <div className={Style.GelleryContainer} style={{zIndex:galleryState?"9999999999":"14"}}>
+                <Gellery gellerystate={galleryStatefn} userid={user._id} token={props.token}></Gellery>
             </div>
         </div>
         <div className={Style.posts}>
             <div className={Style.publicationContainer}>
-            {posts.map(e=><Publication userName={user.userName} commentsNumber={e.comments} likesNumber={e.likes} id={e._id}  date={e.date} ownerOfPostImage={user.currentImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+            {posts.map(e=><Publication allowAnonymeComments={e.allowAnonymeComments} userName={user.userName}  id={e._id}  date={e.date} ownerOfPostImage={user.currentImageUrl} key={e._id} text={e.postText} video={e.postVideo!=undefined?e.postVideo:undefined} image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
             </div>
         </div>     
     </div>}

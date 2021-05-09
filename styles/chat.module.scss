@@ -1,0 +1,384 @@
+@import "./colors";
+
+.container{
+    position: relative;
+    height: calc(100% - 56px);
+    width: 100%;
+ 
+}
+.chatAndRandomOnlineUserContaner{
+    position: relative;
+    height: 95%;
+    width: 100%;
+    max-width: 1000px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    flex-wrap: nowrap;
+}
+.UserContaner{
+    position: relative;
+    width: 28%;
+    height: 95%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .listContacs{
+        height: calc(100% - 120px);
+        width: 100%;
+        padding: 10px;
+    }
+    .bottom{
+        position: relative;
+        height: 60px;
+        width: 100%;
+
+    }
+    .searchContainer{
+        position: relative;
+        width: 95%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-top: 1px solid $primary;
+
+        .inputcss{
+            position: relative;
+            width: 95%;
+            height: 46px;
+            label{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+                &::after{
+                    width: 100%;
+                    height: 1px;
+                    background-color: $primary;
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    right:100%;
+                    transition: 0.5s;
+                }
+                span{
+                    position: absolute;
+                    font-size: 1.3rem;
+                    margin-top: 15px;
+                    margin-left: 20px;
+                    color: #65676b;
+                    transition: 0.5s;
+                    font-weight: bold;
+
+
+                }
+            }
+            input{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                outline: none;
+                border: none;
+                border-bottom: 2px solid $gray;
+                padding-top: 20px;
+                text-indent: 20px;
+                &:focus + label {
+                    span{
+                        margin-top: 2px;
+                        color: $primary;
+                        font-weight: bold;
+                    }
+                    &::after{
+             
+                        right:0%
+                    }
+
+                }
+                &:valid + label {
+                    span{
+                        margin-top: 2px;
+                        color: $primary;
+                        font-weight: bold;
+                    }
+                    &::after{
+             
+                        right:0%
+                    }
+
+                }
+            }
+        }
+    }
+
+}
+.header{
+    width: 100%;
+    position: relative;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    h1{
+        color: #65676b;
+        font-size: 2rem;
+        margin-left: 20px;
+    }
+}
+.chat{
+    margin-left: calc(2%);
+    position: relative;
+    width: 70%;
+    height: 95%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    .chatContainer{
+        position: relative;
+        height: calc(100% - 120px);
+        width: 100%;
+        padding: 10px;
+        .headerOfChatuserNameAndName{
+            height: 50px;
+            width: 100%;
+            border-bottom: 1px solid $gray;
+            display: flex;
+            align-items: center;
+            .userImageContainer{
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                overflow: hidden;
+                display: inline-block;
+                position: relative;
+                img{
+                    position: absolute;
+                    width: 100%;
+                    height: auto;
+                    min-height: 100%;
+                    top: 0;
+                }
+            }
+            .userName{
+                display: inline-block;
+                position: relative;
+                margin-left: 20px;
+                h3{
+                    font-size: 2rem;
+                }
+            }
+        }
+        .messages{
+            position: relative;
+            height: calc(100% - 50px);
+            width: 100%;
+            overflow-X: hidden;
+            overflow-y: scroll;
+            padding-right: 10px;
+            .oneMessage{
+                width: 100%;
+                height: auto;
+                position: relative;
+                .messageText{
+                    margin-top: 10px;
+
+                    clear: both;
+                    position: relative;
+                    max-width: 40%;
+                    height: auto;
+                    display: inline-block;
+                    padding: 10px;
+                    word-break: break-all;
+                    border-radius: 5px;
+                    p{
+                        font-weight: 500;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+    .sendMessage{
+        position: relative;
+        height: 60px;
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        border-top: 1px solid $primary;
+        .inputContainer{
+            width: 70%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .inputcss{
+                position: relative;
+                width: 95%;
+                height: 46px;
+                label{
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    pointer-events: none;
+                    overflow: hidden;
+                    &::after{
+                        width: 100%;
+                        height: 1px;
+                        background-color: $primary;
+                        content: "";
+                        position: absolute;
+                        bottom: 0;
+                        right:100%;
+                        transition: 0.5s;
+                    }
+                    span{
+                        position: absolute;
+                        font-size: 1.3rem;
+                        margin-top: 15px;
+                        margin-left: 20px;
+                        color: #65676b;
+                        transition: 0.5s;
+                        font-weight: bold;
+
+
+                    }
+                }
+                input{
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    outline: none;
+                    border: none;
+                    border-bottom: 2px solid $gray;
+                    padding-top: 20px;
+                    text-indent: 20px;
+                    &:focus + label {
+                        span{
+                            margin-top: 2px;
+                            color: $primary;
+                            font-weight: bold;
+                        }
+                        &::after{
+                 
+                            right:0%
+                        }
+
+                    }
+                    &:valid + label {
+                        span{
+                            margin-top: 2px;
+                            color: $primary;
+                            font-weight: bold;
+                        }
+                        &::after{
+                 
+                            right:0%
+                        }
+
+                    }
+                }
+            
+            }
+        }
+        .btns{
+            width: 30%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            .sendMessageBtn{
+                cursor: pointer;
+            }
+            svg{
+                height: 30px;
+                width: 30px;
+            }
+        }
+    }
+}
+
+.openOrCloseEmojiPicker{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    .emojiPickerContainer{
+        position: relative;
+        z-index: 5166;
+        bottom: 500px;
+        right: 200px;    
+
+    }
+.emojiLogo{
+    position: relative;
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg{
+        position: relative;
+        height: 30px;
+        width: 30px;
+    }
+}
+}
+
+/*********************************/
+.userContainer{
+    z-index: 1561656156;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    border-radius: 5px;
+    height: 60px;
+    cursor: pointer;
+    &:hover{
+        background-color: $gray;
+    }
+    &::after{
+        position: absolute;
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: $gray2;
+        left: 0;
+        bottom: 0;
+    }
+    .imgContainer{
+        position: relative;
+        height: 40px;
+        width: 40px;
+        overflow: hidden;
+        margin-left: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        img{
+            position: absolute;
+            height: auto;
+            min-height: 100%;
+            box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+            max-width: 105%;
+            top: 0;
+        }
+    }
+    .userName{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+        p{
+            font-size: 2rem;
+        }
+    }
+    .FollowAndUnfollowContainer{
+        position: absolute;
+        right: 0;
+        margin-right: 10px;
+    }
+}

@@ -26,7 +26,7 @@ const HomeUsersStorys = () => {
             <PostUsersStorys></PostUsersStorys>
             <div className={Styles.posts}>
                 <div className={Styles.publicationContainer}>
-                {posts.map(e=><Publication userName={e.OwnerOfPost.userName} id={e._id}  date={e.date} ownerOfPostImage={e.OwnerOfPost.currentImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+                {posts.map(e=><Publication userName={e.OwnerOfPost.userName} id={e._id}  date={e.date} ownerOfPostImage={e.OwnerOfPost.currentImageUrl} key={e._id} text={e.postText} video={e.postVideo!=undefined?e.postVideo:undefined} image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
                 </div>
             </div>   
         </div>

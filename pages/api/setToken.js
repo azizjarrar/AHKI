@@ -6,7 +6,8 @@ export default (req,res)=>{
         httpOnly:true,
         //secure:process.env.NODE_ENV !=="development",
         maxAge:req.body.ext||60*60*24*365,
-        sameSite:"strict",path:"/"}
+        sameSite:"Lax",path:"/"
+    }
         ))
 
         res.statusCode=200,

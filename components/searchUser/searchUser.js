@@ -7,7 +7,7 @@ const searchUser = (props) => {
     const [listOfUsers,setListOfUsers]=React.useState([])
     React.useEffect(()=>{
         if(props.searchUserName!=undefined&& props.searchUserName.length>0){
-            searchUserNameApi(props.searchUserName).then((result=>{
+            searchUserNameApi(props.searchUserName,props.token).then((result=>{
                 if(result.data.data!=undefined){
                     setListOfUsers(e=>{
                         return [...result.data.data]

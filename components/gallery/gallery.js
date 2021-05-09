@@ -16,6 +16,7 @@ const gallery = (props) => {
 
     },[props.userid])
     const MakeImageBiggerfn=(id)=>{
+        props.gellerystate(!MakeImageBigger.state)
         setMakeImageBigger(e=>{
             return {state:!e.state,id:id}
         })

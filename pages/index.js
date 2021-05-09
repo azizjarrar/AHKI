@@ -38,13 +38,22 @@ function Home(props) {
       <div className={styles.home}>
         <ChangeLanguage></ChangeLanguage>
         <div className={styles.navbar_Choice_TopicToday_or_usersTopics}>
-          <div
-            className={styles.Line} style={choice_TopicToday_or_usersTopics == 'todayTopics' ? { left: '0' } : { left: '50%' }}></div>
+        
+          
+          {props.token==false || props.token==undefined?
+          <div className={styles.Line} style={ { width:"100%" }}></div>
+          :<div className={styles.Line} style={choice_TopicToday_or_usersTopics == 'todayTopics' ? { left: '0' } : { left: '50%' }}></div>
+          }
+
+          
+       
           <h2 onClick={() => change('todayTopics')}>{language.todayTopic}</h2>
-          <h2 onClick={() => change('otherPeopleStory')}>{language.FriendsPosts}</h2>
+          {props.token!=false && props.token!=undefined&&<h2 onClick={() => change('otherPeopleStory')}>{language.FriendsPosts}</h2>}
         </div>
         {choice_TopicToday_or_usersTopics == 'todayTopics' && (<HomeTodayTopics></HomeTodayTopics>)}
         {choice_TopicToday_or_usersTopics == 'otherPeopleStory' && (<HomeUsersStorys></HomeUsersStorys>)}
+        
+
       </div>
     </div>
   )

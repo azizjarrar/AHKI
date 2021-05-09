@@ -1,0 +1,43 @@
+@import "../../styles/colors"; 
+
+.container{
+    position: relative;
+    height: auto;
+    width: auto;
+    display: inline-block;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.header{
+    position: relative;
+    display: inline-block;
+    h2{
+        font-size: 1.3rem;
+        transition: all 0.5s;
+    }
+}
+.switchContainer{
+    position: relative;
+    width: 50px;
+    height: 25px;
+    background-color: #fafafa;
+    border: 1px solid $gray2;
+    cursor: pointer;
+    transition: 0.5s;
+    border-radius: 15px;
+    padding: 5px 0px;
+}
+.dot{
+    transition: 0.5s;
+    position: absolute;
+    left:0;
+    height: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    border-radius: 50%;
+    background-color: $primary;
+   
+}

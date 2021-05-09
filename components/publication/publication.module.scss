@@ -92,7 +92,12 @@
 
 }
 
-
+.videoContainer{
+    position: relative;
+    height: auto;
+    max-width: 100%;
+    z-index: 148165;
+}
 .imageContainer{
     position: relative;
     max-width: 100%;
@@ -280,7 +285,7 @@
         width: 25%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
         height: 50px;
         align-self: flex-end;
 

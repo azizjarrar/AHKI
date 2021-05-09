@@ -48,11 +48,11 @@ const updateEmailApi=async(email,code,token)=>{
   return axiosApiInstance.post("/user/updateEmail",{email:email,code:code},{ headers: {Authorization: 'Bearer ' + token }});
 }
 
-const getrandomUsersApi=async(token)=>{
-  return axiosApiInstance.post("/user/getrandomUsers",{},{ headers: {Authorization: 'Bearer ' + token }});
+const getrandomUsersApi=async(token,randomusers)=>{
+  return axiosApiInstance.post("/user/getrandomUsers",{...randomusers},{ headers: {Authorization: 'Bearer ' + token }});
 }
-const searchUserNameApi=async(searchUserName)=>{
-  return axiosApiInstance.post("/user/SearchUserByUserName",{searchUserName:searchUserName});
+const searchUserNameApi=async(searchUserName,token)=>{
+  return axiosApiInstance.post("/user/SearchUserByUserName",{searchUserName:searchUserName},{ headers: {Authorization: 'Bearer ' + token }});
 }
 
 

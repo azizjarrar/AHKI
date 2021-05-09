@@ -21,11 +21,14 @@ const Comment = (props) => {
         alert(error)
       })
     }else{
-      countPostCommentsLikes({commentid:props.commentid},props.token).then(result=>{
-        setLikesNumber(result.data.count)
-      }).catch(error=>{
-        alert(error)
-      })
+     
+        countPostCommentsLikes({commentid:props.commentid},props.token).then(result=>{
+          setLikesNumber(result.data.count)
+        }).catch(error=>{
+          alert(error)
+        })
+      
+ 
     }
   },[])
 
@@ -53,7 +56,10 @@ const closeComponenet=()=>{
       {likesModal&&<ShowLikesUserNames imgid={props.imgid} showLikesForComment={true} closepopUp={openshowLikesUserNames} commentid={props.commentid}></ShowLikesUserNames>}
       <div className={Styles.imageUserAndNameContainer}>
         <div className={Styles.userImage}>
-          <img src={props.userProfileImageUrl||"/avatar.png"} alt={"user.userName "|| ""}/></div>
+        {/*<img src={props.userProfileImageUrl||"/avatar.png"} alt={"user.userName "|| ""}/>*/}
+
+            {props.userProfileImageUrl!="anonym"? <img src={props.userProfileImageUrl || "/avatar.png"} />:<img style={{minHeight:"0",width:"75%",height:"75%",top:"50%",left:"50%",transform:"translate(-50%,-50%)"}} src={"/anonymous.png"} alt="anonymous"/>}
+          </div>
           <h3>{props.name}</h3> 
           <h3 className={Styles.date}>{props.date.slice(0,10)} {props.date.slice(11,16)}</h3>
           <div className={Styles.Settings} style={settings.state?{zIndex:"999999999999999999"}:{zIndex:"1"}} onClick={() => ShowSettings()}>&hellip;{settings.state && <SettingsPComments ownerid={props.ownerid} currentUserId={props.currentUserId} deleteCommentInCurrentTime={props.deleteCommentInCurrentTime} postid={props.postid}  token={props.token} closeComponenetfn={closeComponenet}  imgid={props.imgid} commentid={props.commentid}></SettingsPComments>}</div></div>

@@ -8,7 +8,7 @@ const suggestion = (props) => {
     const [randomUser,setRandomUser]=React.useState([])
     React.useEffect(()=>{
         if(props.token.length>2){
-            getrandomUsersApi(props.token).then(result=>{
+            getrandomUsersApi(props.token,{oldUsers:randomUser}).then(result=>{
                 setRandomUser(e=>{
                     return [...e,...result.data.data]
                  })

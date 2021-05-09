@@ -402,16 +402,14 @@
 /****************View **********************/
 /*******************************************************/
 /*******************************************************/
-.followingContainer{
+
+.suggestionContainer{
     position: sticky;
     top: 60px;
 }
-.suggestionContainer{
-    position: relative;
-}
 .GelleryContainer{
     position: relative;
-    z-index: 99999999;
+   
 
 }
 .timeLineOfOtherUser{

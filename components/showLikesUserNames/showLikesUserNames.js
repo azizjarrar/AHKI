@@ -12,8 +12,9 @@ const followers = (props) => {
         if(props.imgid!=undefined){
             if(props.showLikesForComment!=undefined && props.showLikesForComment==true){
                 getLikestUserNameFromCommentImage({commentid:props.commentid},user.token).then(result=>{
+                    console.log(result.data.data)
                     setUsers(e=>{
-                  return [...e,...result.data.data.likes]
+                  return [...e,...result.data.data]
                })
             }).catch(error=>{
                 console.log(error)
@@ -32,13 +33,15 @@ const followers = (props) => {
                 if(props.showLikesForComment!=undefined && props.showLikesForComment==true){
                     getLikestUserNameFromComment({commentid:props.commentid},user.token).then(result=>{
                         setUsers(e=>{
-                      return [...e,...result.data.data.likes]
+                      return [...e,...result.data.data]
                    })
                 }).catch(error=>{
                     console.log(error)
                 })
                 }else{
                     getLikestUserNameFromPost({postid:props.postid},user.token).then(result=>{
+                        console.log(result)
+
                         setUsers(e=>{
                       return [...e,...result.data.data]
                    })
@@ -59,7 +62,7 @@ const followers = (props) => {
             <div className={Style.listContainer}>
                 <div className={Style.header}><h1>Users</h1><div onClick={()=>props.closepopUp()} className={Style.closebtn}></div></div>
                 <div className={Style.list}>
-                {users.map(e=><Users key={e._id} userData={e.idOfWhoLikedImage}></Users>)}
+                {users.map(e=><Users key={e._id} userData={e.idOfWhoLikedImage || e.idOfWhoLikedPost || e.idOfWhoLikedComment}></Users>)}
                 </div>
             </div>
         </div>
@@ -68,7 +71,6 @@ const followers = (props) => {
 export default followers
 const Users=(props)=>{
 
- 
     return(
         <div className={Style.userContainer}>
                 <a href={`/profile/${props.userData._id}`}><div onClick={()=>goToPage()} className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div></a>

@@ -28,6 +28,7 @@ const Profile = (props) => {
     const [image,setImage]=React.useState(undefined)
     const [followingCount,setFollowingCount]=React.useState(0)
     const [followersCount,setFollowersCount]=React.useState(0)
+    const [galleryState,setGalleryState]=React.useState(false)
     /******************************************************************************************
     this will change between your posts and your likes 
     ******************************************************************************************/
@@ -110,7 +111,10 @@ const Profile = (props) => {
             setDoYouWanaAddTextToImage(false)
         }
     }
-
+    const galleryStatefn=(state)=>{
+        console.log(galleryState)
+        setGalleryState(state)
+    }
         return (
             <div className={Style.container}>
                 <NavBar token={props.token}></NavBar>
@@ -136,8 +140,8 @@ const Profile = (props) => {
                 </div>
                 <div className={Style.timeLine}>
                     <div className={Style.params}>
-                        <div className={Style.GelleryContainer}>
-                            <Gellery userid={user._id} token={props.token}></Gellery>
+                        <div className={Style.GelleryContainer} style={{zIndex:galleryState?"9999999999":"14"}}>
+                            <Gellery gellerystate={galleryStatefn} userid={user._id} token={props.token}></Gellery>
                         </div>
                         <div className={Style.suggestionContainer}>
                             <Suggestion token={props.token}></Suggestion>
@@ -148,7 +152,9 @@ const Profile = (props) => {
                     <div className={Style.posts}>
                     <PostUsersStorys refrechData={refrechDataFn}></PostUsersStorys>
                         <div className={Style.publicationContainer}>
-                            {posts.map(e=><Publication  userName={user.userName} ownerid={e.OwnerOfPost._id}    id={e._id}  date={e.date} ownerOfPostImage={user.currentImageUrl} key={e._id} text={e.postText}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>)}
+                            {posts.map(e=>{
+                                return <Publication  allowAnonymeComments={e.allowAnonymeComments}  userName={user.userName} ownerid={e.OwnerOfPost._id}    id={e._id}  date={e.date} ownerOfPostImage={user.currentImageUrl} key={e._id} text={e.postText} video={e.postVideo!=undefined?e.postVideo:undefined}  image={e.postImage!=undefined?e.postImage:undefined}></Publication>
+                            })}
                         </div>
                     </div>
                              

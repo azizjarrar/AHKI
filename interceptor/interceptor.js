@@ -1,8 +1,11 @@
 import axios from 'axios'
 import {refreshAccessToken,deleteRefrechTokenOldOne} from '../services/refreshAccessToken'
-
-const axiosApiInstance = axios.create();
-axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url
+const axiosApiInstance = axios.create({
+  baseURL: 'http://127.0.0.1:5010/',
+  withCredentials: true
+})
+axiosApiInstance.defaults.withCredentials = true
+//axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url
 axiosApiInstance.interceptors.request.use(
   async config => {
       return config;
@@ -17,11 +20,11 @@ axiosApiInstance.interceptors.response.use((response) => {
   console.log(error)
   const originalRequest = error.config;
   if(error.message=="Network Error"){
-    localStorage.removeItem('ref_token');
-    await axios.post("api/logout") // change token in cookies to the bew one
+   // localStorage.removeItem('ref_token');
+   // await axios.post("api/logout") // change token in cookies to the bew one
 
     alert(error.message)
-    location.reload();
+    //location.reload();
     return
   }
   if(error.response.status ===401){

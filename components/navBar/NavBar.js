@@ -47,7 +47,7 @@ const NavBar = ({ token }) => {
                     <div className={Style.Search}>
                         <div className={Style.flexItems}>
                             <form onBlur={()=>closeSearchUser()} onFocus={(e)=>OpensearchUsers(e)}>
-                                {disyplaySearch.state&&<SearchUser searchUserName={disyplaySearch.userName}></SearchUser>}
+                                {disyplaySearch.state&&<SearchUser token={token} searchUserName={disyplaySearch.userName}></SearchUser>}
                                 <input name="search" type="text" placeholder="Search accounts" autoComplete="off"  onChange={(e)=>SearchUserFn(e)} ></input>
                                 <span></span>
                                 <div className={Style.searchImg}>
@@ -82,7 +82,7 @@ const NavBar = ({ token }) => {
                     <div className={Style.Search}>
                         <div className={Style.flexItems}>
                             <form onBlur={()=>closeSearchUser()} onFocus={(e)=>OpensearchUsers(e)}>
-                                {disyplaySearch.state&&<SearchUser searchUserName={disyplaySearch.userName}></SearchUser>}
+                                {disyplaySearch.state&&<SearchUser token={token} searchUserName={disyplaySearch.userName}></SearchUser>}
                                 <input name="search" type="text" autoComplete="off" placeholder="Search accounts"  onChange={(e)=>SearchUserFn(e)}></input>
                                 <span></span>
                                 <div className={Style.searchImg}>
