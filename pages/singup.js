@@ -38,6 +38,7 @@ const singup = () => {
       }
     const setBirthDayfn=(date)=>{
         setBirthDay(date)
+        
         document.querySelector("#ageId").value=date
     }
     const onSubmit=(data)=>{
@@ -67,7 +68,7 @@ const singup = () => {
         {openVerifieAccountModal.state&&<VerifyAccount userId={openVerifieAccountModal.userid}></VerifyAccount>}
         <div className={Style.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input name="age" id="ageId"  ref={register({required: "Required"})} style={{position:"absolute",opacity:0,pointerEvents:"none"}}></input>
+            <input name="age" id="ageId"  defaultValue={"1998-01-27T23:00:00.000Z"} ref={register({required: "Required"})} style={{position:"absolute",opacity:0,pointerEvents:"none"}}></input>
             <div className={Style.Header}><h1>Sing up For NOZZLA</h1></div>
             <div className={Style.descriptionHeader}><h3>{language.createaprofilefollowotheraccountstalkaboutyourownexperienceandmore}</h3></div>
             <div className={Style.inputContainer}>

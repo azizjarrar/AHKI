@@ -8,6 +8,7 @@ import {postnrmltopic} from '../../services/post'
 import SwitchCom from '../switch/switchCom'
 import { useRouter } from 'next/router'
 import ReactPlayer from 'react-player'
+import Image from 'next/image'
 
 const PostTodayTopic = (props) => {
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
@@ -133,7 +134,7 @@ const changestateOfCommentAnnonym=(state)=>{
                 <div className={Styles.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
                 {closeOrOpenEmojiPickerState&&<div className={Styles.emojiPickerContainer}><Picker perLine={EmojiContainerHeight}  onSelect={(e)=>addEmoji(e)} /></div>}
               </div>
-              <div className={Styles.uploadImage} hovertextinputfile={language.Uploadphotowithyourpost}><input onChange={e => changeFile(e)} type="file" /><img src={"/svgicons/camera.svg"}/></div>
+              <div className={Styles.uploadImage} hovertextinputfile={language.Uploadphotowithyourpost}><input onChange={e => changeFile(e)} type="file" /><Image src="/svgicons/camera.svg" height={30} width={30} /></div>
 
             </div>
         </div>

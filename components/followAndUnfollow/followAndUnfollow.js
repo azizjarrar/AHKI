@@ -3,12 +3,16 @@ import Style from './followAndUnfollow.module.scss'
 import {unfollowUserApi,followUserApi,checkIffollowApi,removeFollowPending} from '../../services/following'
 import {deleteFollowApi} from '../../services/followers'
 import UserContext from '../../context/userContext'
+import socketContext from '../../context/socketContext'
 const followAndUnfollow = (props) => {
     const [user, setUser]= React.useContext(UserContext)
     const [followOrNot,setFollowOrNot]=React.useState(false)
     const [ifHeDeletedUser,setIfHeDeletedUser]=React.useState(false)
     const [Loading,setLoading]=React.useState(false)
     const refDelte=React.useRef(null)
+    const [socket,setSocket]=React.useContext(socketContext)
+
+
     React.useEffect(()=>{
         setLoading(true)
         if(user.token!=undefined && props.theOtherPersonId!=undefined){
@@ -24,7 +28,8 @@ const followAndUnfollow = (props) => {
         console.log("followit")
         followUserApi(theOtherPersonId,user.token).then(result=>{
             //setFollowOrNot(e=>!e)
-            console.log(result)
+            socket.emit("sendNotficicationFromUserToUser",{otherUserId:theOtherPersonId})
+
             setFollowOrNot(e=>{
                 return {...e,"state":result.data.state}
             })

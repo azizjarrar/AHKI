@@ -36,6 +36,7 @@ const notification = (props) => {
     }
     return (
         <div className={Style.container}>
+         
             <div className={Style.header}><h1>Notifcation</h1></div>
             {notifications.map(notif=>{
                 if(notif.type=="follow"){

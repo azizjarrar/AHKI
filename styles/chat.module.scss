@@ -182,8 +182,7 @@
                 height: auto;
                 position: relative;
                 .messageText{
-                    margin-top: 10px;
-
+                    margin-top: 13px;
                     clear: both;
                     position: relative;
                     max-width: 40%;
@@ -192,6 +191,35 @@
                     padding: 10px;
                     word-break: break-all;
                     border-radius: 5px;
+                    cursor: pointer;
+                    &::before{
+                        position: absolute;
+                        content: attr(text-data);
+                        opacity: 0;
+                        transition: 0.5s;
+                        width: 110px;
+
+                        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+                    }
+                    &:hover{
+                        &::before{
+                            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+                            opacity: 1;
+                            position: absolute;
+                            width: 110px;
+                            top: 110%;
+                            content: attr(text-data);
+                            font-family: sans-serif;
+                            font-size: 1.3rem;
+                            left:var(--i);
+                            color:#65676b;
+                            z-index: 156123456;
+                            background-color: white;
+                            border-radius: 10px;
+                            padding: 10px;
+                        }
+                    }
+      
                     p{
                         font-weight: 500;
                         font-size: 1.5rem;
@@ -207,95 +235,104 @@
         display: flex;
         flex-wrap: nowrap;
         border-top: 1px solid $primary;
-        .inputContainer{
-            width: 70%;
+        form{
+            position: absolute;
             height: 100%;
+            width: 100%;
+            position: none;
             display: flex;
-            align-items: center;
-            justify-content: center;
-
-            .inputcss{
-                position: relative;
-                width: 95%;
-                height: 46px;
-                label{
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    pointer-events: none;
-                    overflow: hidden;
-                    &::after{
+            flex-wrap: nowrap;
+            .inputContainer{
+                width: 70%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+    
+                .inputcss{
+                    position: relative;
+                    width: 95%;
+                    height: 46px;
+                    label{
+                        position: absolute;
                         width: 100%;
-                        height: 1px;
-                        background-color: $primary;
-                        content: "";
-                        position: absolute;
-                        bottom: 0;
-                        right:100%;
-                        transition: 0.5s;
-                    }
-                    span{
-                        position: absolute;
-                        font-size: 1.3rem;
-                        margin-top: 15px;
-                        margin-left: 20px;
-                        color: #65676b;
-                        transition: 0.5s;
-                        font-weight: bold;
-
-
-                    }
-                }
-                input{
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    outline: none;
-                    border: none;
-                    border-bottom: 2px solid $gray;
-                    padding-top: 20px;
-                    text-indent: 20px;
-                    &:focus + label {
-                        span{
-                            margin-top: 2px;
-                            color: $primary;
-                            font-weight: bold;
-                        }
+                        height: 100%;
+                        pointer-events: none;
+                        overflow: hidden;
                         &::after{
-                 
-                            right:0%
+                            width: 100%;
+                            height: 1px;
+                            background-color: $primary;
+                            content: "";
+                            position: absolute;
+                            bottom: 0;
+                            right:100%;
+                            transition: 0.5s;
                         }
-
-                    }
-                    &:valid + label {
                         span{
-                            margin-top: 2px;
-                            color: $primary;
+                            position: absolute;
+                            font-size: 1.3rem;
+                            margin-top: 15px;
+                            margin-left: 20px;
+                            color: #65676b;
+                            transition: 0.5s;
                             font-weight: bold;
+    
+    
                         }
-                        &::after{
-                 
-                            right:0%
-                        }
-
                     }
+                    input{
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        outline: none;
+                        border: none;
+                        border-bottom: 2px solid $gray;
+                        padding-top: 20px;
+                        text-indent: 20px;
+                        &:focus + label {
+                            span{
+                                margin-top: 2px;
+                                color: $primary;
+                                font-weight: bold;
+                            }
+                            &::after{
+                     
+                                right:0%
+                            }
+    
+                        }
+                        &:valid + label {
+                            span{
+                                margin-top: 2px;
+                                color: $primary;
+                                font-weight: bold;
+                            }
+                            &::after{
+                     
+                                right:0%
+                            }
+    
+                        }
+                    }
+                
                 }
-            
+            }
+            .btns{
+                width: 30%;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                .sendMessageBtn{
+                    cursor: pointer;
+                }
+                svg{
+                    height: 30px;
+                    width: 30px;
+                }
             }
         }
-        .btns{
-            width: 30%;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            .sendMessageBtn{
-                cursor: pointer;
-            }
-            svg{
-                height: 30px;
-                width: 30px;
-            }
-        }
+
     }
 }
 
@@ -308,7 +345,9 @@
         position: relative;
         z-index: 5166;
         bottom: 500px;
-        right: 200px;    
+        right: 200px;   
+ 
+      
 
     }
 .emojiLogo{
@@ -326,7 +365,11 @@
     }
 }
 }
-
+.btnsend{
+    background-color: transparent;
+    outline: none;
+    border:none;
+}
 /*********************************/
 .userContainer{
     z-index: 1561656156;
@@ -380,5 +423,32 @@
         position: absolute;
         right: 0;
         margin-right: 10px;
+    }
+}
+
+.notSeenMessageNumbe{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: $primary;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: auto;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 15px;
+    span{
+        position: relative;
+        color: white;
+        font-size: 1.4rem;
+        font-weight: 600;
+
     }
 }

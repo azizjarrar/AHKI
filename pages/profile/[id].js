@@ -14,6 +14,8 @@ import Gellery from '../../components/gallery/gallery'
 import BiggerImagewithcomments from '../../components/biggerImagewithcomments/biggerImagewithcomments'
 import {countFollowingOfUser} from '../../services/following'
 import {countFollowersOfUser} from '../../services/followers'
+
+
 const profile = (props) => {
   const [user, setUser] = React.useState({ ...props.user });
   const [language , setLanguage]=React.useContext(LanguageContext)

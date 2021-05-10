@@ -300,3 +300,83 @@
         display: none;
     }
   }
+
+  .chatSvg{
+      cursor: pointer;
+      transform-style: preserve-3d;
+      svg{
+        position: relative;
+        height: 40px;
+        width: 40px;
+      }
+
+  }
+  .numberOfChatsNotReadlocal{
+      position: absolute;
+      top: -5px;
+      left:-5px;
+      padding: 5px;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary;
+      z-index: 156156;
+      span{
+        position: relative;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 600;
+        
+
+    }
+  }
+  .numberOfNotificationNotReadlocal{
+    position: absolute;
+    top: -7px;
+    left:-5px;
+    padding: 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $primary;
+    z-index: 156156;
+    span{
+      position: relative;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      
+
+  }
+}
+  .showTemImageOfUserWhoSentYouMessage{
+      position: absolute;
+      height: 35px;
+      width: 35px;
+      top: 0;
+      animation-name: showImage;
+      animation-duration: 2s;
+      animation-fill-mode: forwards;
+      border-radius: 50%;
+      overflow: hidden;
+      perspective: 1000px;
+     transition: 0.5s;
+      transform:translateZ(10px) ;
+      img{
+          position: absolute;
+          
+          top: 0;
+          min-height: 100%;
+          width: 100%;
+      }
+  }
+  @keyframes showImage{
+      from{top: 0;height: 35px;width: 35px;transform:translateZ(10px) ;}
+      to{top: 100px;height: 60px;width: 60px;transform:translateZ(150px) ;}
+  }

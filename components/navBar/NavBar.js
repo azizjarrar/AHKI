@@ -7,17 +7,66 @@ import UserContext from '../../context/userContext'
 import SearchUser from '../../components/searchUser/searchUser'
 import { useRouter } from 'next/router'
 import Notification from '../../components/notification/notification'
+import {getUnreadUsersChatsNumber} from '../../services/chat'
+import socketContext from '../../context/socketContext'
+import {GetOtherUsersData} from '../../services/user'
+
 const NavBar = ({ token }) => {
     const [modalSingInSingUp, setModalSingInSingUp] = useState(false)//open modal
     const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: '', height: '' })//responsive handler
     const [openMenuProfileState, setOpenMenuProfile] = useState(false)//on hover profile pic open menu
     const [disyplaySearch,setDisplaySearch]=React.useState({state:false,userName:""})
     const [user, setUser]= React.useContext(UserContext)
-    React.useEffect(() => { setHeightAndWidthOfWindow({ height: window.innerHeight, width: window.innerWidth }) }, []);
+    const [numberOfChatsNotRead,setNumberOfChatsNotRead]=React.useState(0)
+    const [socket,setSocket]=React.useContext(socketContext)
+    const [popUpUser,setPopUpUser]=React.useState(null)
+    const [popUpNotif,setpopUpNotif]=React.useState(()=>0)
+
+    const router = useRouter()
+
+    React.useEffect(()=>{
+
+        async  function  chatHandler(data){
+            let audio = new Audio("./msgSound.mp3")
+            audio.play()
+            if(router.pathname!="/chat"){
+                GetOtherUsersData(data.senderId,token).then(result=>{
+                    setPopUpUser({...result.data.data[0]})
+                }).catch(error=>{
+                    alert(error)
+                })
+            }
+        }
+        async function  notifHandler(data){
+            if(data.notif==1){
+                setpopUpNotif(e=>e+1)
+            }
+        }
+        if(socket!=undefined && socket!=null){
+        socket.on("getMessageFromUserToUser",chatHandler)
+        socket.on("getNotificationFromUserToUser",notifHandler)
+          }
+          return () => {
+            if(socket!=undefined && socket!=null){
+                socket.off('getMessageFromUserToUser', chatHandler);
+                socket.off('getNotificationFromUserToUser', notifHandler);
+
+            }
+          }
+      })
+
+
+    React.useEffect(() => { 
+        setHeightAndWidthOfWindow({ height: window.innerHeight, width: window.innerWidth }) 
+        getUnreadUsersChatsNumber({},token).then(data=>{
+            setNumberOfChatsNotRead(data.data.data)
+        }).catch(error=>{
+            console.log(error)
+        })
+    }, []);
     const [openOrCloseNotif,setOpenOrCloseNotif]=React.useState(false)
     const openMenuProfile = () => { setOpenMenuProfile(true) }
     const closeMenuProfile = () => { setOpenMenuProfile(false) }
-    const router = useRouter()
 
     const openMenuProfileonClick = () => { setOpenMenuProfile(e => !e) }
     
@@ -59,12 +108,16 @@ const NavBar = ({ token }) => {
                         </div>
                     </div>
                     {token && <div className={Style.authenticated}>
+                    <Chat popUpUser={popUpUser} numberOfChatsNotRead={numberOfChatsNotRead}></Chat>
+
                         <div className={Style.notification} onClick={()=>openOrCloseNotifications()}>
                             {openOrCloseNotif&&<Notification token={token}></Notification>}
+                            <div className={Style.numberOfNotificationNotReadlocal}><span>{popUpNotif}</span></div>
                             <svg width="35" height="35" viewBox="0 0 50 50" fill="#1876f3" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z" fill="#1876f3" />
                             </svg>
                         </div>
+
                         <div className={Style.profile} onClick={() => openMenuProfileonClick()} onMouseLeave={() => closeMenuProfile()} onMouseEnter={() => openMenuProfile()}>{user != null && <div className={Style.navBarImageContainer}><img src={user.currentImageUrl  || "/avatar.png"} /></div>}{openMenuProfileState && <PorfileMenu></PorfileMenu>}</div>
                     </div>}
                     {!token && <div className={Style.Nonauthenticated}>
@@ -116,3 +169,27 @@ const NavBar = ({ token }) => {
 export default NavBar
 
 
+const Chat=(props)=>{
+    const [numberOfChatsNotReadlocal,setNumberOfChatsNotRead]=React.useState(0)
+    const [userWhoSentYouImage,setUserWhoSentYouImage]=React.useState(null)
+    React.useEffect(()=>{
+        setNumberOfChatsNotRead(props.numberOfChatsNotRead)
+    },[props.numberOfChatsNotRead])
+    React.useEffect(()=>{
+        if(props.popUpUser!=undefined){
+            setTimeout(() => {
+                setUserWhoSentYouImage(null)
+            }, 2000);
+            setUserWhoSentYouImage(props.popUpUser.currentImageUrl)
+
+        }
+      
+    },[props])
+    return(<Link href="/chat"><div className={Style.chatSvg}>
+        {userWhoSentYouImage!=null&&<div className={Style.showTemImageOfUserWhoSentYouMessage}><img src={userWhoSentYouImage}/></div>}
+        <div className={Style.numberOfChatsNotReadlocal}><span>{numberOfChatsNotReadlocal}</span></div>
+        <svg xmlns="http://www.w3.org/2000/svg" id="Capa_1" enable-background="new 0 0 479.058 479.058" fill="#1876f3" height="512" viewBox="0 0 479.058 479.058" width="512"><path d="m434.146 59.882h-389.234c-24.766 0-44.912 20.146-44.912 44.912v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159l-200.355 173.649-200.356-173.649c1.769-.736 3.704-1.159 5.738-1.159zm0 299.411h-389.234c-8.26 0-14.971-6.71-14.971-14.971v-251.648l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z"/></svg>
+        </div>
+        </Link>
+    )
+}

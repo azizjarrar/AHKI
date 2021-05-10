@@ -9,7 +9,6 @@ import socketContext from '../context/socketContext'
 import userContext from '../context/userContext'
 
 
-
 const chat = (props) => {
     const [closeOrOpenEmojiPickerState,setcloseOrOpenEmojiPickerState]=React.useState(false)
     const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
@@ -20,9 +19,8 @@ const chat = (props) => {
     const messagesComp=React.useRef(null)
     const [user,setUser]=React.useContext(userContext)
     const [socket,setSocket]=React.useContext(socketContext)
-    React.useEffect(()=>{
-        messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
-    },[currentChats])
+    const [skip,setSkip]=React.useState(()=>0)
+
  
 
     React.useEffect(()=>{
@@ -30,9 +28,9 @@ const chat = (props) => {
         getUserWhoChatWith({},props.token).then(result=>{
             let newUserWhoChatWith=result.data.data.map(e=>{
                 if(e.firstUser._id==user._id){
-                    return Promise.resolve(e.secoundUser)
+                    return Promise.resolve({...e.secoundUser,notSeenMessageNumber:e.notSeenMessageNumber})
                 }else{
-                    return Promise.resolve(e.firstUser)
+                    return Promise.resolve({...e.firstUser,notSeenMessageNumber:e.notSeenMessageNumber})
                 }
            
                
@@ -45,8 +43,10 @@ const chat = (props) => {
     },[user])
     React.useEffect(()=>{
         if(currentUserToChatWith._id!=undefined){
-            getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id},props.token).then(data=>{
-                setCurrentChats([...data.data.data])
+            getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:0},props.token).then(data=>{
+                setCurrentChats([...data.data.data.reverse()])
+                messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
+
 
             }).catch(error=>{
                 console.log(error)
@@ -80,41 +80,87 @@ const chat = (props) => {
         setCurrentUserToChatWith(currentUserData)
       }
       const sendMessage=()=>{
+        if(message.length>0&&currentUserToChatWith._id!=undefined){
         addMessage({receiver:currentUserToChatWith._id,message:message,FirstTime:currentChats.length},props.token).then(data=>{
             setCurrentChats(e=>{
-                messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
                 let r = Math.random().toString(36).substring(7);
                 return [...e,{users:[user._id],message:message,_id:r}]
+
             })
+            
+            messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
+
+                socket.emit("sendMessageFromUserToUser",{otherUserId:currentUserToChatWith._id,text:message,senderId:user._id})
+
+          
+
             setMessage("")
-            socket.emit("sendMessageFromUserToUser",{otherUserId:currentUserToChatWith._id,text:message,senderId:user._id})
         }).catch(error=>{
             console.log(error)
         })
+    }
       }
       const messageHandler=(e)=>{
         setMessage(e.target.value)
       }
-      const onLoad=()=>{
-        if(socket!=undefined && socket!=null){
+      React.useEffect(()=>{
+        async  function  chatHandler(data){
 
-        socket.on("getMessageFromUserToUser",data=>{
-            console.log("raw je msg")
-            if(data.senderId==currentUserToChatWith._id){
+            let audio = new Audio("./msgSound.mp3")
+            audio.play()
+            let ListOfUser = await listOfUsers.map((e)=>{
+                if(data.senderId==e._id && currentUserToChatWith._id!=e._id){
+                    e.notSeenMessageNumber=e.notSeenMessageNumber+1
+                    return Promise.resolve(e)
+                }else{
+                    return Promise.resolve(e)
+                }
+            })
+            Promise.all(ListOfUser).then(data=>{
                 
+                setListOfUsers(data)
+            })
+            if(data.senderId==currentUserToChatWith._id){
+                setMessage("")
+
                 setCurrentChats(e=>{
                     let r = Math.random().toString(36).substring(7);
                     return [...e,{users:[data.senderId],message:data.text,_id:r}]
                 })
-                setMessage("")
+                messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
+
             }else{
 
             }
-        })
+        }
+        if(socket!=undefined && socket!=null){
+        socket.on("getMessageFromUserToUser",chatHandler)
+          }
+          return () => {
+            if(socket!=undefined && socket!=null){
+                socket.off('getMessageFromUserToUser', chatHandler);
+
+            }
+          }
+      })
+      const scrollfn=(e)=>{
+          //if( e.target.scrollTop === (e.target.scrollHeight - e.target.offsetHeight)){
+          if( e.target.scrollTop === 0){
+            setSkip(e=>e+20)
+          }
+          
       }
-    }
+      React.useEffect(()=>{
+          
+        getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:skip},props.token).then(data=>{
+            setCurrentChats(e=>[...data.data.data.reverse(),...e])
+           
+        }).catch(error=>{
+            console.log(error)
+        })
+      },[skip])
     return (
-        <div className={Style.container} onLoad={()=>onLoad()}>
+        <div className={Style.container} >
                   <NavBar token={props.token}></NavBar>
                 <div className={Style.chatAndRandomOnlineUserContaner}>
                     <div className={Style.UserContaner}>
@@ -138,25 +184,28 @@ const chat = (props) => {
                             <div className={Style.userImageContainer}><img src={currentUserToChatWith.currentImageUrl || "/avatar.png"} /></div>
                             <div className={Style.userName}><h3>{currentUserToChatWith.userName}</h3></div>
                         </div>
-                        <div ref={messagesComp} className={Style.messages}>
+                        <div onScroll={(e)=>scrollfn(e)} ref={messagesComp} className={Style.messages}>
                             {currentChats.map(e=>{
                                 return(<div key={e._id} className={Style.oneMessage}>
                                     {e.users[0]==currentUserToChatWith._id?
-                                    <div className={Style.messageText} style={{float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
-                                    <div className={Style.messageText} style={{float:"right",backgroundColor:"#1876f3",color:"white"}}><p>{e.message}</p></div>}
+                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):false}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
+                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):false}  style={{"--i":"-100%",float:"right",backgroundColor:"#1876f3",color:"white"}}><p>{e.message}</p></div>
+                                    }
                                 </div>)
                             })}
                         </div>
                     </div>
                     <div className={Style.sendMessage}>
+                        <form onSubmit={e=>e.preventDefault()} >
                         <div className={Style.inputContainer}><div className={Style.inputcss}><input value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
                         <div className={Style.btns}>
                         <div className={Style.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>
                         <div className={Style.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
                         {closeOrOpenEmojiPickerState&&<div className={Style.emojiPickerContainer}><Picker perLine={EmojiContainerHeight} onSelect={(e)=>addEmoji(e)} /></div>}
                         </div>
-                            <span className={Style.sendMessageBtn} onClick={()=>sendMessage()}><SentSvg></SentSvg></span>
+                            <button type="submit" className={Style.btnsend} onClick={()=>sendMessage()}><span className={Style.sendMessageBtn} ><SentSvg></SentSvg></span></button>
                             </div>
+                        </form>
                     </div>
                     </div>
                 </div>
@@ -175,8 +224,13 @@ export async function getServerSideProps({ req, res }) {
         )
   }
   const Users=(props)=>{
+      const [notSeenMessageNumberlocal,setNotSeenMessageNumberlocal]=React.useState(props.userData.notSeenMessageNumber)
+      React.useEffect(()=>{
+        setNotSeenMessageNumberlocal(props.userData.notSeenMessageNumber)
+      },[props.userData.notSeenMessageNumber])
     return(
-        <div><div className={Style.userContainer} onClick={()=>props.getUserdata(props.userData)}>
+        <div><div className={Style.userContainer} onClick={()=>{props.getUserdata(props.userData),setNotSeenMessageNumberlocal(0)}}>
+                {notSeenMessageNumberlocal!=0&&<div className={Style.notSeenMessageNumbe}><span>{notSeenMessageNumberlocal}</span></div>}
                 <div  className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
                 <div  className={Style.userName}><p>{props.userData.userName}</p></div>
         </div>
