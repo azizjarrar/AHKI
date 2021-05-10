@@ -1188,6 +1188,11 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 /* harmony import */ var _verifyAccount_module_scss__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_verifyAccount_module_scss__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _context_languageContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__("z+U2");
 /* harmony import */ var _services_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__("LzO8");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__("4Q3z");
+/* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _context_apiIsLoadingContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__("BIE6");
+
+
 
 
 
@@ -1198,12 +1203,15 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 const verifyAccount = props => {
   const [language, setLanguage] = react__WEBPACK_IMPORTED_MODULE_1___default.a.useContext(_context_languageContext__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"]);
   const [code, setCode] = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState("");
+  const router = Object(next_router__WEBPACK_IMPORTED_MODULE_5__["useRouter"])();
+  const [isLoading, setIsLoading] = react__WEBPACK_IMPORTED_MODULE_1___default.a.useContext(_context_apiIsLoadingContext__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"]);
 
   const reSendCode = () => {
     Object(_services_user__WEBPACK_IMPORTED_MODULE_4__[/* reSendVerificationCode */ "l"])(props.userId, code.verificationCode).then(result => {});
   };
 
   const verifyUserAccount = () => {
+    setIsLoading(true);
     Object(_services_user__WEBPACK_IMPORTED_MODULE_4__[/* activeAccount */ "h"])(props.userId, code.verificationCode).then(result => {
       if (result.data.state == false) {
         props.setErrorMessageProps({
@@ -1221,7 +1229,13 @@ const verifyAccount = props => {
           })
         }).then(() => {
           localStorage.setItem("ref_token", result.data.ref_token);
-          location.reload();
+          setIsLoading(false);
+          router.push({
+            pathname: "/",
+            query: {
+              refrech: true
+            }
+          });
         });
       }
     });
@@ -1598,8 +1612,8 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 
 
 const axiosApiInstance = external_axios_default.a.create({
-  //baseURL: 'http://127.0.0.1:5010/',
-  baseURL: 'http://46.101.169.142:5010/',
+  baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url
@@ -8346,13 +8360,13 @@ const followAndUnfollow = props => {
     console.log("followit");
     Object(_services_following__WEBPACK_IMPORTED_MODULE_3__[/* followUserApi */ "e"])(theOtherPersonId, user.token).then(result => {
       //setFollowOrNot(e=>!e)
-      socket.emit("sendNotficicationFromUserToUser", {
-        otherUserId: theOtherPersonId
-      });
       setFollowOrNot(e => {
         return _objectSpread(_objectSpread({}, e), {}, {
           "state": result.data.state
         });
+      });
+      socket.emit("sendNotficicationFromUserToUser", {
+        otherUserId: theOtherPersonId
       });
     }).catch(error => {});
   };
@@ -8406,12 +8420,12 @@ const followAndUnfollow = props => {
       })
     });
   } else if (followOrNot.state == 1) {
-    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
       onClick: () => removeFollowPendingfn(props.theOtherPersonId),
       className: `${_followAndUnfollow_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.followAndUnfollow} ${_followAndUnfollow_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.unfollow}`,
-      children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
+      children: [console.log("aaa"), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
         children: "pending"
-      })
+      })]
     });
   } else if (followOrNot.state == 2) {
     return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
@@ -8422,13 +8436,19 @@ const followAndUnfollow = props => {
       })
     });
   } else {
-    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+    {
+      console.log("unhaaa");
+    }
+    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
       onClick: () => followUser(props.theOtherPersonId),
       className: `${_followAndUnfollow_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.followAndUnfollow} ${_followAndUnfollow_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.follow}`,
-      children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
+      children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
         children: "Follow"
-      })
+      }), console.log("unhaaa")]
     });
+    {
+      console.log("unhaaa");
+    }
   }
 };
 

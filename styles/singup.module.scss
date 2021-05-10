@@ -1,5 +1,7 @@
 @import "../styles/button";
 @import "../styles/colors"; 
+@import "../styles/closeBtn";
+
 .pageContainer{
     position: relative;
     height: 100vh;
@@ -179,4 +181,12 @@
         background-color: white;
     
     }
+}
+
+.close{
+    @include closebtnFn();
+    position: absolute;
+    right: 100px;
+    top: 100px;
+    z-index: 1815616165;
 }

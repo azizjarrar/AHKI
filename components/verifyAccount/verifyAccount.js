@@ -2,21 +2,28 @@ import React from 'react'
 import Style from './verifyAccount.module.scss'
 import LanguageContext from '../../context/languageContext'
 import {activeAccount,reSendVerificationCode} from '../../services/user'
+import { useRouter } from 'next/router'
+import ApiIsLoadingContext from '../../context/apiIsLoadingContext'
 const verifyAccount = (props) => {
     const [language, setLanguage] = React.useContext(LanguageContext)
     const [code,setCode]=React.useState("")
+    const router = useRouter()
+    const [isLoading, setIsLoading] = React.useContext(ApiIsLoadingContext)
+
     const reSendCode=()=>{
         reSendVerificationCode(props.userId,code.verificationCode).then(result=>{
         })
     }
     const verifyUserAccount=()=>{
+        setIsLoading(true)
         activeAccount(props.userId,code.verificationCode).then(result=>{
             if(result.data.state == false){
                 props.setErrorMessageProps({ state: true, text: result.data.message })
             }else{
                 fetch("/api/setToken",{method:"post",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:result.data.token})}).then(()=>{
                     localStorage.setItem("ref_token",result.data.ref_token)
-                      location.reload();
+                    setIsLoading(false)
+                    router.push({pathname:"/",query: { refrech: true }})
                 })
             }
         })

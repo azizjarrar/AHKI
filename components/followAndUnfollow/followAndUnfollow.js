@@ -28,11 +28,10 @@ const followAndUnfollow = (props) => {
         console.log("followit")
         followUserApi(theOtherPersonId,user.token).then(result=>{
             //setFollowOrNot(e=>!e)
-            socket.emit("sendNotficicationFromUserToUser",{otherUserId:theOtherPersonId})
-
             setFollowOrNot(e=>{
                 return {...e,"state":result.data.state}
             })
+            socket.emit("sendNotficicationFromUserToUser",{otherUserId:theOtherPersonId})
         }).catch(error=>{})
     }
     
@@ -69,7 +68,9 @@ const followAndUnfollow = (props) => {
         </div>)
     
     }else if(followOrNot.state==1){
+       
         return (<div onClick={()=>removeFollowPendingfn(props.theOtherPersonId)} className={`${Style.followAndUnfollow} ${Style.unfollow}`}>
+             {console.log("aaa")}
             <p>pending</p>
         </div>)
     }else if(followOrNot.state==2){
@@ -80,11 +81,16 @@ const followAndUnfollow = (props) => {
         )
     }
     else{
+        {console.log("unhaaa")}
         return (
         <div onClick={()=>followUser(props.theOtherPersonId)} className={`${Style.followAndUnfollow} ${Style.follow}`}>
             <p>Follow</p>
+            {console.log("unhaaa")}
+
         </div>
         )
+        {console.log("unhaaa")}
+
     }
 
 }

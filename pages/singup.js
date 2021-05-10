@@ -65,7 +65,7 @@ const singup = () => {
     return (
     <div className={Style.pageContainer}>
          {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
-        {openVerifieAccountModal.state&&<VerifyAccount userId={openVerifieAccountModal.userid}></VerifyAccount>}
+        {openVerifieAccountModal.state&&<><div className={Style.close} onClick={()=>setOpenVerifieAccountModal({state:false,userid:""})}></div><VerifyAccount userId={openVerifieAccountModal.userid}></VerifyAccount></>}
         <div className={Style.formContainer}>
         <form onSubmit={handleSubmit(onSubmit)}>
             <input name="age" id="ageId"  defaultValue={"1998-01-27T23:00:00.000Z"} ref={register({required: "Required"})} style={{position:"absolute",opacity:0,pointerEvents:"none"}}></input>
@@ -90,20 +90,20 @@ const singup = () => {
                 }
                 })} className={Style.input} required></input>
                 <label>
-                    <span>{language.telephoneoremail}</span>
+                    <span>email</span>
                 </label>
                 </div>
                 }
             </div>
             {errors.tel && <div className={Style.error}><p>tel is required</p></div>}
             {errors.email && <div className={Style.error}><p>email is incorect</p></div>}
-            <div className={Style.inputContainer}><input name="password" ref={register({required:"password required",minLength:8})} className={Style.input} required></input>
+            <div className={Style.inputContainer}><input name="password" type="password" ref={register({required:"password required",minLength:8})} className={Style.input} required></input>
                 <label>
                     <span>{language.password}</span>
                 </label>
             </div>
             {errors.password && <div className={Style.error}><p>password length must be 8 at least</p></div>}
-                <div className={Style.inputContainer}><input name="confirmPassword"  ref={register({
+                <div className={Style.inputContainer}><input name="confirmPassword" type="password"  ref={register({
                 validate: value =>
                     value === password.current || "The passwords do not match"
                 })} className={Style.input} required></input>

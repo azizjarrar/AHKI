@@ -53,7 +53,7 @@ const singin = () => {
     return (
         <div className={Style.pageContainer}>
             {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
-            {openVerifieAccountModal.state&&<VerifyAccount userId={openVerifieAccountModal.userid}></VerifyAccount>}
+            {openVerifieAccountModal.state&&<><div className={Style.close} onClick={()=>setOpenVerifieAccountModal({state:false,userid:""})}></div><VerifyAccount userId={openVerifieAccountModal.userid}></VerifyAccount></>}
 
             <div className={Style.formContainer}>
                 <div className={Style.Header}><h1>Sing in For Nozzla</h1></div>
@@ -64,7 +64,7 @@ const singin = () => {
                     <label><span>{language.telephoneoremail}</span></label>
                 </div>
                 <div className={Style.inputContainer}>
-                    <input onChange={(e)=>setLoginData(e)} name="password" className={Style.input} required></input>
+                    <input onChange={(e)=>setLoginData(e)} type="password" name="password" className={Style.input} required></input>
                     <label><span>{language.password}</span></label>
                 </div>
                 <div className={Style.btnContainer}>

@@ -232,7 +232,7 @@ function MyApp({
 
     if (pageProps.token) {
       Object(_services_user__WEBPACK_IMPORTED_MODULE_4__[/* GetUserData */ "c"])(pageProps.token).then(data => {
-        socketRef.current = socket_io_client__WEBPACK_IMPORTED_MODULE_11___default()("http://127.0.0.1:5010");
+        socketRef.current = socket_io_client__WEBPACK_IMPORTED_MODULE_11___default()("http://46.101.169.142:5010");
         socketRef.current.on("getSocketid", dataFromSocket => {
           socketRef.current.emit("saveuserOnline", {
             userid: data.data.data[0]._id,
@@ -354,8 +354,8 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 
 
 const axiosApiInstance = external_axios_default.a.create({
-  //baseURL: 'http://127.0.0.1:5010/',
-  baseURL: 'http://46.101.169.142:5010/',
+  baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url

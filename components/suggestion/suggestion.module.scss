@@ -60,6 +60,7 @@
         font-weight: bold;
         margin-left: 20px;
         position: relative;
+        word-break: break-all;
 
     }
 margin-bottom: 10px;
@@ -112,6 +113,7 @@ margin-bottom: 10px;
             font-size: 1.5rem;
             color: #333333;
             font-weight: bold;
+            word-break: break-all;
         }
     }
 }
