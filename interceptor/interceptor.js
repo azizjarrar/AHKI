@@ -1,8 +1,8 @@
 import axios from 'axios'
 import {refreshAccessToken,deleteRefrechTokenOldOne} from '../services/refreshAccessToken'
 const axiosApiInstance = axios.create({
-  baseURL: 'http://127.0.0.1:5010/',
-  //baseURL: 'http://46.101.169.142:5010/',
+  //baseURL: 'http://127.0.0.1:5010/',
+  baseURL: 'http://46.101.169.142:5010/',
   withCredentials: true
 })
 axiosApiInstance.defaults.withCredentials = true
