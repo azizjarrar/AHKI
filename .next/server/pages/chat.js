@@ -1728,15 +1728,17 @@ const NavBar = ({
     };
   });
   external_react_default.a.useEffect(() => {
-    setHeightAndWidthOfWindow({
-      height: window.innerHeight,
-      width: window.innerWidth
-    });
-    Object(chat["c" /* getUnreadUsersChatsNumber */])({}, token).then(data => {
-      setNumberOfChatsNotRead(data.data.data);
-    }).catch(error => {
-      console.log(error);
-    });
+    if (token != undefined && token != null) {
+      setHeightAndWidthOfWindow({
+        height: window.innerHeight,
+        width: window.innerWidth
+      });
+      Object(chat["c" /* getUnreadUsersChatsNumber */])({}, token).then(data => {
+        setNumberOfChatsNotRead(data.data.data);
+      }).catch(error => {
+        console.log(error);
+      });
+    }
   }, []);
   const [openOrCloseNotif, setOpenOrCloseNotif] = external_react_default.a.useState(false);
 
