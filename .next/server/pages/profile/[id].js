@@ -2569,7 +2569,7 @@ const NavBar = ({
     };
   });
   external_react_default.a.useEffect(() => {
-    if (token != undefined && token != null) {
+    if (token != undefined && token != null && token != false) {
       setHeightAndWidthOfWindow({
         height: window.innerHeight,
         width: window.innerWidth
@@ -3276,11 +3276,13 @@ const publication = props => {
   /*************************************************************/
 
   react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
-    if (props.allowAnonymeComments) {
-      if (mask) {
-        maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3";
-      } else {
-        maskRef.current.childNodes[0].childNodes[0].style.fill = "black";
+    if (maskRef.current != null) {
+      if (props.allowAnonymeComments) {
+        if (mask) {
+          maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3";
+        } else {
+          maskRef.current.childNodes[0].childNodes[0].style.fill = "black";
+        }
       }
     }
   }, [mask]);

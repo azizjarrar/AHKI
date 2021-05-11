@@ -57,7 +57,7 @@ const NavBar = ({ token }) => {
 
 
     React.useEffect(() => { 
-        if(token!=undefined && token!=null){
+        if(token!=undefined && token!=null && token!=false){
             setHeightAndWidthOfWindow({ height: window.innerHeight, width: window.innerWidth }) 
             getUnreadUsersChatsNumber({},token).then(data=>{
                 setNumberOfChatsNotRead(data.data.data)

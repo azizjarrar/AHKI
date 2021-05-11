@@ -54,14 +54,15 @@ const publication = (props) => {
   /****************if mask on it will turn into blue************/
   /*************************************************************/
   React.useEffect(() => {
-    if(props.allowAnonymeComments){
-      if (mask) {
-        maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3"
-      } else {
-        maskRef.current.childNodes[0].childNodes[0].style.fill = "black"
+    if(maskRef.current!=null){
+      if(props.allowAnonymeComments){
+        if (mask) {
+          maskRef.current.childNodes[0].childNodes[0].style.fill = "#1876f3"
+        } else {
+          maskRef.current.childNodes[0].childNodes[0].style.fill = "black"
+        }
       }
     }
-
   }, [mask])
 
   React.useEffect(()=>{

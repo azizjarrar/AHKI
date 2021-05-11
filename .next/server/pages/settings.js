@@ -1796,7 +1796,7 @@ const NavBar = ({
     };
   });
   external_react_default.a.useEffect(() => {
-    if (token != undefined && token != null) {
+    if (token != undefined && token != null && token != false) {
       setHeightAndWidthOfWindow({
         height: window.innerHeight,
         width: window.innerWidth
