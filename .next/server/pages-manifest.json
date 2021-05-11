@@ -1,7 +1,17 @@
 {
   "/_app": "pages/_app.js",
   "/_document": "pages/_document.js",
-  "/_error": "pages/_error.js",
+  "/api/logout": "pages/api/logout.js",
+  "/api/setToken": "pages/api/setToken.js",
+  "/chat": "pages/chat.js",
+  "/forgetPassword": "pages/forgetPassword.js",
+  "/": "pages/index.js",
+  "/post/[post]": "pages/post/[post].html",
+  "/profile/[id]": "pages/profile/[id].js",
   "/profile": "pages/profile.js",
-  "/chat": "pages/chat.js"
+  "/settings": "pages/settings.js",
+  "/signin": "pages/signin.html",
+  "/singup": "pages/singup.html",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
 }
