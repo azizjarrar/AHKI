@@ -1,1 +1,0 @@
-{"ast":null,"code":"import axiosApiInstance from '../interceptor/interceptor';\n\nconst getnotifications = async (data, token) => {\n  return axiosApiInstance.post('/notification/getnotifications', {}, {\n    headers: {\n      Authorization: 'Bearer ' + token\n    }\n  });\n};\n\nexport { getnotifications };","map":null,"metadata":{},"sourceType":"module"}
