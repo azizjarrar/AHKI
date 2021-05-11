@@ -12,4 +12,7 @@ const getUserWhoChatWith=async(data,token)=>{
 const getUnreadUsersChatsNumber=async(data,token)=>{
     return axiosApiInstance.post("/chat/getUnreadUsersChatsNumber",{...data},{ headers: {Authorization: 'Bearer ' + token }});
 }
-export {getUnreadUsersChatsNumber,addMessage,getMessagesOfCurrentconversation,getUserWhoChatWith}
+const updateColorChat=async(data,token)=>{
+    return axiosApiInstance.post("/chat/updateColorChat",{...data},{ headers: {Authorization: 'Bearer ' + token }});
+}
+export {updateColorChat,getUnreadUsersChatsNumber,addMessage,getMessagesOfCurrentconversation,getUserWhoChatWith}

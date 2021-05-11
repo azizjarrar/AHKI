@@ -192,6 +192,7 @@
                     word-break: break-all;
                     border-radius: 5px;
                     cursor: pointer;
+                    transition: 0.5s;
                     &::before{
                         position: absolute;
                         content: attr(text-data);
@@ -450,5 +451,116 @@
         font-size: 1.4rem;
         font-weight: 600;
 
+    }
+}
+.isWritingContainer{
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    .ldsellipsis {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 65px;
+      }
+      .ldsellipsis div {
+        position: absolute;
+        top: 33px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: $primary;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+      .ldsellipsis div:nth-child(1) {
+        left: 8px;
+        animation: ldsellipsis1 0.6s infinite;
+      }
+      .ldsellipsis div:nth-child(2) {
+        left: 8px;
+        animation: ldsellipsis2 0.6s infinite;
+      }
+      .ldsellipsis div:nth-child(3) {
+        left: 32px;
+        animation: ldsellipsis2 0.6s infinite;
+      }
+      .ldsellipsis div:nth-child(4) {
+        left: 56px;
+        animation: ldsellipsis3 0.6s infinite;
+      }
+      @keyframes ldsellipsis1 {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      @keyframes ldsellipsis3 {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+      @keyframes ldsellipsis2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+      
+}
+
+.seen{
+    font-size: 1.4rem;
+    position: absolute;
+    right: 110%;
+    top: 50%;
+    transition: 0.5s;
+}
+.Style.yourMessageVu{
+    content: "";
+}
+
+.changeColorContainer{
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    margin-left: 15px;
+    cursor: pointer;
+    overflow: visible;
+    z-index: 1561561565656;
+    .chatColor{
+        position: relative;
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+        float: right;
+    }
+}
+.colorPicker{
+    position: relative;
+    width: 210px;
+    height: 240px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    margin-left: 25px;
+    margin-top: 25px;
+    .color{
+        height: 55px;
+        width: 55px;
     }
 }

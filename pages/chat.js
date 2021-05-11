@@ -4,7 +4,7 @@ import NavBar from '../components/navBar/NavBar'
 import { Picker,Emoji  } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import {searchUserNameApi} from '../services/user'
-import {addMessage,getMessagesOfCurrentconversation,getUserWhoChatWith} from '../services/chat';
+import {updateColorChat,addMessage,getMessagesOfCurrentconversation,getUserWhoChatWith} from '../services/chat';
 import socketContext from '../context/socketContext'
 import userContext from '../context/userContext'
 
@@ -20,17 +20,17 @@ const chat = (props) => {
     const [user,setUser]=React.useContext(userContext)
     const [socket,setSocket]=React.useContext(socketContext)
     const [skip,setSkip]=React.useState(()=>0)
-
- 
-
+    const [isWritingState,setIsWritingState]=React.useState(false)
+    const [chatColor,setChatColor]=React.useState({colorone:"#1876f3",colortwo:"#e4e6eb"})
+    
     React.useEffect(()=>{
         if(user._id!=undefined&& user._id.length>2)
         getUserWhoChatWith({},props.token).then(result=>{
             let newUserWhoChatWith=result.data.data.map(e=>{
                 if(e.firstUser._id==user._id){
-                    return Promise.resolve({...e.secoundUser,notSeenMessageNumber:e.notSeenMessageNumber})
+                    return Promise.resolve({...e.secoundUser,color:e.color,notSeenMessageNumber:e.notSeenMessageNumber})
                 }else{
-                    return Promise.resolve({...e.firstUser,notSeenMessageNumber:e.notSeenMessageNumber})
+                    return Promise.resolve({...e.firstUser,color:e.color,notSeenMessageNumber:e.notSeenMessageNumber})
                 }
            
                
@@ -44,6 +44,7 @@ const chat = (props) => {
     React.useEffect(()=>{
         if(currentUserToChatWith._id!=undefined){
             getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:0},props.token).then(data=>{
+                
                 setCurrentChats([...data.data.data.reverse()])
                 messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
 
@@ -51,6 +52,8 @@ const chat = (props) => {
             }).catch(error=>{
                 console.log(error)
             })
+            socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
+
         }
   
     
@@ -89,7 +92,6 @@ const chat = (props) => {
             })
             
             messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
-
                 socket.emit("sendMessageFromUserToUser",{otherUserId:currentUserToChatWith._id,text:message,senderId:user._id})
 
           
@@ -101,6 +103,14 @@ const chat = (props) => {
     }
       }
       const messageHandler=(e)=>{
+          if(currentUserToChatWith._id!=undefined){
+            if(e.target.value.length>0){
+                socket.emit("isWriting",{isWriting:true,otherUserId:currentUserToChatWith._id,senderid:user._id})
+              }else{
+                socket.emit("isWriting",{isWriting:false,otherUserId:currentUserToChatWith._id,senderid:user._id})
+              }
+          }
+ 
         setMessage(e.target.value)
       }
       React.useEffect(()=>{
@@ -108,6 +118,13 @@ const chat = (props) => {
 
             let audio = new Audio("./msgSound.mp3")
             audio.play()
+            setIsWritingState(false)
+            socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
+
+            /*if(vu==true){
+                
+                socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
+            }*/
             let ListOfUser = await listOfUsers.map((e)=>{
                 if(data.senderId==e._id && currentUserToChatWith._id!=e._id){
                     e.notSeenMessageNumber=e.notSeenMessageNumber+1
@@ -121,7 +138,7 @@ const chat = (props) => {
                 setListOfUsers(data)
             })
             if(data.senderId==currentUserToChatWith._id){
-                setMessage("")
+                
 
                 setCurrentChats(e=>{
                     let r = Math.random().toString(36).substring(7);
@@ -133,12 +150,35 @@ const chat = (props) => {
 
             }
         }
+        function isWriting(data){
+            if(data.userWhoReciveWriting==user._id && data.senderid==currentUserToChatWith._id){
+                setIsWritingState(data.isWriting)
+
+            }
+        }
+        const setvu=(data)=>{
+   
+            if(document.getElementsByClassName(Style.yourMessageVu).length!=0){
+                for (let i = currentChats.length-1; i>0; i--) {
+                    if(document.getElementsByClassName(Style.yourMessageVu)[i]!=undefined){
+                        if(document.getElementsByClassName(Style.yourMessageVu)[i].childNodes[1].style.color!="rgb(24, 118, 243)"){
+                            document.getElementsByClassName(Style.yourMessageVu)[i].childNodes[1].style.color="rgb(24, 118, 243)"
+                        }
+                    }
+                }
+            }
+
+        }
         if(socket!=undefined && socket!=null){
+        socket.on("isWritingState",isWriting)
         socket.on("getMessageFromUserToUser",chatHandler)
+        socket.on("setvu",setvu)
           }
           return () => {
             if(socket!=undefined && socket!=null){
                 socket.off('getMessageFromUserToUser', chatHandler);
+                socket.off("isWritingState",isWriting)
+                socket.off("setvu",setvu)
 
             }
           }
@@ -159,6 +199,14 @@ const chat = (props) => {
             console.log(error)
         })
       },[skip])
+      const getNewColor=(color)=>{
+        setChatColor(e=>{return {...e,colorone:color}})
+      }
+      const setColorOfChatFn=(colorOfChatFromDataBase)=>{
+        setChatColor(e=>{
+            return{...e,colorone:colorOfChatFromDataBase}
+        })
+      }
     return (
         <div className={Style.container} >
                   <NavBar token={props.token}></NavBar>
@@ -168,7 +216,7 @@ const chat = (props) => {
                             <h1>contacts</h1>
                         </div>
                         <div className={Style.listContacs}>
-                        {listOfUsers.map(e=><Users getUserdata={getUserdataFn} key={e._id} userData={e}></Users>)}
+                        {listOfUsers.map(e=><Users setColorOfChat={setColorOfChatFn} getUserdata={getUserdataFn} key={e._id}  userData={e}></Users>)}
 
                         </div>
                         <div className={Style.bottom}>
@@ -183,13 +231,17 @@ const chat = (props) => {
                         <div className={Style.headerOfChatuserNameAndName}>
                             <div className={Style.userImageContainer}><img src={currentUserToChatWith.currentImageUrl || "/avatar.png"} /></div>
                             <div className={Style.userName}><h3>{currentUserToChatWith.userName}</h3></div>
+                            {isWritingState&&<div className={Style.isWritingContainer}>
+                            <div className={Style.ldsellipsis}><div></div><div></div><div></div><div></div></div>
+                                </div>}
+                            <div className={Style.changeColorContainer}><ColorPicker receiver={currentUserToChatWith._id} token={props.token} getNewColorfn={getNewColor} chatColor={chatColor}></ColorPicker></div>
                         </div>
                         <div onScroll={(e)=>scrollfn(e)} ref={messagesComp} className={Style.messages}>
                             {currentChats.map(e=>{
                                 return(<div key={e._id} className={Style.oneMessage}>
                                     {e.users[0]==currentUserToChatWith._id?
-                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):false}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
-                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):false}  style={{"--i":"-100%",float:"right",backgroundColor:"#1876f3",color:"white"}}><p>{e.message}</p></div>
+                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
+                                    <div className={`${Style.messageText} ${Style.yourMessageVu} `}   text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"-100%",float:"right",backgroundColor:chatColor.colorone,color:"white"}}><p>{e.message}</p><span  style={e.seen==true?{color:"#1876f3"}:{color:"black"}} className={Style.seen} >&#10004;</span></div>
                                     }
                                 </div>)
                             })}
@@ -197,7 +249,7 @@ const chat = (props) => {
                     </div>
                     <div className={Style.sendMessage}>
                         <form onSubmit={e=>e.preventDefault()} >
-                        <div className={Style.inputContainer}><div className={Style.inputcss}><input value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
+                        <div className={Style.inputContainer}><div className={Style.inputcss}><input  value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
                         <div className={Style.btns}>
                         <div className={Style.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>
                         <div className={Style.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
@@ -224,16 +276,45 @@ export async function getServerSideProps({ req, res }) {
         )
   }
   const Users=(props)=>{
+    
       const [notSeenMessageNumberlocal,setNotSeenMessageNumberlocal]=React.useState(props.userData.notSeenMessageNumber)
       React.useEffect(()=>{
         setNotSeenMessageNumberlocal(props.userData.notSeenMessageNumber)
       },[props.userData.notSeenMessageNumber])
     return(
-        <div><div className={Style.userContainer} onClick={()=>{props.getUserdata(props.userData),setNotSeenMessageNumberlocal(0)}}>
+        <div><div className={Style.userContainer} onClick={()=>{props.getUserdata(props.userData),setNotSeenMessageNumberlocal(0),props.setColorOfChat(props.userData.color)}}>
                 {notSeenMessageNumberlocal!=0&&<div className={Style.notSeenMessageNumbe}><span>{notSeenMessageNumberlocal}</span></div>}
                 <div  className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
                 <div  className={Style.userName}><p>{props.userData.userName}</p></div>
         </div>
+        </div>
+    )
+}
+
+
+const ColorPicker=(props)=>{
+    const [openColorPicker,setOpenColorPicker]=React.useState(false)
+    const changePrimaryColor=(color)=>{
+        props.getNewColorfn(color)
+        updateColorChat({newColor:color,receiver:props.receiver},props.token)
+    }
+    return(<div onClick={()=>setOpenColorPicker(e=>!e)} className={Style.chatColor} style={{backgroundColor:props.chatColor.colorone}}>
+        {openColorPicker&&<div className={Style.colorPicker}>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#ff1744")} style={{backgroundColor:"#ff1744"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#f50057")} style={{backgroundColor:"#f50057"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#3d5afe")} style={{backgroundColor:"#3d5afe"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#76ff03")} style={{backgroundColor:"#76ff03"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#c6ff00")} style={{backgroundColor:"#c6ff00"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#ff3d00")} style={{backgroundColor:"#ff3d00"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#651fff")} style={{backgroundColor:"#651fff"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#ffea00")} style={{backgroundColor:"#ffea00"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#f50057")} style={{backgroundColor:"#f50057"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#ff1744")} style={{backgroundColor:"#ff1744"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#1de9b6")} style={{backgroundColor:"#1de9b6"}}></div>
+                <div className={Style.color} onClick={()=>changePrimaryColor("#03a9f4")} style={{backgroundColor:"#03a9f4"}}></div>
+                
+
+            </div>}
         </div>
     )
 }
