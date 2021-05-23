@@ -1176,6 +1176,16 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
+/***/ "Bn4x":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const ip = "http://127.0.0.1:5010"; //export default ip="http://127.0.0.1:5010";
+
+/* harmony default export */ __webpack_exports__["a"] = (ip);
+
+/***/ }),
+
 /***/ "CGRP":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1608,12 +1618,16 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 };
 
 
+// EXTERNAL MODULE: ./const.js
+var const_0 = __webpack_require__("Bn4x");
+
 // CONCATENATED MODULE: ./interceptor/interceptor.js
 
 
+
 const axiosApiInstance = external_axios_default.a.create({
-  baseURL: 'http://46.101.169.142:5010/',
-  //baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
+  baseURL: const_0["a" /* default */],
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url
@@ -2195,7 +2209,7 @@ var next_image = __webpack_require__("Aiso");
 
 
 
-const removeCookie = userid => {
+const profileMenu_removeCookie = userid => {
   fetch("/api/logout", {
     method: "post",
     headers: {
@@ -2223,12 +2237,9 @@ const profileMenu = props => {
         })
       }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: profileMenu_module_default.a.linksContainers,
-        onClick: () => removeCookie(user._id),
-        children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
-          href: "/profile",
-          children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("h2", {
-            children: "Log out"
-          })
+        onClick: () => profileMenu_removeCookie(user._id),
+        children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("h2", {
+          children: "Log out"
         })
       })]
     })
@@ -2455,6 +2466,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 const NavBar = ({
   token
 }) => {
@@ -2464,8 +2476,8 @@ const NavBar = ({
   } = Object(external_react_["useState"])(false); //open modal
 
   const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = external_react_default.a.useState({
-    width: '',
-    height: ''
+    width: 0,
+    height: 0
   }); //responsive handler
 
   const {
@@ -2482,6 +2494,8 @@ const NavBar = ({
   const [socket, setSocket] = external_react_default.a.useContext(socketContext["a" /* default */]);
   const [popUpUser, setPopUpUser] = external_react_default.a.useState(null);
   const [popUpNotif, setpopUpNotif] = external_react_default.a.useState(() => 0);
+  const sideNavBarBtn = external_react_default.a.useRef(null);
+  const [showSideNavBar, setShowSideNavBar] = external_react_default.a.useState(false);
   const router = Object(router_["useRouter"])();
   external_react_default.a.useEffect(() => {
     async function chatHandler(data) {
@@ -2516,11 +2530,12 @@ const NavBar = ({
     };
   });
   external_react_default.a.useEffect(() => {
+    setHeightAndWidthOfWindow({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+
     if (token != undefined && token != null && token != false) {
-      setHeightAndWidthOfWindow({
-        height: window.innerHeight,
-        width: window.innerWidth
-      });
       Object(chat["c" /* getUnreadUsersChatsNumber */])({}, token).then(data => {
         setNumberOfChatsNotRead(data.data.data);
       }).catch(error => {
@@ -2569,6 +2584,11 @@ const NavBar = ({
     setOpenOrCloseNotif(e => !e);
   };
 
+  const ShowSideNavBar = () => {
+    sideNavBarBtn.current.classList.toggle(NavBar_module_default.a.change);
+    setShowSideNavBar(e => !e);
+  };
+
   if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
     return /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
       className: NavBar_module_default.a.container,
@@ -2601,14 +2621,14 @@ const NavBar = ({
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {}), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
                 className: NavBar_module_default.a.searchImg,
                 children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-                  width: "20",
+                  width: "25",
                   height: "20",
                   viewBox: "0 0 28 38",
-                  fill: "#1876f3",
+                  fill: "rgba(22, 24, 35, 0.75)",
                   xmlns: "http://www.w3.org/2000/svg",
                   children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                     d: "M27.6192 32.3156L22.1665 25.0378C21.9204 24.7094 21.5867 24.5269 21.2367 24.5269H20.3452C21.8547 21.9501 22.7517 18.709 22.7517 15.1833C22.7517 6.79599 17.6599 0 11.3758 0C5.09178 0 0 6.79599 0 15.1833C0 23.5706 5.09178 30.3666 11.3758 30.3666C14.0174 30.3666 16.4457 29.1695 18.3763 27.1547V28.3446C18.3763 28.8118 18.5131 29.2571 18.7592 29.5855L24.2119 36.8633C24.726 37.5495 25.5573 37.5495 26.066 36.8633L27.6137 34.7975C28.1278 34.1113 28.1278 33.0018 27.6192 32.3156ZM11.3758 24.5269C7.50914 24.5269 4.37532 20.3515 4.37532 15.1833C4.37532 10.0224 7.50367 5.83973 11.3758 5.83973C15.2425 5.83973 18.3763 10.0151 18.3763 15.1833C18.3763 20.3442 15.248 24.5269 11.3758 24.5269Z",
-                    fill: "#b0b0b5"
+                    fill: "rgba(22, 24, 35, 0.75)"
                   })
                 })
               })]
@@ -2624,20 +2644,20 @@ const NavBar = ({
             onClick: () => openOrCloseNotifications(),
             children: [openOrCloseNotif && /*#__PURE__*/Object(jsx_runtime_["jsx"])(notification_notification, {
               token: token
-            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            }), popUpNotif != 0 && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
               className: NavBar_module_default.a.numberOfNotificationNotReadlocal,
               children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {
                 children: popUpNotif
               })
             }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-              width: "35",
-              height: "35",
+              width: "25",
+              height: "25",
               viewBox: "0 0 50 50",
-              fill: "#1876f3",
+              fill: "black",
               xmlns: "http://www.w3.org/2000/svg",
               children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                 d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
-                fill: "#1876f3"
+                fill: "black"
               })
             })]
           }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
@@ -2671,7 +2691,29 @@ const NavBar = ({
       className: NavBar_module_default.a.container,
       children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("nav", {
         className: NavBar_module_default.a.nav,
-        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+        children: [token && /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
+          style: {
+            flex: "1 !important"
+          },
+          className: NavBar_module_default.a.authenticated,
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])(SideNavBar, {
+            user: user,
+            token: token,
+            showSideNavBar: showSideNavBar,
+            numberOfChatsNotRead: numberOfChatsNotRead
+          }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
+            className: NavBar_module_default.a.containerBtnSideNavBar,
+            ref: sideNavBarBtn,
+            onClick: () => ShowSideNavBar(),
+            children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar1
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar2
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar3
+            })]
+          })]
+        }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
           className: NavBar_module_default.a.Search,
           children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
             className: NavBar_module_default.a.flexItems,
@@ -2679,13 +2721,14 @@ const NavBar = ({
               onBlur: () => closeSearchUser(),
               onFocus: e => OpensearchUsers(e),
               children: [disyplaySearch.state && /*#__PURE__*/Object(jsx_runtime_["jsx"])(searchUser_searchUser, {
+                popUpNotif: popUpNotif,
                 token: token,
                 searchUserName: disyplaySearch.userName
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("input", {
                 name: "search",
                 type: "text",
-                autoComplete: "off",
                 placeholder: "Search accounts",
+                autoComplete: "off",
                 onChange: e => SearchUserFn(e)
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {}), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
                 className: NavBar_module_default.a.searchImg,
@@ -2693,46 +2736,16 @@ const NavBar = ({
                   width: "20",
                   height: "20",
                   viewBox: "0 0 28 38",
-                  fill: "#1876f3",
+                  fill: "black",
                   xmlns: "http://www.w3.org/2000/svg",
                   children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                     d: "M27.6192 32.3156L22.1665 25.0378C21.9204 24.7094 21.5867 24.5269 21.2367 24.5269H20.3452C21.8547 21.9501 22.7517 18.709 22.7517 15.1833C22.7517 6.79599 17.6599 0 11.3758 0C5.09178 0 0 6.79599 0 15.1833C0 23.5706 5.09178 30.3666 11.3758 30.3666C14.0174 30.3666 16.4457 29.1695 18.3763 27.1547V28.3446C18.3763 28.8118 18.5131 29.2571 18.7592 29.5855L24.2119 36.8633C24.726 37.5495 25.5573 37.5495 26.066 36.8633L27.6137 34.7975C28.1278 34.1113 28.1278 33.0018 27.6192 32.3156ZM11.3758 24.5269C7.50914 24.5269 4.37532 20.3515 4.37532 15.1833C4.37532 10.0224 7.50367 5.83973 11.3758 5.83973C15.2425 5.83973 18.3763 10.0151 18.3763 15.1833C18.3763 20.3442 15.248 24.5269 11.3758 24.5269Z",
-                    fill: "#1876f3"
+                    fill: "black"
                   })
                 })
               })]
             })
           })
-        }), token && /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-          className: NavBar_module_default.a.authenticated,
-          children: [/*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-            className: NavBar_module_default.a.notification,
-            onClick: () => openOrCloseNotifications(),
-            children: [openOrCloseNotif && /*#__PURE__*/Object(jsx_runtime_["jsx"])(notification_notification, {
-              token: token
-            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-              width: "35",
-              height: "35",
-              viewBox: "0 0 50 50",
-              fill: "#1876f3",
-              xmlns: "http://www.w3.org/2000/svg",
-              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
-                d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
-                fill: "#1876f3"
-              })
-            })]
-          }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-            className: NavBar_module_default.a.profile,
-            onClick: () => openMenuProfileonClick(),
-            onMouseLeave: () => closeMenuProfile(),
-            onMouseEnter: () => openMenuProfile(),
-            children: [openMenuProfileState && /*#__PURE__*/Object(jsx_runtime_["jsx"])(profileMenu_profileMenu, {}), " ", user != null && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
-              className: NavBar_module_default.a.navBarImageContainer,
-              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
-                src: user.currentImageUrl || "/avatar.png"
-              })
-            })]
-          })]
         }), !token && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
           className: NavBar_module_default.a.Nonauthenticated,
           children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
@@ -2773,22 +2786,124 @@ const Chat = props => {
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
           src: userWhoSentYouImage
         })
-      }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+      }), numberOfChatsNotReadlocal != 0 && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: NavBar_module_default.a.numberOfChatsNotReadlocal,
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {
           children: numberOfChatsNotReadlocal
         })
       }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
+        width: "10",
+        height: "10",
+        viewBox: "100 -0 300.011 500.011",
+        fill: "black",
         xmlns: "http://www.w3.org/2000/svg",
-        id: "Capa_1",
-        "enable-background": "new 0 0 479.058 479.058",
-        fill: "#1876f3",
-        height: "512",
-        viewBox: "0 0 479.058 479.058",
-        width: "512",
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
-          d: "m434.146 59.882h-389.234c-24.766 0-44.912 20.146-44.912 44.912v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159l-200.355 173.649-200.356-173.649c1.769-.736 3.704-1.159 5.738-1.159zm0 299.411h-389.234c-8.26 0-14.971-6.71-14.971-14.971v-251.648l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z"
+          d: "M438.731,209.463l-416-192c-6.624-3.008-14.528-1.216-19.136,4.48c-4.64,5.696-4.8,13.792-0.384,19.648l136.8,182.4    l-136.8,182.4c-4.416,5.856-4.256,13.984,0.352,19.648c3.104,3.872,7.744,5.952,12.448,5.952c2.272,0,4.544-0.48,6.688-1.472    l416-192c5.696-2.624,9.312-8.288,9.312-14.528S444.395,212.087,438.731,209.463z"
         })
+      })]
+    })
+  });
+};
+
+const SideNavBar = props => {
+  //props.user.currentImageUrl
+  //props.user
+  const removeCookie = userid => {
+    fetch("/api/logout", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => {
+      Object(services_user["m" /* removeToken */])(userid).then();
+      location.reload();
+    });
+  };
+
+  return /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+    style: props.showSideNavBar ? {
+      marginLeft: "0"
+    } : {
+      marginLeft: "-100%"
+    },
+    className: NavBar_module_default.a.sideBarContainer,
+    children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("ul", {
+      children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
+        href: "/profile",
+        children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            className: NavBar_module_default.a.userImageInSideNavBar,
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
+              src: props.user.currentImageUrl
+            })
+          }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+            children: props.user.userName
+          })]
+        })
+      }), /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
+        href: "/chat",
+        children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            className: NavBar_module_default.a.iconSideNavBar,
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(Chat, {
+              numberOfChatsNotRead: props.numberOfChatsNotRead
+            })
+          }), " ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+            children: "Messages"
+          })]
+        })
+      }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+          className: NavBar_module_default.a.iconSideNavBar,
+          children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
+            width: "25",
+            height: "25",
+            viewBox: "0 0 50 50",
+            fill: "black",
+            xmlns: "http://www.w3.org/2000/svg",
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+              d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
+              fill: "black"
+            })
+          })
+        }), " ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+          children: "Notification"
+        })]
+      }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+        onClick: () => removeCookie(props.user._id),
+        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+          className: NavBar_module_default.a.iconSideNavBar,
+          children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("svg", {
+            width: "25",
+            height: "25",
+            viewBox: "0 0 25 25",
+            fill: "black",
+            xmlns: "http://www.w3.org/2000/svg",
+            children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m13.5 21h-4c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h4c.827 0 1.5-.673 1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 1.378-1.121 2.5-2.5 2.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m23.5 11h-10c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h10c.276 0 .5.224.5.5s-.224.5-.5.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m8 24c-.22 0-.435-.037-.638-.109l-5.99-1.997c-.82-.273-1.372-1.035-1.372-1.894v-18c0-1.103.897-2 2-2 .222 0 .438.037.639.11l5.989 1.996c.82.272 1.372 1.034 1.372 1.894v18c0 1.103-.897 2-2 2zm-6-23c-.552 0-1 .449-1 1v18c0 .428.276.808.688.946l6 2c.656.233 1.312-.292 1.312-.946v-18c0-.429-.276-.809-.688-.945l-6-2c-.103-.037-.208-.055-.312-.055z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m15.5 8c-.276 0-.5-.224-.5-.5v-5c0-.827-.673-1.5-1.5-1.5h-11.5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h11.5c1.379 0 2.5 1.122 2.5 2.5v5c0 .276-.224.5-.5.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m19.5 15c-.128 0-.256-.049-.354-.146-.195-.195-.195-.512 0-.707l3.646-3.646-3.646-3.646c-.195-.195-.195-.512 0-.707s.512-.195.707 0l4 4c.195.195.195.512 0 .707l-4 4c-.097.096-.225.145-.353.145z"
+              })
+            })]
+          })
+        }), "  ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+          children: "Log Out"
+        })]
       })]
     })
   });
@@ -3017,10 +3132,12 @@ const PostTodayTopic = props => {
 
 
   external_react_default.a.useEffect(() => {
-    if (mask) {
-      document.getElementsByClassName(TodayTopic_module_default.a.mask)[0].childNodes[0].childNodes[0].style.fill = "#1876f3";
-    } else {
-      document.getElementsByClassName(TodayTopic_module_default.a.mask)[0].childNodes[0].childNodes[0].style.fill = "black";
+    if (props.logedOrNot != false) {
+      if (mask) {
+        document.getElementsByClassName(TodayTopic_module_default.a.mask)[0].childNodes[0].childNodes[0].style.fill = "#1876f3";
+      } else {
+        document.getElementsByClassName(TodayTopic_module_default.a.mask)[0].childNodes[0].childNodes[0].style.fill = "black";
+      }
     }
   }, [mask]);
 
@@ -3070,12 +3187,12 @@ const PostTodayTopic = props => {
         children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {
           children: "Today Topic\u27A8 "
         }), todayTopicData ? todayTopicData.topic : ""]
-      }), /*#__PURE__*/Object(jsx_runtime_["jsx"])(switchCom["a" /* default */], {
+      }), props.logedOrNot != false && /*#__PURE__*/Object(jsx_runtime_["jsx"])(switchCom["a" /* default */], {
         changestateOfCommentAnnonym: e => changestateOfCommentAnnonym(e),
         text: "allow hidden Comments",
         state: enableCommentAnnonymState
       })]
-    }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
+    }), props.logedOrNot != false && /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
       className: TodayTopic_module_default.a.userTopicContainer,
       children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: TodayTopic_module_default.a.userImage,
@@ -3209,7 +3326,9 @@ const homeTodayTopics = () => {
   external_react_default.a.useEffect(() => {
     if (user.token != undefined) {
       Object(post["f" /* getTodayTopicPost */])({}, user.token).then(result => {
-        setPosts([...result.data.data]);
+        if (result != undefined) {
+          setPosts([...result.data.data]);
+        }
       }).catch(error => {
         console.log(error);
       });
@@ -3228,7 +3347,8 @@ const homeTodayTopics = () => {
     className: homeTodayTopics_module_default.a.todayTopics,
     children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
       className: homeTodayTopics_module_default.a.posts,
-      children: [user.token != false && user.token != undefined && /*#__PURE__*/Object(jsx_runtime_["jsx"])(postTodayTopic, {
+      children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])(postTodayTopic, {
+        logedOrNot: user.token != false && user.token != undefined,
         refrechData: refrechDataFn
       }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: homeTodayTopics_module_default.a.publicationContainer,
@@ -6897,7 +7017,16 @@ module.exports = {
 	"numberOfChatsNotReadlocal": "NavBar_numberOfChatsNotReadlocal__3kP0-",
 	"numberOfNotificationNotReadlocal": "NavBar_numberOfNotificationNotReadlocal__3VTiL",
 	"showTemImageOfUserWhoSentYouMessage": "NavBar_showTemImageOfUserWhoSentYouMessage__24h52",
-	"showImage": "NavBar_showImage__2RARv"
+	"showImage": "NavBar_showImage__2RARv",
+	"containerBtnSideNavBar": "NavBar_containerBtnSideNavBar__3hNrx",
+	"bar1": "NavBar_bar1__2Djth",
+	"bar2": "NavBar_bar2__2WsLa",
+	"bar3": "NavBar_bar3__2F2Oy",
+	"change": "NavBar_change__15vgR",
+	"sideBarContainer": "NavBar_sideBarContainer__1xLOB",
+	"showSideNavBar": "NavBar_showSideNavBar__1bysC",
+	"iconSideNavBar": "NavBar_iconSideNavBar__3WlU4",
+	"userImageInSideNavBar": "NavBar_userImageInSideNavBar__5CDKD"
 };
 
 

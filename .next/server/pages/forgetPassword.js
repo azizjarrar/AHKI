@@ -528,6 +528,16 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
+/***/ "Bn4x":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const ip = "http://127.0.0.1:5010"; //export default ip="http://127.0.0.1:5010";
+
+/* harmony default export */ __webpack_exports__["a"] = (ip);
+
+/***/ }),
+
 /***/ "CGRP":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -794,12 +804,16 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 };
 
 
+// EXTERNAL MODULE: ./const.js
+var const_0 = __webpack_require__("Bn4x");
+
 // CONCATENATED MODULE: ./interceptor/interceptor.js
 
 
+
 const axiosApiInstance = external_axios_default.a.create({
-  baseURL: 'http://46.101.169.142:5010/',
-  //baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
+  baseURL: const_0["a" /* default */],
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url

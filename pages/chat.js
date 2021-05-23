@@ -8,8 +8,8 @@ import {updateColorChat,addMessage,getMessagesOfCurrentconversation,getUserWhoCh
 import socketContext from '../context/socketContext'
 import userContext from '../context/userContext'
 
-
 const chat = (props) => {
+
     const [closeOrOpenEmojiPickerState,setcloseOrOpenEmojiPickerState]=React.useState(false)
     const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
     const [listOfUsers,setListOfUsers]=React.useState([])
@@ -22,11 +22,35 @@ const chat = (props) => {
     const [skip,setSkip]=React.useState(()=>0)
     const [isWritingState,setIsWritingState]=React.useState(false)
     const [chatColor,setChatColor]=React.useState({colorone:"#1876f3",colortwo:"#e4e6eb"})
-    
+    const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: 0, height: 0 })//responsive handler
+    const [showSideNavBar,setShowSideNavBar]=React.useState(false)
+    const sideNavBarBtn = React.useRef(null)
+
+    /**********************************/
+    /*************useEffects***********/
+    /**********************************/
+    React.useEffect(()=>{
+
+        setHeightAndWidthOfWindow({ height: window.innerHeight, width: window.innerWidth }) 
+    },[])
+    //when you scrol top on convertation it will load new 20 message
+    React.useEffect(()=>{
+        if(currentUserToChatWith._id!=undefined){
+            getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:skip},props.token).then(data=>{
+                setCurrentChats(e=>[...data.data.data.reverse(),...e])
+               
+            }).catch(error=>{
+                console.log(error)
+            })
+        }
+      },[skip])
+
+      // get list of users  you chat with
     React.useEffect(()=>{
         if(user._id!=undefined&& user._id.length>2)
         getUserWhoChatWith({},props.token).then(result=>{
             let newUserWhoChatWith=result.data.data.map(e=>{
+                //this to return the data of the other user not your data because im return both of data sender and reciver 
                 if(e.firstUser._id==user._id){
                     return Promise.resolve({...e.secoundUser,color:e.color,notSeenMessageNumber:e.notSeenMessageNumber})
                 }else{
@@ -41,6 +65,8 @@ const chat = (props) => {
          
           }).catch(e=>console.log(e.message))
     },[user])
+
+    //when you click on user it will load convertation data
     React.useEffect(()=>{
         if(currentUserToChatWith._id!=undefined){
             getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:0},props.token).then(data=>{
@@ -52,79 +78,23 @@ const chat = (props) => {
             }).catch(error=>{
                 console.log(error)
             })
+
+            //when you open convertation its will make all messgage seen
             socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
 
         }
-  
-    
-    
     },[currentUserToChatWith])
-    const addEmoji=(e)=>{
-        let sym = e.unified.split('-')
-        let codesArray = []
-        sym.forEach(el => codesArray.push('0x' + el))
-        let emoji = String.fromCodePoint(...codesArray)
-        setMessage(el=>{return el+emoji})
-      };
-    const closeOrOpenEmojiPicker=()=>{
-        setcloseOrOpenEmojiPickerState(e=>!e)
-      }
-      const searchForUser=(e)=>{
-            searchUserNameApi(e.target.value,props.token).then((result=>{
-                if(result.data.data!=undefined){
-                    setListOfUsers(e=>{
-                        return [...result.data.data]
-                    }) 
-                }
-            }))
-        
-      }
-      const getUserdataFn=(currentUserData)=>{
-        setCurrentUserToChatWith(currentUserData)
-      }
-      const sendMessage=()=>{
-        if(message.length>0&&currentUserToChatWith._id!=undefined){
-        addMessage({receiver:currentUserToChatWith._id,message:message,FirstTime:currentChats.length},props.token).then(data=>{
-            setCurrentChats(e=>{
-                let r = Math.random().toString(36).substring(7);
-                return [...e,{users:[user._id],message:message,_id:r}]
 
-            })
-            
-            messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
-                socket.emit("sendMessageFromUserToUser",{otherUserId:currentUserToChatWith._id,text:message,senderId:user._id})
-
-          
-
-            setMessage("")
-        }).catch(error=>{
-            console.log(error)
-        })
-    }
-      }
-      const messageHandler=(e)=>{
-          if(currentUserToChatWith._id!=undefined){
-            if(e.target.value.length>0){
-                socket.emit("isWriting",{isWriting:true,otherUserId:currentUserToChatWith._id,senderid:user._id})
-              }else{
-                socket.emit("isWriting",{isWriting:false,otherUserId:currentUserToChatWith._id,senderid:user._id})
-              }
-          }
- 
-        setMessage(e.target.value)
-      }
-      React.useEffect(()=>{
+    //socket receving data handler
+    React.useEffect(()=>{
+        //on reciving messsage socket
         async  function  chatHandler(data){
-
             let audio = new Audio("./msgSound.mp3")
             audio.play()
             setIsWritingState(false)
+            //set vu if you are in converation 
             socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
-
-            /*if(vu==true){
-                
-                socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
-            }*/
+            //if you are not in convertion add +1 to message not read in user image
             let ListOfUser = await listOfUsers.map((e)=>{
                 if(data.senderId==e._id && currentUserToChatWith._id!=e._id){
                     e.notSeenMessageNumber=e.notSeenMessageNumber+1
@@ -137,9 +107,9 @@ const chat = (props) => {
                 
                 setListOfUsers(data)
             })
+            //add message to chat
             if(data.senderId==currentUserToChatWith._id){
                 
-
                 setCurrentChats(e=>{
                     let r = Math.random().toString(36).substring(7);
                     return [...e,{users:[data.senderId],message:data.text,_id:r}]
@@ -150,14 +120,15 @@ const chat = (props) => {
 
             }
         }
+        //if the other user is wrting add animation if wrting
         function isWriting(data){
             if(data.userWhoReciveWriting==user._id && data.senderid==currentUserToChatWith._id){
                 setIsWritingState(data.isWriting)
 
             }
         }
+        // if other user has seen you message seen icon will be blue
         const setvu=(data)=>{
-   
             if(document.getElementsByClassName(Style.yourMessageVu).length!=0){
                 for (let i = currentChats.length-1; i>0; i--) {
                     if(document.getElementsByClassName(Style.yourMessageVu)[i]!=undefined){
@@ -183,6 +154,71 @@ const chat = (props) => {
             }
           }
       })
+
+      //add emoji to input
+    const addEmoji=(e)=>{
+        let sym = e.unified.split('-')
+        let codesArray = []
+        sym.forEach(el => codesArray.push('0x' + el))
+        let emoji = String.fromCodePoint(...codesArray)
+        setMessage(el=>{return el+emoji})
+      };
+
+      //close or open emoji container
+    const closeOrOpenEmojiPicker=()=>{
+        setcloseOrOpenEmojiPickerState(e=>!e)
+      }
+
+      //search for user to send message
+      const searchForUser=(e)=>{
+            searchUserNameApi(e.target.value,props.token).then((result=>{
+                if(result.data.data!=undefined){
+                    setListOfUsers(e=>{
+                        return [...result.data.data]
+                    }) 
+                }
+            }))
+        
+      }
+
+      //on click on user get current user data
+      const getUserdataFn=(currentUserData)=>{
+        setCurrentUserToChatWith(currentUserData)
+      }
+
+
+      const sendMessage=()=>{
+        if(message.length>0&&currentUserToChatWith._id!=undefined){
+        addMessage({receiver:currentUserToChatWith._id,message:message,FirstTime:currentChats.length},props.token).then(data=>{
+            setCurrentChats(e=>{
+                let r = Math.random().toString(36).substring(7);
+                return [...e,{users:[user._id],message:message,_id:r}]
+
+            })
+            
+            messagesComp.current.scrollTop=messagesComp.current.scrollHeight+ messagesComp.current.clientHeight;
+            socket.emit("sendMessageFromUserToUser",{otherUserId:currentUserToChatWith._id,text:message,senderId:user._id})
+
+          
+
+            setMessage("")
+        }).catch(error=>{
+            console.log(error)
+        })
+    }
+      }
+      const messageHandler=(e)=>{
+          if(currentUserToChatWith._id!=undefined){
+            if(e.target.value.length>0){
+                socket.emit("isWriting",{isWriting:true,otherUserId:currentUserToChatWith._id,senderid:user._id})
+              }else{
+                socket.emit("isWriting",{isWriting:false,otherUserId:currentUserToChatWith._id,senderid:user._id})
+              }
+          }
+ 
+        setMessage(e.target.value)
+      }
+      //on scrol to top load 20 new message
       const scrollfn=(e)=>{
           //if( e.target.scrollTop === (e.target.scrollHeight - e.target.offsetHeight)){
           if( e.target.scrollTop === 0){
@@ -190,85 +226,154 @@ const chat = (props) => {
           }
           
       }
-      React.useEffect(()=>{
-          
-        getMessagesOfCurrentconversation({secondUser:currentUserToChatWith._id,skip:skip},props.token).then(data=>{
-            setCurrentChats(e=>[...data.data.data.reverse(),...e])
-           
-        }).catch(error=>{
-            console.log(error)
-        })
-      },[skip])
+      //if you change the color of converation
       const getNewColor=(color)=>{
         setChatColor(e=>{return {...e,colorone:color}})
       }
-      const setColorOfChatFn=(colorOfChatFromDataBase)=>{
-        setChatColor(e=>{
-            return{...e,colorone:colorOfChatFromDataBase}
-        })
-      }
-    return (
-        <div className={Style.container} >
-                  <NavBar token={props.token}></NavBar>
-                <div className={Style.chatAndRandomOnlineUserContaner}>
-                    <div className={Style.UserContaner}>
-                        <div className={Style.header}>
-                            <h1>contacts</h1>
-                        </div>
-                        <div className={Style.listContacs}>
-                        {listOfUsers.map(e=><Users setColorOfChat={setColorOfChatFn} getUserdata={getUserdataFn} key={e._id}  userData={e}></Users>)}
 
-                        </div>
-                        <div className={Style.bottom}>
-                        <div className={Style.searchContainer}><div className={Style.inputcss}><input onChange={(e)=>searchForUser(e)} type="text" required></input><label><span>Search users</span></label></div></div>
-                        </div>
-                    </div>
-                    <div className={Style.chat}>
-                    <div className={Style.header}>
-                        <h1>Messages</h1>
-                    </div>
-                    <div className={Style.chatContainer}>
-                        <div className={Style.headerOfChatuserNameAndName}>
-                            <div className={Style.userImageContainer}><img src={currentUserToChatWith.currentImageUrl || "/avatar.png"} /></div>
-                            <div className={Style.userName}><h3>{currentUserToChatWith.userName}</h3></div>
-                            {isWritingState&&<div className={Style.isWritingContainer}>
-                            <div className={Style.ldsellipsis}><div></div><div></div><div></div><div></div></div>
-                                </div>}
-                            <div className={Style.changeColorContainer}><ColorPicker receiver={currentUserToChatWith._id} token={props.token} getNewColorfn={getNewColor} chatColor={chatColor}></ColorPicker></div>
-                        </div>
-                        <div onScroll={(e)=>scrollfn(e)} ref={messagesComp} className={Style.messages}>
-                            {currentChats.map(e=>{
-                                return(<div key={e._id} className={Style.oneMessage}>
-                                    {e.users[0]==currentUserToChatWith._id?
-                                    <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
-                                    <div className={`${Style.messageText} ${Style.yourMessageVu} `}   text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"-100%",float:"right",backgroundColor:chatColor.colorone,color:"white"}}><p>{e.message}</p><span  style={e.seen==true?{color:"#1876f3"}:{color:"black"}} className={Style.seen} >&#10004;</span></div>
-                                    }
-                                </div>)
-                            })}
-                        </div>
-                    </div>
-                    <div className={Style.sendMessage}>
-                        <form onSubmit={e=>e.preventDefault()} >
-                        <div className={Style.inputContainer}><div className={Style.inputcss}><input  value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
-                        <div className={Style.btns}>
-                        <div className={Style.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>
-                        <div className={Style.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
-                        {closeOrOpenEmojiPickerState&&<div className={Style.emojiPickerContainer}><Picker perLine={EmojiContainerHeight} onSelect={(e)=>addEmoji(e)} /></div>}
-                        </div>
-                            <button type="submit" className={Style.btnsend} onClick={()=>sendMessage()}><span className={Style.sendMessageBtn} ><SentSvg></SentSvg></span></button>
+      //set color if convertation
+      const setColorOfChatFn=(colorOfChatFromDataBase)=>{
+        if(colorOfChatFromDataBase==undefined){
+            setChatColor(e=>{
+                return{...e,colorone:"#1876f3"}
+            })
+        }else{
+            setChatColor(e=>{
+                return{...e,colorone:colorOfChatFromDataBase}
+            })
+        }
+      }
+      const ShowSideNavBar=()=>{
+   
+        sideNavBarBtn.current.classList.toggle(Style.change);
+        setShowSideNavBar(e=>!e)
+    }
+      if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
+        return (
+            <div className={Style.container} >
+                      <NavBar token={props.token}></NavBar>
+                    <div className={Style.chatAndRandomOnlineUserContaner}>
+                        
+                        <div className={Style.UserContaner} >
+                            <div className={Style.header}>
+                                <h1>contacts</h1>
                             </div>
-                        </form>
+                            <div className={Style.listContacs}>
+                            {listOfUsers.map(e=><Users setColorOfChat={setColorOfChatFn} getUserdata={getUserdataFn} key={e._id}  userData={e}></Users>)}
+    
+                            </div>
+                            <div className={Style.bottom}>
+                            <div className={Style.searchContainer}><div className={Style.inputcss}><input onChange={(e)=>searchForUser(e)} type="text" required></input><label><span>Search users</span></label></div></div>
+                            </div>
+                        </div>
+                        <div className={Style.chat}>
+                        <div className={Style.header}>
+                            <h1>Messages</h1>
+                        </div>
+                        <div className={Style.chatContainer}>
+                            <div className={Style.headerOfChatuserNameAndName}>
+                                <div className={Style.userImageContainer}><img src={currentUserToChatWith.currentImageUrl || "/avatar.png"} /></div>
+                                <div className={Style.userName}><h3>{currentUserToChatWith.userName}</h3></div>
+                                {isWritingState&&<div className={Style.isWritingContainer}>
+                                <div className={Style.ldsellipsis}><div></div><div></div><div></div><div></div></div>
+                                    </div>}
+                                <div className={Style.changeColorContainer}><ColorPicker receiver={currentUserToChatWith._id} token={props.token} getNewColorfn={getNewColor} chatColor={chatColor}></ColorPicker></div>
+                            </div>
+                            <div onScroll={(e)=>scrollfn(e)} ref={messagesComp} className={Style.messages}>
+                                {currentChats.map(e=>{
+                                    return(<div key={e._id} className={Style.oneMessage}>
+                                        {e.users[0]==currentUserToChatWith._id?
+                                        <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
+                                        <div className={`${Style.messageText} ${Style.yourMessageVu} `}   text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"-100%",float:"right",backgroundColor:chatColor.colorone,color:"white"}}><p>{e.message}</p><span  style={e.seen==true?{color:"#1876f3"}:{color:"black"}} className={Style.seen} >&#10004;</span></div>
+                                        }
+                                    </div>)
+                                })}
+                            </div>
+                        </div>
+                        <div className={Style.sendMessage}>
+                            <form onSubmit={e=>e.preventDefault()} >
+                            <div className={Style.inputContainer}><div className={Style.inputcss}><input  value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
+                            <div className={Style.btns}>
+                            <div className={Style.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>
+                            <div className={Style.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
+                            {closeOrOpenEmojiPickerState&&<div className={Style.emojiPickerContainer}><Picker perLine={EmojiContainerHeight} onSelect={(e)=>addEmoji(e)} /></div>}
+                            </div>
+                                <button type="submit" className={Style.btnsend} onClick={()=>sendMessage()}><span className={Style.sendMessageBtn} ><SentSvg></SentSvg></span></button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
                     </div>
+            </div>
+        )
+      }else{
+          return(
+                    <div className={Style.container} >
+                    <NavBar token={props.token}></NavBar>
+                        <div className={Style.navBarShowUser}>
+                            <h1 className={Style.headerShowContacts}>Contacts</h1>
+                        <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
+                            <div className={Style.bar1}></div>
+                            <div className={Style.bar2}></div>
+                            <div className={Style.bar3}></div>
+                        </div>
+                        </div>
+                        <div  style={showSideNavBar?{marginLeft:"0px"}:{marginLeft:"-100%"}} className={Style.UserContaner} >
+                            <div className={Style.header}>
+                                <h1>contacts</h1>
+                            </div>
+                            <div className={Style.listContacs}>
+                            {listOfUsers.map(e=><Users setColorOfChat={setColorOfChatFn} getUserdata={getUserdataFn} key={e._id}  userData={e}></Users>)}
+                            </div>
+                            <div className={Style.bottom}>
+                            <div className={Style.searchContainer}><div className={Style.inputcss}><input onChange={(e)=>searchForUser(e)} type="text" required></input><label><span>Search users</span></label></div></div>
+                            </div>
+                        </div>
+                        <div className={Style.chat}>
+                        <div className={Style.header}>
+                            <h1>Messages</h1>
+                        </div>
+                        <div className={Style.chatContainer}>
+                            <div className={Style.headerOfChatuserNameAndName}>
+                                <div className={Style.userImageContainer}><img src={currentUserToChatWith.currentImageUrl || "/avatar.png"} /></div>
+                                <div className={Style.userName}><h3>{currentUserToChatWith.userName}</h3></div>
+                                {isWritingState&&<div className={Style.isWritingContainer}>
+                                <div className={Style.ldsellipsis}><div></div><div></div><div></div><div></div></div>
+                                    </div>}
+                                <div className={Style.changeColorContainer}><ColorPicker receiver={currentUserToChatWith._id} token={props.token} getNewColorfn={getNewColor} chatColor={chatColor}></ColorPicker></div>
+                            </div>
+                            <div onScroll={(e)=>scrollfn(e)} ref={messagesComp} className={Style.messages}>
+                                {currentChats.map(e=>{
+                                    return(<div key={e._id} className={Style.oneMessage}>
+                                        {e.users[0]==currentUserToChatWith._id?
+                                        <div className={Style.messageText} text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"0%",float:"left",backgroundColor:"#e4e6eb",color:"black"}}><p>{e.message}</p></div>:
+                                        <div className={`${Style.messageText} ${Style.yourMessageVu} `}   text-data={e.date!=undefined?e.date.slice(0,10)+" "+e.date.slice(11,16):"false"}  style={{"--i":"-100%",float:"right",backgroundColor:chatColor.colorone,color:"white"}}><p>{e.message}</p><span  style={e.seen==true?{color:"#1876f3"}:{color:"black"}} className={Style.seen} >&#10004;</span></div>
+                                        }
+                                    </div>)
+                                })}
+                            </div>
+                        </div>
+                        <div className={Style.sendMessage}>
+                            <form onSubmit={e=>e.preventDefault()} >
+                            <div className={Style.inputContainer}><div className={Style.inputcss}><input  value={message} onChange={(e)=>messageHandler(e)} type="text" required></input><label><span>Message</span></label></div></div>
+                            <div className={Style.btns}>
+                            <div className={Style.openOrCloseEmojiPicker} onClick={()=>closeOrOpenEmojiPicker()}>
+                            <div className={Style.emojiLogo}><Emoji emoji={{ id: 'smiling_face_with_3_hearts', skin: 3 }} size={16} /></div>
+                            {closeOrOpenEmojiPickerState&&<div className={Style.emojiPickerContainer}><Picker perLine={EmojiContainerHeight} onSelect={(e)=>addEmoji(e)} /></div>}
+                            </div>
+                                <button type="submit" className={Style.btnsend} onClick={()=>sendMessage()}><span className={Style.sendMessageBtn} ><SentSvg></SentSvg></span></button>
+                                </div>
+                            </form>
+                        </div>
+                        </div>
                     </div>
-                </div>
-        </div>
-    )
+                )
+      }
+
 }
 
 export default chat
-export async function getServerSideProps({ req, res }) {
-    return req.cookies.token ? { props: { token: req.cookies.token } } : { props: { token: false } }
-  }
+
 
   const SentSvg=()=>{
     return (
@@ -282,12 +387,13 @@ export async function getServerSideProps({ req, res }) {
         setNotSeenMessageNumberlocal(props.userData.notSeenMessageNumber)
       },[props.userData.notSeenMessageNumber])
     return(
-        <div><div className={Style.userContainer} onClick={()=>{props.getUserdata(props.userData),setNotSeenMessageNumberlocal(0),props.setColorOfChat(props.userData.color)}}>
-                {notSeenMessageNumberlocal!=0&&<div className={Style.notSeenMessageNumbe}><span>{notSeenMessageNumberlocal}</span></div>}
-                <div  className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
-                <div  className={Style.userName}><p>{props.userData.userName}</p></div>
-        </div>
-        </div>
+            <div>
+                <div className={Style.userContainer} onClick={()=>{props.getUserdata(props.userData),setNotSeenMessageNumberlocal(0),props.setColorOfChat(props.userData.color)}}>
+                    {notSeenMessageNumberlocal!=0&&<div className={Style.notSeenMessageNumbe}><span>{notSeenMessageNumberlocal}</span></div>}
+                    <div  className={Style.imgContainer}><img src={props.userData.currentImageUrl || "/avatar.png"} /></div>
+                    <div  className={Style.userName}><p>{props.userData.userName}</p></div>
+                </div>
+            </div>
     )
 }
 
@@ -317,4 +423,8 @@ const ColorPicker=(props)=>{
             </div>}
         </div>
     )
+}
+export async function getServerSideProps({req,res}) {
+
+    return req.cookies.token ?{props: {token:req.cookies.token}}:{redirect: { destination: '/', permanent: false, }}
 }

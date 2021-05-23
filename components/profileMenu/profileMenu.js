@@ -19,7 +19,7 @@ const profileMenu = (props) => {
             {/*<div className={Styles.linksContainers}><img src="/svgicons/settings.svg" /><Link  href="/profile"><h2>Profile</h2></Link></div>*/}
             <div className={Styles.linksContainers}><Link  href="/profile"><h2>Profile</h2></Link></div>
             {/*<div className={Styles.linksContainers} onClick={()=>removeCookie(user._id)}><img src="/svgicons/log-out.svg" height={30} width={30} /><Link  href="/profile"><h2>Log out</h2></Link></div>*/}
-            <div className={Styles.linksContainers} onClick={()=>removeCookie(user._id)}><Link  href="/profile"><h2>Log out</h2></Link></div>
+            <div className={Styles.linksContainers} onClick={()=>removeCookie(user._id)}><h2>Log out</h2></div>
             </div>
         </div>
     )

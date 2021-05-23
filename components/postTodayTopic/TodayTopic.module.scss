@@ -355,40 +355,10 @@
             height: 40px !important;
             width: 40px !important;
         }
-        .postTopic{
-            margin-left: 0px;
-            width: calc(95% - 40px) !important;
-            flex-direction: column;
-            border:none;
-            .maskEmojiAndUploadImageContainer{
-                width: 100%;
-                justify-content: flex-end;
-                gap:25px
-            }
-            .textAreaContainer{
-                border: 1px solid #eaeaea;
-                border-radius: 5px;
-                width: 100%;
 
-                .textArea{
-                    width: 95%;
-                }
-            }
-        }
     }
     .maskEmojiAndUploadImageContainer{
-        position: relative;
-        width: 25%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 30px;
-        align-self: flex-end;
-        .emojiPickerContainer{
-            position: relative;
-            z-index: 5166;
-            right: 200px;    
-
-        }
+        gap: 10px;
+        margin-right: 5px;
     }
 }

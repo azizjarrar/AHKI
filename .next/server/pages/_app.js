@@ -113,7 +113,7 @@ module.exports = require("@material-ui/core/LinearProgress");
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getServerSideProps", function() { return getServerSideProps; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialProps", function() { return getInitialProps; });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("F5FC");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _styles_globals_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__("H/sG");
@@ -132,6 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var next_router__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(next_router__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__("pI2v");
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _const__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__("Bn4x");
 
 
 
@@ -141,6 +142,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -232,7 +234,7 @@ function MyApp({
 
     if (pageProps.token) {
       Object(_services_user__WEBPACK_IMPORTED_MODULE_4__[/* GetUserData */ "c"])(pageProps.token).then(data => {
-        socketRef.current = socket_io_client__WEBPACK_IMPORTED_MODULE_11___default()("http://46.101.169.142:5010");
+        socketRef.current = socket_io_client__WEBPACK_IMPORTED_MODULE_11___default()(_const__WEBPACK_IMPORTED_MODULE_12__[/* default */ "a"]);
         socketRef.current.on("getSocketid", dataFromSocket => {
           socketRef.current.emit("saveuserOnline", {
             userid: data.data.data[0]._id,
@@ -274,7 +276,7 @@ function MyApp({
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (MyApp);
-async function getServerSideProps({
+async function getInitialProps({
   req,
   res
 }) {
@@ -308,6 +310,16 @@ module.exports = require("next/router");
 
 const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createContext"])("eng");
 /* harmony default export */ __webpack_exports__["a"] = (apiIsLoadingContext);
+
+/***/ }),
+
+/***/ "Bn4x":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const ip = "http://127.0.0.1:5010"; //export default ip="http://127.0.0.1:5010";
+
+/* harmony default export */ __webpack_exports__["a"] = (ip);
 
 /***/ }),
 
@@ -350,12 +362,16 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 };
 
 
+// EXTERNAL MODULE: ./const.js
+var const_0 = __webpack_require__("Bn4x");
+
 // CONCATENATED MODULE: ./interceptor/interceptor.js
 
 
+
 const axiosApiInstance = external_axios_default.a.create({
-  baseURL: 'http://46.101.169.142:5010/',
-  //baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
+  baseURL: const_0["a" /* default */],
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url

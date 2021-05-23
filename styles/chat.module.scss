@@ -37,7 +37,7 @@
     }
     .searchContainer{
         position: relative;
-        width: 95%;
+        width: 100%;
         height: 100%;
         display: flex;
         align-items: center;
@@ -562,5 +562,76 @@
     .color{
         height: 55px;
         width: 55px;
+    }
+}
+
+@media (orientation: portrait) , (max-height: 500px){
+    .containerBtnSideNavBar {
+        display: inline-block;
+        cursor: pointer;
+        margin-left: 20px;
+        z-index: 1556151657;
+        position: absolute;
+        right: 10px;
+    
+      }
+      
+      .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: #333;
+        margin: 6px 0;
+        transition: 0.4s;
+      }
+      
+      .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+        transform: rotate(-45deg) translate(-9px, 6px);
+      }
+      
+      .change .bar2 {opacity: 0;}
+      
+      .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+      }
+    .navBarShowUser{
+        position: relative;
+        height: 40px;
+        background-color: white;
+        border-bottom: 1px solid $gray2;
+    }
+    .container{
+        height: 100%;
+    }
+    .UserContaner{
+
+        z-index: 99999999;
+        transition: 0.5s;
+        position: relative;
+        height: calc(100% - 50px - 40px);
+        width: 300px;
+        background-color: white;
+        border-radius: 0 !important;
+    }
+    .headerShowContacts{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-left: 20px;
+        color: $primary;
+    }
+    .chat{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        margin-left: 0px !important;
+        width: 100% !important;
+        height: calc(100% - 50px - 40px);
+        background-color: white !important;
+        border-radius: 0px !important;
+    }
+    .changeColorContainer{
+        z-index: 15;
     }
 }

@@ -63,11 +63,14 @@ const PostTodayTopic = (props) => {
   /****************if mask on it will turn into blue************/
   /*************************************************************/
   React.useEffect(() => {
-    if (mask) {
-      document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "#1876f3"
-    } else {
-      document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "black"
+    if(props.logedOrNot!=false){
+      if (mask) {
+        document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "#1876f3"
+      } else {
+        document.getElementsByClassName(Styles.mask)[0].childNodes[0].childNodes[0].style.fill = "black"
+      }
     }
+
   }, [mask])
 
   const closeOrOpenEmojiPicker=()=>{
@@ -110,10 +113,10 @@ const PostTodayTopic = (props) => {
           <span>Today Topic&#10152; </span>
             {todayTopicData?todayTopicData.topic:""}
             </h1>
-            <SwitchCom changestateOfCommentAnnonym={(e)=>changestateOfCommentAnnonym(e)} text={"allow hidden Comments"} state={enableCommentAnnonymState}></SwitchCom>   
+            {props.logedOrNot!=false &&<SwitchCom changestateOfCommentAnnonym={(e)=>changestateOfCommentAnnonym(e)} text={"allow hidden Comments"} state={enableCommentAnnonymState}></SwitchCom>} 
 
       </div>
-      <div className={Styles.userTopicContainer}>
+      {props.logedOrNot!=false &&<div className={Styles.userTopicContainer}>
       <div className={Styles.userImage}><img src={user.currentImageUrl || "/avatar.png"} /></div>
         <div className={Styles.postTopic}>
           <div className={Styles.textAreaContainer}>
@@ -130,7 +133,7 @@ const PostTodayTopic = (props) => {
 
             </div>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }

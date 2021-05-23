@@ -547,6 +547,16 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 
 /***/ }),
 
+/***/ "Bn4x":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+const ip = "http://127.0.0.1:5010"; //export default ip="http://127.0.0.1:5010";
+
+/* harmony default export */ __webpack_exports__["a"] = (ip);
+
+/***/ }),
+
 /***/ "CGRP":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -820,12 +830,16 @@ const deleteRefrechTokenOldOne = async RefreshAccessToken => {
 };
 
 
+// EXTERNAL MODULE: ./const.js
+var const_0 = __webpack_require__("Bn4x");
+
 // CONCATENATED MODULE: ./interceptor/interceptor.js
 
 
+
 const axiosApiInstance = external_axios_default.a.create({
-  baseURL: 'http://46.101.169.142:5010/',
-  //baseURL: 'http://127.0.0.1:5010/',
+  //baseURL: 'http://46.101.169.142:5010/',
+  baseURL: const_0["a" /* default */],
   withCredentials: true
 });
 axiosApiInstance.defaults.withCredentials = true; //axiosApiInstance.defaults.baseURL = 'http://127.0.0.1:5010/' // set default url
@@ -1407,7 +1421,7 @@ var next_image = __webpack_require__("Aiso");
 
 
 
-const removeCookie = userid => {
+const profileMenu_removeCookie = userid => {
   fetch("/api/logout", {
     method: "post",
     headers: {
@@ -1435,12 +1449,9 @@ const profileMenu = props => {
         })
       }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: profileMenu_module_default.a.linksContainers,
-        onClick: () => removeCookie(user._id),
-        children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
-          href: "/profile",
-          children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("h2", {
-            children: "Log out"
-          })
+        onClick: () => profileMenu_removeCookie(user._id),
+        children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("h2", {
+          children: "Log out"
         })
       })]
     })
@@ -1667,6 +1678,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 const NavBar = ({
   token
 }) => {
@@ -1676,8 +1688,8 @@ const NavBar = ({
   } = Object(external_react_["useState"])(false); //open modal
 
   const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = external_react_default.a.useState({
-    width: '',
-    height: ''
+    width: 0,
+    height: 0
   }); //responsive handler
 
   const {
@@ -1694,6 +1706,8 @@ const NavBar = ({
   const [socket, setSocket] = external_react_default.a.useContext(socketContext["a" /* default */]);
   const [popUpUser, setPopUpUser] = external_react_default.a.useState(null);
   const [popUpNotif, setpopUpNotif] = external_react_default.a.useState(() => 0);
+  const sideNavBarBtn = external_react_default.a.useRef(null);
+  const [showSideNavBar, setShowSideNavBar] = external_react_default.a.useState(false);
   const router = Object(router_["useRouter"])();
   external_react_default.a.useEffect(() => {
     async function chatHandler(data) {
@@ -1728,11 +1742,12 @@ const NavBar = ({
     };
   });
   external_react_default.a.useEffect(() => {
+    setHeightAndWidthOfWindow({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+
     if (token != undefined && token != null && token != false) {
-      setHeightAndWidthOfWindow({
-        height: window.innerHeight,
-        width: window.innerWidth
-      });
       Object(chat["c" /* getUnreadUsersChatsNumber */])({}, token).then(data => {
         setNumberOfChatsNotRead(data.data.data);
       }).catch(error => {
@@ -1781,6 +1796,11 @@ const NavBar = ({
     setOpenOrCloseNotif(e => !e);
   };
 
+  const ShowSideNavBar = () => {
+    sideNavBarBtn.current.classList.toggle(NavBar_module_default.a.change);
+    setShowSideNavBar(e => !e);
+  };
+
   if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
     return /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
       className: NavBar_module_default.a.container,
@@ -1813,14 +1833,14 @@ const NavBar = ({
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {}), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
                 className: NavBar_module_default.a.searchImg,
                 children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-                  width: "20",
+                  width: "25",
                   height: "20",
                   viewBox: "0 0 28 38",
-                  fill: "#1876f3",
+                  fill: "rgba(22, 24, 35, 0.75)",
                   xmlns: "http://www.w3.org/2000/svg",
                   children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                     d: "M27.6192 32.3156L22.1665 25.0378C21.9204 24.7094 21.5867 24.5269 21.2367 24.5269H20.3452C21.8547 21.9501 22.7517 18.709 22.7517 15.1833C22.7517 6.79599 17.6599 0 11.3758 0C5.09178 0 0 6.79599 0 15.1833C0 23.5706 5.09178 30.3666 11.3758 30.3666C14.0174 30.3666 16.4457 29.1695 18.3763 27.1547V28.3446C18.3763 28.8118 18.5131 29.2571 18.7592 29.5855L24.2119 36.8633C24.726 37.5495 25.5573 37.5495 26.066 36.8633L27.6137 34.7975C28.1278 34.1113 28.1278 33.0018 27.6192 32.3156ZM11.3758 24.5269C7.50914 24.5269 4.37532 20.3515 4.37532 15.1833C4.37532 10.0224 7.50367 5.83973 11.3758 5.83973C15.2425 5.83973 18.3763 10.0151 18.3763 15.1833C18.3763 20.3442 15.248 24.5269 11.3758 24.5269Z",
-                    fill: "#b0b0b5"
+                    fill: "rgba(22, 24, 35, 0.75)"
                   })
                 })
               })]
@@ -1836,20 +1856,20 @@ const NavBar = ({
             onClick: () => openOrCloseNotifications(),
             children: [openOrCloseNotif && /*#__PURE__*/Object(jsx_runtime_["jsx"])(notification_notification, {
               token: token
-            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            }), popUpNotif != 0 && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
               className: NavBar_module_default.a.numberOfNotificationNotReadlocal,
               children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {
                 children: popUpNotif
               })
             }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-              width: "35",
-              height: "35",
+              width: "25",
+              height: "25",
               viewBox: "0 0 50 50",
-              fill: "#1876f3",
+              fill: "black",
               xmlns: "http://www.w3.org/2000/svg",
               children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                 d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
-                fill: "#1876f3"
+                fill: "black"
               })
             })]
           }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
@@ -1883,7 +1903,29 @@ const NavBar = ({
       className: NavBar_module_default.a.container,
       children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("nav", {
         className: NavBar_module_default.a.nav,
-        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+        children: [token && /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
+          style: {
+            flex: "1 !important"
+          },
+          className: NavBar_module_default.a.authenticated,
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])(SideNavBar, {
+            user: user,
+            token: token,
+            showSideNavBar: showSideNavBar,
+            numberOfChatsNotRead: numberOfChatsNotRead
+          }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
+            className: NavBar_module_default.a.containerBtnSideNavBar,
+            ref: sideNavBarBtn,
+            onClick: () => ShowSideNavBar(),
+            children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar1
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar2
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+              className: NavBar_module_default.a.bar3
+            })]
+          })]
+        }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
           className: NavBar_module_default.a.Search,
           children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
             className: NavBar_module_default.a.flexItems,
@@ -1891,13 +1933,14 @@ const NavBar = ({
               onBlur: () => closeSearchUser(),
               onFocus: e => OpensearchUsers(e),
               children: [disyplaySearch.state && /*#__PURE__*/Object(jsx_runtime_["jsx"])(searchUser_searchUser, {
+                popUpNotif: popUpNotif,
                 token: token,
                 searchUserName: disyplaySearch.userName
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("input", {
                 name: "search",
                 type: "text",
-                autoComplete: "off",
                 placeholder: "Search accounts",
+                autoComplete: "off",
                 onChange: e => SearchUserFn(e)
               }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {}), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
                 className: NavBar_module_default.a.searchImg,
@@ -1905,46 +1948,16 @@ const NavBar = ({
                   width: "20",
                   height: "20",
                   viewBox: "0 0 28 38",
-                  fill: "#1876f3",
+                  fill: "black",
                   xmlns: "http://www.w3.org/2000/svg",
                   children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
                     d: "M27.6192 32.3156L22.1665 25.0378C21.9204 24.7094 21.5867 24.5269 21.2367 24.5269H20.3452C21.8547 21.9501 22.7517 18.709 22.7517 15.1833C22.7517 6.79599 17.6599 0 11.3758 0C5.09178 0 0 6.79599 0 15.1833C0 23.5706 5.09178 30.3666 11.3758 30.3666C14.0174 30.3666 16.4457 29.1695 18.3763 27.1547V28.3446C18.3763 28.8118 18.5131 29.2571 18.7592 29.5855L24.2119 36.8633C24.726 37.5495 25.5573 37.5495 26.066 36.8633L27.6137 34.7975C28.1278 34.1113 28.1278 33.0018 27.6192 32.3156ZM11.3758 24.5269C7.50914 24.5269 4.37532 20.3515 4.37532 15.1833C4.37532 10.0224 7.50367 5.83973 11.3758 5.83973C15.2425 5.83973 18.3763 10.0151 18.3763 15.1833C18.3763 20.3442 15.248 24.5269 11.3758 24.5269Z",
-                    fill: "#1876f3"
+                    fill: "black"
                   })
                 })
               })]
             })
           })
-        }), token && /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-          className: NavBar_module_default.a.authenticated,
-          children: [/*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-            className: NavBar_module_default.a.notification,
-            onClick: () => openOrCloseNotifications(),
-            children: [openOrCloseNotif && /*#__PURE__*/Object(jsx_runtime_["jsx"])(notification_notification, {
-              token: token
-            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
-              width: "35",
-              height: "35",
-              viewBox: "0 0 50 50",
-              fill: "#1876f3",
-              xmlns: "http://www.w3.org/2000/svg",
-              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
-                d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
-                fill: "#1876f3"
-              })
-            })]
-          }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("div", {
-            className: NavBar_module_default.a.profile,
-            onClick: () => openMenuProfileonClick(),
-            onMouseLeave: () => closeMenuProfile(),
-            onMouseEnter: () => openMenuProfile(),
-            children: [openMenuProfileState && /*#__PURE__*/Object(jsx_runtime_["jsx"])(profileMenu_profileMenu, {}), " ", user != null && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
-              className: NavBar_module_default.a.navBarImageContainer,
-              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
-                src: user.currentImageUrl || "/avatar.png"
-              })
-            })]
-          })]
         }), !token && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
           className: NavBar_module_default.a.Nonauthenticated,
           children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
@@ -1985,22 +1998,124 @@ const Chat = props => {
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
           src: userWhoSentYouImage
         })
-      }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+      }), numberOfChatsNotReadlocal != 0 && /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
         className: NavBar_module_default.a.numberOfChatsNotReadlocal,
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("span", {
           children: numberOfChatsNotReadlocal
         })
       }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
+        width: "10",
+        height: "10",
+        viewBox: "100 -0 300.011 500.011",
+        fill: "black",
         xmlns: "http://www.w3.org/2000/svg",
-        id: "Capa_1",
-        "enable-background": "new 0 0 479.058 479.058",
-        fill: "#1876f3",
-        height: "512",
-        viewBox: "0 0 479.058 479.058",
-        width: "512",
         children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
-          d: "m434.146 59.882h-389.234c-24.766 0-44.912 20.146-44.912 44.912v269.47c0 24.766 20.146 44.912 44.912 44.912h389.234c24.766 0 44.912-20.146 44.912-44.912v-269.47c0-24.766-20.146-44.912-44.912-44.912zm0 29.941c2.034 0 3.969.422 5.738 1.159l-200.355 173.649-200.356-173.649c1.769-.736 3.704-1.159 5.738-1.159zm0 299.411h-389.234c-8.26 0-14.971-6.71-14.971-14.971v-251.648l199.778 173.141c2.822 2.441 6.316 3.655 9.81 3.655s6.988-1.213 9.81-3.655l199.778-173.141v251.649c-.001 8.26-6.711 14.97-14.971 14.97z"
+          d: "M438.731,209.463l-416-192c-6.624-3.008-14.528-1.216-19.136,4.48c-4.64,5.696-4.8,13.792-0.384,19.648l136.8,182.4    l-136.8,182.4c-4.416,5.856-4.256,13.984,0.352,19.648c3.104,3.872,7.744,5.952,12.448,5.952c2.272,0,4.544-0.48,6.688-1.472    l416-192c5.696-2.624,9.312-8.288,9.312-14.528S444.395,212.087,438.731,209.463z"
         })
+      })]
+    })
+  });
+};
+
+const SideNavBar = props => {
+  //props.user.currentImageUrl
+  //props.user
+  const removeCookie = userid => {
+    fetch("/api/logout", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => {
+      Object(services_user["m" /* removeToken */])(userid).then();
+      location.reload();
+    });
+  };
+
+  return /*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+    style: props.showSideNavBar ? {
+      marginLeft: "0"
+    } : {
+      marginLeft: "-100%"
+    },
+    className: NavBar_module_default.a.sideBarContainer,
+    children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("ul", {
+      children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
+        href: "/profile",
+        children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            className: NavBar_module_default.a.userImageInSideNavBar,
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("img", {
+              src: props.user.currentImageUrl
+            })
+          }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+            children: props.user.userName
+          })]
+        })
+      }), /*#__PURE__*/Object(jsx_runtime_["jsx"])(link_default.a, {
+        href: "/chat",
+        children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+          children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+            className: NavBar_module_default.a.iconSideNavBar,
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])(Chat, {
+              numberOfChatsNotRead: props.numberOfChatsNotRead
+            })
+          }), " ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+            children: "Messages"
+          })]
+        })
+      }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+          className: NavBar_module_default.a.iconSideNavBar,
+          children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("svg", {
+            width: "25",
+            height: "25",
+            viewBox: "0 0 50 50",
+            fill: "black",
+            xmlns: "http://www.w3.org/2000/svg",
+            children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+              d: "M43.75 0H6.25C2.80273 0 0 2.80273 0 6.25V34.375C0 37.8223 2.80273 40.625 6.25 40.625H15.625V48.8281C15.625 49.5215 16.1914 50 16.7969 50C17.0312 50 17.2754 49.9316 17.4902 49.7656L29.6875 40.625H43.75C47.1973 40.625 50 37.8223 50 34.375V6.25C50 2.80273 47.1973 0 43.75 0ZM45.3125 34.375C45.3125 35.2344 44.6094 35.9375 43.75 35.9375H28.125L26.875 36.875L20.3125 41.7969V35.9375H6.25C5.39062 35.9375 4.6875 35.2344 4.6875 34.375V6.25C4.6875 5.39062 5.39062 4.6875 6.25 4.6875H43.75C44.6094 4.6875 45.3125 5.39062 45.3125 6.25V34.375Z",
+              fill: "black"
+            })
+          })
+        }), " ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+          children: "Notification"
+        })]
+      }), /*#__PURE__*/Object(jsx_runtime_["jsxs"])("li", {
+        onClick: () => removeCookie(props.user._id),
+        children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("div", {
+          className: NavBar_module_default.a.iconSideNavBar,
+          children: /*#__PURE__*/Object(jsx_runtime_["jsxs"])("svg", {
+            width: "25",
+            height: "25",
+            viewBox: "0 0 25 25",
+            fill: "black",
+            xmlns: "http://www.w3.org/2000/svg",
+            children: [/*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m13.5 21h-4c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h4c.827 0 1.5-.673 1.5-1.5v-5c0-.276.224-.5.5-.5s.5.224.5.5v5c0 1.378-1.121 2.5-2.5 2.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m23.5 11h-10c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h10c.276 0 .5.224.5.5s-.224.5-.5.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m8 24c-.22 0-.435-.037-.638-.109l-5.99-1.997c-.82-.273-1.372-1.035-1.372-1.894v-18c0-1.103.897-2 2-2 .222 0 .438.037.639.11l5.989 1.996c.82.272 1.372 1.034 1.372 1.894v18c0 1.103-.897 2-2 2zm-6-23c-.552 0-1 .449-1 1v18c0 .428.276.808.688.946l6 2c.656.233 1.312-.292 1.312-.946v-18c0-.429-.276-.809-.688-.945l-6-2c-.103-.037-.208-.055-.312-.055z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m15.5 8c-.276 0-.5-.224-.5-.5v-5c0-.827-.673-1.5-1.5-1.5h-11.5c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h11.5c1.379 0 2.5 1.122 2.5 2.5v5c0 .276-.224.5-.5.5z"
+              })
+            }), /*#__PURE__*/Object(jsx_runtime_["jsx"])("g", {
+              children: /*#__PURE__*/Object(jsx_runtime_["jsx"])("path", {
+                d: "m19.5 15c-.128 0-.256-.049-.354-.146-.195-.195-.195-.512 0-.707l3.646-3.646-3.646-3.646c-.195-.195-.195-.512 0-.707s.512-.195.707 0l4 4c.195.195.195.512 0 .707l-4 4c-.097.096-.225.145-.353.145z"
+              })
+            })]
+          })
+        }), "  ", /*#__PURE__*/Object(jsx_runtime_["jsx"])("p", {
+          children: "Log Out"
+        })]
       })]
     })
   });
@@ -4610,7 +4725,14 @@ module.exports = {
 	"changeColorContainer": "chat_changeColorContainer__2OoQT",
 	"chatColor": "chat_chatColor__a5hxO",
 	"colorPicker": "chat_colorPicker__3s1ZE",
-	"color": "chat_color__3deXf"
+	"color": "chat_color__3deXf",
+	"containerBtnSideNavBar": "chat_containerBtnSideNavBar__viwHv",
+	"bar1": "chat_bar1__3HXvi",
+	"bar2": "chat_bar2__HgbJ9",
+	"bar3": "chat_bar3__27Ss7",
+	"change": "chat_change__3DVjr",
+	"navBarShowUser": "chat_navBarShowUser__3No37",
+	"headerShowContacts": "chat_headerShowContacts__jKnKs"
 };
 
 
@@ -4836,9 +4958,43 @@ const chat = props => {
     colorone: "#1876f3",
     colortwo: "#e4e6eb"
   });
+  const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState({
+    width: 0,
+    height: 0
+  }); //responsive handler
+
+  const [showSideNavBar, setShowSideNavBar] = react__WEBPACK_IMPORTED_MODULE_1___default.a.useState(false);
+  const sideNavBarBtn = react__WEBPACK_IMPORTED_MODULE_1___default.a.useRef(null);
+  /**********************************/
+
+  /*************useEffects***********/
+
+  /**********************************/
+
+  react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
+    setHeightAndWidthOfWindow({
+      height: window.innerHeight,
+      width: window.innerWidth
+    });
+  }, []); //when you scrol top on convertation it will load new 20 message
+
+  react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
+    if (currentUserToChatWith._id != undefined) {
+      Object(_services_chat__WEBPACK_IMPORTED_MODULE_7__[/* getMessagesOfCurrentconversation */ "b"])({
+        secondUser: currentUserToChatWith._id,
+        skip: skip
+      }, props.token).then(data => {
+        setCurrentChats(e => [...data.data.data.reverse(), ...e]);
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+  }, [skip]); // get list of users  you chat with
+
   react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
     if (user._id != undefined && user._id.length > 2) Object(_services_chat__WEBPACK_IMPORTED_MODULE_7__[/* getUserWhoChatWith */ "d"])({}, props.token).then(result => {
       let newUserWhoChatWith = result.data.data.map(e => {
+        //this to return the data of the other user not your data because im return both of data sender and reciver 
         if (e.firstUser._id == user._id) {
           return Promise.resolve(_objectSpread(_objectSpread({}, e.secoundUser), {}, {
             color: e.color,
@@ -4855,7 +5011,8 @@ const chat = props => {
         setListOfUsers([...newarray]);
       });
     }).catch(e => console.log(e.message));
-  }, [user]);
+  }, [user]); //when you click on user it will load convertation data
+
   react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
     if (currentUserToChatWith._id != undefined) {
       Object(_services_chat__WEBPACK_IMPORTED_MODULE_7__[/* getMessagesOfCurrentconversation */ "b"])({
@@ -4866,13 +5023,86 @@ const chat = props => {
         messagesComp.current.scrollTop = messagesComp.current.scrollHeight + messagesComp.current.clientHeight;
       }).catch(error => {
         console.log(error);
-      });
+      }); //when you open convertation its will make all messgage seen
+
       socket.emit("vu", {
         state: true,
         otherUserId: currentUserToChatWith._id
       });
     }
-  }, [currentUserToChatWith]);
+  }, [currentUserToChatWith]); //socket receving data handler
+
+  react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
+    //on reciving messsage socket
+    async function chatHandler(data) {
+      let audio = new Audio("./msgSound.mp3");
+      audio.play();
+      setIsWritingState(false); //set vu if you are in converation 
+
+      socket.emit("vu", {
+        state: true,
+        otherUserId: currentUserToChatWith._id
+      }); //if you are not in convertion add +1 to message not read in user image
+
+      let ListOfUser = await listOfUsers.map(e => {
+        if (data.senderId == e._id && currentUserToChatWith._id != e._id) {
+          e.notSeenMessageNumber = e.notSeenMessageNumber + 1;
+          return Promise.resolve(e);
+        } else {
+          return Promise.resolve(e);
+        }
+      });
+      Promise.all(ListOfUser).then(data => {
+        setListOfUsers(data);
+      }); //add message to chat
+
+      if (data.senderId == currentUserToChatWith._id) {
+        setCurrentChats(e => {
+          let r = Math.random().toString(36).substring(7);
+          return [...e, {
+            users: [data.senderId],
+            message: data.text,
+            _id: r
+          }];
+        });
+        messagesComp.current.scrollTop = messagesComp.current.scrollHeight + messagesComp.current.clientHeight;
+      } else {}
+    } //if the other user is wrting add animation if wrting
+
+
+    function isWriting(data) {
+      if (data.userWhoReciveWriting == user._id && data.senderid == currentUserToChatWith._id) {
+        setIsWritingState(data.isWriting);
+      }
+    } // if other user has seen you message seen icon will be blue
+
+
+    const setvu = data => {
+      if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu).length != 0) {
+        for (let i = currentChats.length - 1; i > 0; i--) {
+          if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i] != undefined) {
+            if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i].childNodes[1].style.color != "rgb(24, 118, 243)") {
+              document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i].childNodes[1].style.color = "rgb(24, 118, 243)";
+            }
+          }
+        }
+      }
+    };
+
+    if (socket != undefined && socket != null) {
+      socket.on("isWritingState", isWriting);
+      socket.on("getMessageFromUserToUser", chatHandler);
+      socket.on("setvu", setvu);
+    }
+
+    return () => {
+      if (socket != undefined && socket != null) {
+        socket.off('getMessageFromUserToUser', chatHandler);
+        socket.off("isWritingState", isWriting);
+        socket.off("setvu", setvu);
+      }
+    };
+  }); //add emoji to input
 
   const addEmoji = e => {
     let sym = e.unified.split('-');
@@ -4882,11 +5112,13 @@ const chat = props => {
     setMessage(el => {
       return el + emoji;
     });
-  };
+  }; //close or open emoji container
+
 
   const closeOrOpenEmojiPicker = () => {
     setcloseOrOpenEmojiPickerState(e => !e);
-  };
+  }; //search for user to send message
+
 
   const searchForUser = e => {
     Object(_services_user__WEBPACK_IMPORTED_MODULE_6__[/* searchUserNameApi */ "p"])(e.target.value, props.token).then(result => {
@@ -4896,7 +5128,8 @@ const chat = props => {
         });
       }
     });
-  };
+  }; //on click on user get current user data
+
 
   const getUserdataFn = currentUserData => {
     setCurrentUserToChatWith(currentUserData);
@@ -4948,97 +5181,16 @@ const chat = props => {
     }
 
     setMessage(e.target.value);
-  };
+  }; //on scrol to top load 20 new message
 
-  react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
-    async function chatHandler(data) {
-      let audio = new Audio("./msgSound.mp3");
-      audio.play();
-      setIsWritingState(false);
-      socket.emit("vu", {
-        state: true,
-        otherUserId: currentUserToChatWith._id
-      });
-      /*if(vu==true){
-          
-          socket.emit("vu",{state:true,otherUserId:currentUserToChatWith._id})
-      }*/
-
-      let ListOfUser = await listOfUsers.map(e => {
-        if (data.senderId == e._id && currentUserToChatWith._id != e._id) {
-          e.notSeenMessageNumber = e.notSeenMessageNumber + 1;
-          return Promise.resolve(e);
-        } else {
-          return Promise.resolve(e);
-        }
-      });
-      Promise.all(ListOfUser).then(data => {
-        setListOfUsers(data);
-      });
-
-      if (data.senderId == currentUserToChatWith._id) {
-        setCurrentChats(e => {
-          let r = Math.random().toString(36).substring(7);
-          return [...e, {
-            users: [data.senderId],
-            message: data.text,
-            _id: r
-          }];
-        });
-        messagesComp.current.scrollTop = messagesComp.current.scrollHeight + messagesComp.current.clientHeight;
-      } else {}
-    }
-
-    function isWriting(data) {
-      if (data.userWhoReciveWriting == user._id && data.senderid == currentUserToChatWith._id) {
-        setIsWritingState(data.isWriting);
-      }
-    }
-
-    const setvu = data => {
-      if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu).length != 0) {
-        for (let i = currentChats.length - 1; i > 0; i--) {
-          if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i] != undefined) {
-            if (document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i].childNodes[1].style.color != "rgb(24, 118, 243)") {
-              document.getElementsByClassName(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu)[i].childNodes[1].style.color = "rgb(24, 118, 243)";
-            }
-          }
-        }
-      }
-    };
-
-    if (socket != undefined && socket != null) {
-      socket.on("isWritingState", isWriting);
-      socket.on("getMessageFromUserToUser", chatHandler);
-      socket.on("setvu", setvu);
-    }
-
-    return () => {
-      if (socket != undefined && socket != null) {
-        socket.off('getMessageFromUserToUser', chatHandler);
-        socket.off("isWritingState", isWriting);
-        socket.off("setvu", setvu);
-      }
-    };
-  });
 
   const scrollfn = e => {
     //if( e.target.scrollTop === (e.target.scrollHeight - e.target.offsetHeight)){
     if (e.target.scrollTop === 0) {
       setSkip(e => e + 20);
     }
-  };
+  }; //if you change the color of converation
 
-  react__WEBPACK_IMPORTED_MODULE_1___default.a.useEffect(() => {
-    Object(_services_chat__WEBPACK_IMPORTED_MODULE_7__[/* getMessagesOfCurrentconversation */ "b"])({
-      secondUser: currentUserToChatWith._id,
-      skip: skip
-    }, props.token).then(data => {
-      setCurrentChats(e => [...data.data.data.reverse(), ...e]);
-    }).catch(error => {
-      console.log(error);
-    });
-  }, [skip]);
 
   const getNewColor = color => {
     setChatColor(e => {
@@ -5046,23 +5198,231 @@ const chat = props => {
         colorone: color
       });
     });
-  };
+  }; //set color if convertation
+
 
   const setColorOfChatFn = colorOfChatFromDataBase => {
-    setChatColor(e => {
-      return _objectSpread(_objectSpread({}, e), {}, {
-        colorone: colorOfChatFromDataBase
+    if (colorOfChatFromDataBase == undefined) {
+      setChatColor(e => {
+        return _objectSpread(_objectSpread({}, e), {}, {
+          colorone: "#1876f3"
+        });
       });
-    });
+    } else {
+      setChatColor(e => {
+        return _objectSpread(_objectSpread({}, e), {}, {
+          colorone: colorOfChatFromDataBase
+        });
+      });
+    }
   };
 
-  return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
-    className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.container,
-    children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(_components_navBar_NavBar__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
-      token: props.token
-    }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
-      className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.chatAndRandomOnlineUserContaner,
-      children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+  const ShowSideNavBar = () => {
+    sideNavBarBtn.current.classList.toggle(_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.change);
+    setShowSideNavBar(e => !e);
+  };
+
+  if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
+    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+      className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.container,
+      children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(_components_navBar_NavBar__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+        token: props.token
+      }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+        className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.chatAndRandomOnlineUserContaner,
+        children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+          className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.UserContaner,
+          children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.header,
+            children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("h1", {
+              children: "contacts"
+            })
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.listContacs,
+            children: listOfUsers.map(e => /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(Users, {
+              setColorOfChat: setColorOfChatFn,
+              getUserdata: getUserdataFn,
+              userData: e
+            }, e._id))
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.bottom,
+            children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+              className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.searchContainer,
+              children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.inputcss,
+                children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("input", {
+                  onChange: e => searchForUser(e),
+                  type: "text",
+                  required: true
+                }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("label", {
+                  children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("span", {
+                    children: "Search users"
+                  })
+                })]
+              })
+            })
+          })]
+        }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+          className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.chat,
+          children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.header,
+            children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("h1", {
+              children: "Messages"
+            })
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.chatContainer,
+            children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+              className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.headerOfChatuserNameAndName,
+              children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.userImageContainer,
+                children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("img", {
+                  src: currentUserToChatWith.currentImageUrl || "/avatar.png"
+                })
+              }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.userName,
+                children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("h3", {
+                  children: currentUserToChatWith.userName
+                })
+              }), isWritingState && /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.isWritingContainer,
+                children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                  className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.ldsellipsis,
+                  children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {}), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {}), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {}), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {})]
+                })
+              }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.changeColorContainer,
+                children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(ColorPicker, {
+                  receiver: currentUserToChatWith._id,
+                  token: props.token,
+                  getNewColorfn: getNewColor,
+                  chatColor: chatColor
+                })
+              })]
+            }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+              onScroll: e => scrollfn(e),
+              ref: messagesComp,
+              className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.messages,
+              children: currentChats.map(e => {
+                return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                  className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.oneMessage,
+                  children: e.users[0] == currentUserToChatWith._id ? /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                    className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.messageText,
+                    "text-data": e.date != undefined ? e.date.slice(0, 10) + " " + e.date.slice(11, 16) : "false",
+                    style: {
+                      "--i": "0%",
+                      float: "left",
+                      backgroundColor: "#e4e6eb",
+                      color: "black"
+                    },
+                    children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
+                      children: e.message
+                    })
+                  }) : /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                    className: `${_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.messageText} ${_styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.yourMessageVu} `,
+                    "text-data": e.date != undefined ? e.date.slice(0, 10) + " " + e.date.slice(11, 16) : "false",
+                    style: {
+                      "--i": "-100%",
+                      float: "right",
+                      backgroundColor: chatColor.colorone,
+                      color: "white"
+                    },
+                    children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("p", {
+                      children: e.message
+                    }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("span", {
+                      style: e.seen == true ? {
+                        color: "#1876f3"
+                      } : {
+                        color: "black"
+                      },
+                      className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.seen,
+                      children: "\u2714"
+                    })]
+                  })
+                }, e._id);
+              })
+            })]
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.sendMessage,
+            children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("form", {
+              onSubmit: e => e.preventDefault(),
+              children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.inputContainer,
+                children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                  className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.inputcss,
+                  children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("input", {
+                    value: message,
+                    onChange: e => messageHandler(e),
+                    type: "text",
+                    required: true
+                  }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("label", {
+                    children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("span", {
+                      children: "Message"
+                    })
+                  })]
+                })
+              }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.btns,
+                children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+                  className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.openOrCloseEmojiPicker,
+                  onClick: () => closeOrOpenEmojiPicker(),
+                  children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                    className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.emojiLogo,
+                    children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(emoji_mart__WEBPACK_IMPORTED_MODULE_4__["Emoji"], {
+                      emoji: {
+                        id: 'smiling_face_with_3_hearts',
+                        skin: 3
+                      },
+                      size: 16
+                    })
+                  }), closeOrOpenEmojiPickerState && /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+                    className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.emojiPickerContainer,
+                    children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(emoji_mart__WEBPACK_IMPORTED_MODULE_4__["Picker"], {
+                      perLine: EmojiContainerHeight,
+                      onSelect: e => addEmoji(e)
+                    })
+                  })]
+                }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("button", {
+                  type: "submit",
+                  className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.btnsend,
+                  onClick: () => sendMessage(),
+                  children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("span", {
+                    className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.sendMessageBtn,
+                    children: /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(SentSvg, {})
+                  })
+                })]
+              })]
+            })
+          })]
+        })]
+      })]
+    });
+  } else {
+    return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+      className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.container,
+      children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])(_components_navBar_NavBar__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+        token: props.token
+      }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+        className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.navBarShowUser,
+        children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("h1", {
+          className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.headerShowContacts,
+          children: "Contacts"
+        }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+          className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.containerBtnSideNavBar,
+          ref: sideNavBarBtn,
+          onClick: () => ShowSideNavBar(),
+          children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.bar1
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.bar2
+          }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
+            className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.bar3
+          })]
+        })]
+      }), /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsxs"])("div", {
+        style: showSideNavBar ? {
+          marginLeft: "0px"
+        } : {
+          marginLeft: "-100%"
+        },
         className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.UserContaner,
         children: [/*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("div", {
           className: _styles_chat_module_scss__WEBPACK_IMPORTED_MODULE_2___default.a.header,
@@ -5226,25 +5586,11 @@ const chat = props => {
           })
         })]
       })]
-    })]
-  });
+    });
+  }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (chat);
-async function getServerSideProps({
-  req,
-  res
-}) {
-  return req.cookies.token ? {
-    props: {
-      token: req.cookies.token
-    }
-  } : {
-    props: {
-      token: false
-    }
-  };
-}
 
 const SentSvg = () => {
   return /*#__PURE__*/Object(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__["jsx"])("svg", {
@@ -5393,6 +5739,22 @@ const ColorPicker = props => {
   });
 };
 
+async function getServerSideProps({
+  req,
+  res
+}) {
+  return req.cookies.token ? {
+    props: {
+      token: req.cookies.token
+    }
+  } : {
+    redirect: {
+      destination: '/',
+      permanent: false
+    }
+  };
+}
+
 /***/ }),
 
 /***/ "pNXB":
@@ -5423,7 +5785,16 @@ module.exports = {
 	"numberOfChatsNotReadlocal": "NavBar_numberOfChatsNotReadlocal__3kP0-",
 	"numberOfNotificationNotReadlocal": "NavBar_numberOfNotificationNotReadlocal__3VTiL",
 	"showTemImageOfUserWhoSentYouMessage": "NavBar_showTemImageOfUserWhoSentYouMessage__24h52",
-	"showImage": "NavBar_showImage__2RARv"
+	"showImage": "NavBar_showImage__2RARv",
+	"containerBtnSideNavBar": "NavBar_containerBtnSideNavBar__3hNrx",
+	"bar1": "NavBar_bar1__2Djth",
+	"bar2": "NavBar_bar2__2WsLa",
+	"bar3": "NavBar_bar3__2F2Oy",
+	"change": "NavBar_change__15vgR",
+	"sideBarContainer": "NavBar_sideBarContainer__1xLOB",
+	"showSideNavBar": "NavBar_showSideNavBar__1bysC",
+	"iconSideNavBar": "NavBar_iconSideNavBar__3WlU4",
+	"userImageInSideNavBar": "NavBar_userImageInSideNavBar__5CDKD"
 };
 
 
