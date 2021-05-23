@@ -584,8 +584,8 @@ const apiIsLoadingContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-const ip = "http://127.0.0.1:5010"; //export default ip="http://127.0.0.1:5010";
-
+//const ip="http://127.0.0.1:5010";
+const ip = "http://46.101.169.142:5010";
 /* harmony default export */ __webpack_exports__["a"] = (ip);
 
 /***/ }),
