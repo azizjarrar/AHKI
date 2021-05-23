@@ -1,1 +1,0 @@
-{"ast":null,"code":"//const ip=\"http://127.0.0.1:5010\";\nvar ip = \"http://46.101.169.142:5010\";\nexport default ip;","map":null,"metadata":{},"sourceType":"module"}

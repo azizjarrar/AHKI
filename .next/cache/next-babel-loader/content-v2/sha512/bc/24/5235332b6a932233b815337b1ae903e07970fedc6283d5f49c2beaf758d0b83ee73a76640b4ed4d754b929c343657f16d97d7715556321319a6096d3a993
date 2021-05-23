@@ -1,1 +1,0 @@
-{"ast":null,"code":"export default ip = \"http://127.0.0.1:5010\"; //export default ip=\"http://127.0.0.1:5010\";","map":{"version":3,"sources":["F:/AHKI/const.js"],"names":["ip"],"mappings":"AAAA,eAAeA,EAAE,GAAC,uBAAlB,C,CACA","sourcesContent":["export default ip=\"http://127.0.0.1:5010\";\r\n//export default ip=\"http://127.0.0.1:5010\";"]},"metadata":{},"sourceType":"module"}
