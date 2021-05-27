@@ -1,7 +1,7 @@
 import React from 'react'
 import Style from './Account.module.scss'
 import UserContext from '../../../context/userContext'
-import { DatePicker } from 'react-rainbow-components';
+//import { DatePicker } from 'react-rainbow-components';
 import {updateProfileInfo} from '../../../services/user'
 import ApiIsLoadingContext from '../../../context/apiIsLoadingContext'
 import Toast from '../../Toast/Toast'
