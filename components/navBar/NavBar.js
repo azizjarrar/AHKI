@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Style from './NavBar.module.scss'
-import ModalSingInSingUp from '../modalSingInSingUp/ModalSingInSingUp'
 import PorfileMenu from '../profileMenu/profileMenu'
 import Link from 'next/link'
 import UserContext from '../../context/userContext'
@@ -13,7 +12,6 @@ import {GetOtherUsersData} from '../../services/user'
 import {removeToken} from '../../services/user'
 
 const NavBar = ({ token }) => {
-    const [modalSingInSingUp, setModalSingInSingUp] = useState(false)//open modal
     const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: 0, height: 0 })//responsive handler
     const [openMenuProfileState, setOpenMenuProfile] = useState(false)//on hover profile pic open menu
     const [disyplaySearch,setDisplaySearch]=React.useState({state:false,userName:""})
