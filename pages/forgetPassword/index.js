@@ -1,7 +1,6 @@
 import React from 'react'
 import Style from '../../styles/forgetPassword.module.scss'
 import Link from 'next/link'
-import ModalSingInSingUp from '../../components/modalSingInSingUp/ModalSingInSingUp'
 
 import {searchAccountToForgetPassword,resetPasswordApi,SetNewPasswordApi} from '../../services/user'
 import PopUpMessage from '../../components/popUpMessage/popUpMessage'
@@ -11,9 +10,7 @@ const forgetPassword = () => {
     const [identity,setidentity]=React.useState("")//hedha i najem i koun ya email ya telephone il id li chi tala3 bih utilisateur chkon
     const [userFound,setUserFound]=React.useState({state:false,userData:{}})//5arej error ken user mafamech
     const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
-    const [modalSingInSingUp, setModalSingInSingUp] = React.useState(false)//open modal
 
-    const openModalSingInSingUp = () => { setModalSingInSingUp(e => !e) }//tsaker ou thel modal mta3 login
     //hedha li chi sagel fih il abed ki chi lawej ala rohou bil email wala tel
     const changeHandler=(e)=>{
         setidentity({identity:e.target.value})
@@ -38,11 +35,10 @@ const forgetPassword = () => {
       }
     return (
         <div className={Style.container}>
-             {modalSingInSingUp && <ModalSingInSingUp openOrcloseModal={() => openModalSingInSingUp()}></ModalSingInSingUp>}
             <nav className={Style.nav}>
                 <div className={Style.Logo}><h1>Spaksi</h1></div>
                 <div className={Style.login}>
-                <button onClick={() => openModalSingInSingUp()}><p>Log In</p></button>
+                <button ><p>Log In</p></button>
                 </div>
             </nav>
             {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
