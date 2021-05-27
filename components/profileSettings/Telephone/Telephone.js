@@ -29,7 +29,7 @@ const Telephone = () => {
             <div className={Style.header}><h1>{language.UpdateYourPhoneNumber}</h1></div>
             <div className={Style.centerInputs}>
                 <div className={Style.warningText}><h1>{language.putyournewphonenumberhere}</h1></div>
-                <div className={Style.phoneContainer}><PhoneInput name={"tel"}  country={'tn'}  specialLabel={language.phone}  inputProps={{ name: 'phone',required: true,autoFocus: true}}  onChange={(e, country) => onChangeHandlerRegisterPhone(e, country)} /><button>{language.send}</button></div>
+                <div className={Style.phoneContainer}><props.PhoneInput name={"tel"}  country={'tn'}  specialLabel={language.phone}  inputProps={{ name: 'phone',required: true,autoFocus: true}}  onChange={(e, country) => onChangeHandlerRegisterPhone(e, country)} /><button>{language.send}</button></div>
                 <div className={Style.warningText}><h1>{language.YouWillreciveconfermationCodeputithereAndClickUpdate}</h1></div>  
                 <div className={Style.inputContainer}><input type="password"  name="password"/><label>{language.ConfermationCode}</label></div>
 

@@ -48,11 +48,10 @@ const Account = () => {
                 <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.firstname} name="firstname"/><label>{language.firstname}</label></div>
                 <div className={Style.inputContainer}><input type="text"  onChange={(e)=>changeHandler(e)} defaultValue={user.lastname} name="lastname"/><label>{language.lastname}</label></div>
                 <div className={Style.inputContainer}>
-                        <DatePicker value={newUserData.age||user.age}
+                    {    /*<props.DatePicker value={newUserData.age||user.age}
                         onChange={value => setNewUserData(e => {return { ...e, "age": value }})}
                         formatStyle="large"
-                        //locale={language.age}
-                        />
+                        />*/}
                     <label>{language.birthday}</label></div>
                 <div className={`${Style.inputContainer} ${Style.bigInput}`}><textarea onChange={(e)=>changeHandler(e)} defaultValue={user.biography} maxLength="150" type="text"  name="biography"/><label>{language.biography}</label></div>
             </div>
@@ -62,6 +61,3 @@ const Account = () => {
 }
 
 export default Account
-/**
-
- */

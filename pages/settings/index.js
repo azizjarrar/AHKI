@@ -7,6 +7,9 @@ import Email from '../../components/profileSettings/Email/Email'
 import Password from '../../components/profileSettings/Password/Password'
 import Telephone from '../../components/profileSettings/Telephone/Telephone'
 import Privacy from '../../components/profileSettings/Privacy/Privacy'
+//import { DatePicker } from 'react-rainbow-components';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/material.css'
 const ProfileSettings = (props) => {
   const [page,setPage]=React.useState("account")
 
@@ -21,10 +24,11 @@ const ProfileSettings = (props) => {
             <SideNavBar changePage={changePage} ></SideNavBar>
             </div>
             <div className={Styles.profileSettings}>
-            {page=="account"&&<Account></Account>}
+              {/*page=="account"&&<Account DatePicker={DatePicker}></Account>*/}
+              {page=="account"&&<Account ></Account>}
               {page=="email"&&<Email></Email>}
               {page=="password"&&<Password></Password>}
-              {page=="Telephone"&&<Telephone></Telephone>}
+              {page=="Telephone"&&<Telephone PhoneInput={PhoneInput}></Telephone>}
               {page=="Privacy"&&<Privacy></Privacy>}
             </div>
           </div>
