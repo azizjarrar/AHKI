@@ -52,7 +52,8 @@
 
 @media (orientation: portrait) , (max-height: 500px){
   .navbar_Choice_TopicToday_or_usersTopics{
-    width: 95% !important;
+    width: 100% !important;
+    margin-top: 0;
   }
 }
 

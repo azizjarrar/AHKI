@@ -312,11 +312,12 @@ const chat = (props) => {
                     <NavBar token={props.token}></NavBar>
                         <div className={Style.navBarShowUser}>
                             <h1 className={Style.headerShowContacts}>Contacts</h1>
-                        <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
+                            
+                        {   <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
                             <div className={Style.bar1}></div>
                             <div className={Style.bar2}></div>
                             <div className={Style.bar3}></div>
-                        </div>
+                         </div>}
                         </div>
                         <div  style={showSideNavBar?{marginLeft:"0px"}:{marginLeft:"-100%"}} className={Style.UserContaner} >
                             <div className={Style.header}>

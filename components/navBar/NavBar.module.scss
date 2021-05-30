@@ -271,6 +271,7 @@
             @include btn(white,$primary,$hover);
             width: 100px;
             padding: 6px;
+            margin-right: 10px;
     
         }
 
@@ -420,7 +421,7 @@
       left: 0px;
       top: 0px;
       background-color: white;
-      height: 320px;
+      height: 380px;
       width: 80%;
       z-index: 1556151656;
       animation-name: showSideNavBar;
@@ -461,7 +462,9 @@
               width: 50px;
               overflow: hidden;
               border-radius: 50%;
-              display: inline-block;
+              display: flex;
+              align-items: center;
+              justify-content: center;
               img{
                   position: absolute;
                   width: 100%;
