@@ -9,5 +9,9 @@ const getLastTopic=async ()=>{
 const getallTopics=async ()=>{
     return axiosApiInstance.post("/topic/getallTopics",{},{secure: true})
  }
-export { Addtopic ,getLastTopic,getallTopics}
+ const getSpecificTopic=async(data)=>{
+   return axiosApiInstance.post("/topic/getSpecificTopic",{...data},{secure: true})
+
+ }
+export {getSpecificTopic ,Addtopic ,getLastTopic,getallTopics}
 

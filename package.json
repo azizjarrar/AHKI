@@ -21,6 +21,7 @@
     "react-phone-input-2": "^2.13.9",
     "react-player": "^2.9.0",
     "react-rainbow-components": "^1.25.0",
+    "react-select": "^4.3.1",
     "socket.io-client": "^4.0.1"
   }
 }

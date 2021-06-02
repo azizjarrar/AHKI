@@ -20,4 +20,10 @@ const getOtherUserPosts = async (data,token) => {
   const getTodayTopicPost = async (data,token) => {
     return axiosApiInstance.post('/postnrmltopic/getTodayTopicPost',{...data},{ headers: {Authorization: 'Bearer ' + token }})
   }
-export {getTodayTopicPost,addDailyTopicPost,getFriendsPosts,deletePost, getOtherUserPosts,postnrmltopic ,getCurrentUserPosts}
+  const getSelectedTopicPosts = async (data,token) => {
+    return axiosApiInstance.post('/postnrmltopic/getSelectedTopicPosts',{...data},{ headers: {Authorization: 'Bearer ' + token }})
+  }
+  const getTopUserPostsLikes = async (data) => {
+    return axiosApiInstance.post('/postnrmltopic/getTopUserPostsLikes',{...data},{})
+  }
+export {getSelectedTopicPosts,getTopUserPostsLikes,getTodayTopicPost,addDailyTopicPost,getFriendsPosts,deletePost, getOtherUserPosts,postnrmltopic ,getCurrentUserPosts}

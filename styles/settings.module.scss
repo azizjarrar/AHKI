@@ -41,6 +41,17 @@ display: inline-block;
     margin: 0;
     display: inline-block;
 }
+@media  (max-height: 800px){
+    .settingsContainer{
+        height: calc(100% - 56px) !important;
+        width: 100% !important;
+        position: absolute;
+        margin-top: 56px;
+
+    }
+
+}
+
 @media (orientation: portrait) , (max-height: 500px){
     .container{
         background-color: white;

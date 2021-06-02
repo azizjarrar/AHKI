@@ -1,3 +1,5 @@
+@import "../../styles/colors"; 
+
 .todayTopics{
     width: 100%;
     max-width: 1000px;
@@ -6,4 +8,150 @@
     overflow-x:visible;
     overflow-y: visible;
     margin: 0 auto;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.posts{
+    position: relative;
+    width: 95%;
+    min-width: 300px;
+    max-width: 600px;
+}
+.topUsers{
+    position: relative;
+    width: 400px;
+}
+.TopUsersStyle{
+    position: relative;
+    width: 400px;
+    margin:  10px 0;
+    background-color: white;
+    border-radius: 2%;
+    padding: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;}
+.header{
+    display: flex;
+    position: relative;
+    height: 50px;
+    .name{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+        font-size: 1.5rem;
+        text-align: center;
+    
+    }
+    .userImage{
+        position: relative;
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
+            position: absolute;
+            top: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+    }
+}
+.ranking{
+    position: relative;
+    height: 50px;
+    width: 50px;
+    z-index: 15156;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.randkingImageContainer{
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    align-self: flex-end;
+    margin-right: 20px;
+    img{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        min-height: 100%;
+    }
+
+}
+.postText{
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
+.numberOfLikes{
+    position: relative;
+    height: 100%;
+    width:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h2{
+        font-size: 1.2rem;
+
+    }
+}
+.changeTopic{
+    position: relative;
+    z-index: 999999999999999999999;
+}
+.selectOption{
+    z-index: 99999999999999999999;
+    font-size: 1.5rem;
+}
+
+
+@media (orientation: portrait) , (max-height: 500px){
+    .posts{
+        position: relative;
+        width: 95%;
+        min-width: 300px;
+        max-width: 600px;
+        margin:  0 auto;
+    }
+    .topUsers{
+        position: fixed;
+        z-index: 999999999;
+        overflow: scroll;
+        background-color: white;
+        top: 0;
+        bottom:0;
+        overflow-y:scroll;
+        overflow-x:hidden;
+            width: 100% !important;
+            .TopUsersStyle{
+                width: 100%;
+            }
+    }
+    .openranking{
+        z-index: 9999999999999999999;
+
+        position: fixed;
+        top: 240px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        background-color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+        border-radius: 5px;
+        img{
+            position: relative;
+            width: 30px;
+            height: 30px;  
+        }
+    }
 }

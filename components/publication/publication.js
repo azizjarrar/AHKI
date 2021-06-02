@@ -185,7 +185,7 @@ const deleteCommentInCurrentTimefn=(commentIdDeleted)=>{
       {likesModal&&<ShowLikesUserNames closepopUp={openshowLikesUserNames} postid={props.id}></ShowLikesUserNames>}
       <div className={Styles.userImageAndNameAndTimeAndSettings}>
 
-        <div className={Styles.userImage}>
+        <div className={Styles.userImage} style={props.ownerOfPostImage=="anonym"?{border:"none"}:{}}>
           
             {props.ownerOfPostImage!="anonym"? <img src={props.ownerOfPostImage || "/avatar.png"} />:<img style={{minHeight:"0",width:"75%",height:"75%",top:"50%",left:"50%",transform:"translate(-50%,-50%)"}} src={"/anonymous.png"} alt="anonymous"/>}
           

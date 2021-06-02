@@ -245,7 +245,6 @@ const chat = (props) => {
       }
       const ShowSideNavBar=()=>{
    
-        sideNavBarBtn.current.classList.toggle(Style.change);
         setShowSideNavBar(e=>!e)
     }
       if (heightAndWidthOfWindow.width > heightAndWidthOfWindow.height) {
@@ -311,13 +310,12 @@ const chat = (props) => {
                     <div className={Style.container} >
                     <NavBar token={props.token}></NavBar>
                         <div className={Style.navBarShowUser}>
+                        {   <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
+                                    <img src="/chat/chatIcon.png"/>
+                         </div>}
                             <h1 className={Style.headerShowContacts}>Contacts</h1>
                             
-                        {   <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
-                            <div className={Style.bar1}></div>
-                            <div className={Style.bar2}></div>
-                            <div className={Style.bar3}></div>
-                         </div>}
+      
                         </div>
                         <div  style={showSideNavBar?{marginLeft:"0px"}:{marginLeft:"-100%"}} className={Style.UserContaner} >
                             <div className={Style.header}>

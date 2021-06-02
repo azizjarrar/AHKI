@@ -57,7 +57,6 @@ function MyApp({ Component, pageProps }) {
     
     if (pageProps.token) {
       GetUserData(pageProps.token).then(data => { 
-        console.log(data)
         socketRef.current =io(ip);
         socketRef.current.on("getSocketid",(dataFromSocket)=>{
         socketRef.current.emit("saveuserOnline",{userid:data.data.data[0]._id,socketid:dataFromSocket})

@@ -10,9 +10,7 @@ const HomeUsersStorys = () => {
 
     React.useEffect(()=>{
         if(user.token!=undefined){
-            console.log(user)
             getFriendsPosts({},user.token).then(result=>{
-                console.log(result)
                 setPosts([...result.data.data])
 
             }).catch(error=>{

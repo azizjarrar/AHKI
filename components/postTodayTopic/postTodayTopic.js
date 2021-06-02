@@ -3,7 +3,7 @@ import Styles from './TodayTopic.module.scss'
 import { Picker,Emoji  } from 'emoji-mart'
 import LanguageContext from '../../context/languageContext'
 import userContext from '../../context/userContext'
-import {getLastTopic} from '../../services/todayTopic'
+import {getLastTopic,getSpecificTopic} from '../../services/todayTopic'
 import SwitchCom from '../switch/switchCom'
 import {addDailyTopicPost} from '../../services/post'
 
@@ -33,6 +33,15 @@ const PostTodayTopic = (props) => {
       alert(error)
     })
   }
+  React.useEffect(()=>{
+    if(props.idTopic!=undefined){
+      
+      getSpecificTopic({idTopic:props.idTopic}).then(result=>{
+        setTodayTopicData(result.data.data[0])
+     
+      }).catch(error=>console.log(error))
+    }
+  },[props.idTopic])
   React.useEffect(() => { 
     if(window.innerWidth>500){
       setEmojiContainerHeight(9) 
@@ -42,7 +51,7 @@ const PostTodayTopic = (props) => {
     getLastTopic().then(result=>{
       setTodayTopicData(result.data.data[0])
    
-    })
+    }).catch(error=>console.log(error))
   },[]);
 
   /****************************************/
