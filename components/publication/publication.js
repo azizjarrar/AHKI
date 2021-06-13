@@ -8,7 +8,7 @@ import Heart from '../heart/heart'
 import {addComment,getComments,countComments} from '../../services/postComments'
 import {deletePost} from '../../services/post'
 import {countPostLikes} from '../../services/post_likes'
-
+import PopUpMessage from '../popUpMessage/popUpMessage'
 import ShowLikesUserNames from '../showLikesUserNames/showLikesUserNames'
 import ReactPlayer from 'react-player'
 const publication = (props) => {
@@ -30,6 +30,7 @@ const publication = (props) => {
   const [moreComments,setMoreComments]=React.useState(false) //show more comment fetch  with 3 by 3
   const [coummentNumber,setCoummentNumber]=React.useState(0)
   const [likesNumber,setLikesNumber]=React.useState(0)
+  const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
 
   React.useEffect(() => { 
    
@@ -145,11 +146,18 @@ const publication = (props) => {
   const AddComment=()=>{
 
     addComment({postid:props.id,anonyme:mask,commentText:textAreaData},user.token).then((result)=>{
+      if(result.data.message=="you have already anonym comment"){
+        setErrorMessage({ state:true,text:result.data.message })
+
+      }else{
         setCommentsData(e=>[{...result.data.data,commentOwner:{userName:user.userName,currentImageUrl:user.currentImageUrl,_id:user._id}},...e])
         setComments(true)
         setaddOneToCommentCount(e=>e+1)
         setTextAreaData("")
         setMask(false)
+      }
+
+
     }).catch(e=>{
       console.log(e)
     })
@@ -180,8 +188,13 @@ const deleteCommentInCurrentTimefn=(commentIdDeleted)=>{
    })]
   })
 }
+const closePopUp=()=>{
+  setErrorMessage({state:false,text:""})
+}
   return (
     <div className={Styles.container}>
+                        {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
+
       {likesModal&&<ShowLikesUserNames closepopUp={openshowLikesUserNames} postid={props.id}></ShowLikesUserNames>}
       <div className={Styles.userImageAndNameAndTimeAndSettings}>
 

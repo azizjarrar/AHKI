@@ -571,19 +571,20 @@
         position: relative;
         cursor: pointer;
         z-index: 9999;
-        height: 39px;
+        height: 60px;
+        display: flex;
         margin-left: 10px;
-        top: 3px;
+        top: 10px;
         img{
-            height: 30px;
-            width: 30px;
+            height: 40px;
+            width: 40px;
         }
       }
       
       
     .navBarShowUser{
         position: relative;
-        height: 40px;
+        height: 60px;
         background-color: white;
         margin-top: 20px;
         border-bottom: 1px solid $gray2;
@@ -596,7 +597,7 @@
         z-index: 99999999;
         transition: 0.5s;
         position: relative;
-        height: calc(100% - 50px - 40px - 20px);
+        height: calc(100% - 50px - 60px - 20px);
         width: 300px;
         background-color: white;
         border-radius: 0 !important;
@@ -605,7 +606,8 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        margin-left: 45px;
+        margin-left: 60px;
+        font-size: 2rem;
         color: $primary;
     }
     .chat{
@@ -614,7 +616,7 @@
         left: 0;
         margin-left: 0px !important;
         width: 100% !important;
-        height: calc(100% - 50px - 40px - 20px);
+        height: calc(100% - 50px - 60px - 20px);
         background-color: white !important;
         border-radius: 0px !important;
     }

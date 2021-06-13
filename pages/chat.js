@@ -22,7 +22,7 @@ const chat = (props) => {
     const [skip,setSkip]=React.useState(()=>0)
     const [isWritingState,setIsWritingState]=React.useState(false)
     const [chatColor,setChatColor]=React.useState({colorone:"#1876f3",colortwo:"#e4e6eb"})
-    const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: 0, height: 0 })//responsive handler
+    const [heightAndWidthOfWindow, setHeightAndWidthOfWindow] = React.useState({ width: 500, height: 300 })//responsive handler
     const [showSideNavBar,setShowSideNavBar]=React.useState(false)
     const sideNavBarBtn = React.useRef(null)
 
@@ -310,7 +310,7 @@ const chat = (props) => {
                     <div className={Style.container} >
                     <NavBar token={props.token}></NavBar>
                         <div className={Style.navBarShowUser}>
-                        {   <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
+                                              {   <div className={Style.containerBtnSideNavBar} ref={sideNavBarBtn} onClick={()=>ShowSideNavBar()}>
                                     <img src="/chat/chatIcon.png"/>
                          </div>}
                             <h1 className={Style.headerShowContacts}>Contacts</h1>

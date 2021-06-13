@@ -6,6 +6,7 @@ import userContext from '../../context/userContext'
 import {getLastTopic,getSpecificTopic} from '../../services/todayTopic'
 import SwitchCom from '../switch/switchCom'
 import {addDailyTopicPost} from '../../services/post'
+import PopUpMessage from '../popUpMessage/popUpMessage'
 
 const PostTodayTopic = (props) => {
   const [imageOrVideo, setImageOrVideo] = React.useState(false)
@@ -18,6 +19,8 @@ const PostTodayTopic = (props) => {
   const [EmojiContainerHeight, setEmojiContainerHeight] = React.useState(9)//responsive handler
   const [enableCommentAnnonymState,setEnableCommentAnnonymState]=React.useState(false)
   const [todayTopicData,setTodayTopicData]=React.useState()
+  const [errorMessage,setErrorMessage]=React.useState({state:false,text:""})// when state true show  pop up 
+
   const PublishPost=()=>{
     var formData = new FormData()
     formData.append("postText",textAreaData)
@@ -26,16 +29,20 @@ const PostTodayTopic = (props) => {
     formData.append("allowAnonymeComments",enableCommentAnnonymState)
     formData.append("DailyTopicid",todayTopicData._id)
     addDailyTopicPost(formData,user.token).then(result=>{
-      setTextAreaData("")
-      setImageOrVideo(false)
-      props.refrechData()
+      if(result.data.message=="already post in this topic"){
+        setErrorMessage({ state:true,text:result.data.message })
+
+      }else{
+        setTextAreaData("")
+        setImageOrVideo(false)
+        props.refrechData()
+      }
     }).catch(error=>{
       alert(error)
     })
   }
   React.useEffect(()=>{
     if(props.idTopic!=undefined){
-      
       getSpecificTopic({idTopic:props.idTopic}).then(result=>{
         setTodayTopicData(result.data.data[0])
      
@@ -115,8 +122,13 @@ const PostTodayTopic = (props) => {
   const changestateOfCommentAnnonym=(state)=>{
     setEnableCommentAnnonymState(state)
   }
+  const closePopUp=()=>{
+    setErrorMessage({state:false,text:""})
+  }
   return (
     <div className={Styles.container}>
+                  {errorMessage.state==true&&<PopUpMessage fnclose={closePopUp} openPopUp={errorMessage}></PopUpMessage>}
+
       <div className={Styles.topic}>
         <h1>
           <span>Today Topic&#10152; </span>
